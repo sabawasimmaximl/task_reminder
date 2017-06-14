@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #local-apps
     'task',
+    #third-party library
+    'rest_framework',
 ]
 
 MIDDLEWARE_CLASSES = [
