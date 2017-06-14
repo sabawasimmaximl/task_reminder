@@ -1,0 +1,17 @@
+<body></body>
+<div style="text-align: center">
+<br />
+<label>Task Name : </label><input #taskName /> <br /><br />
+<label>Assign Task to :</label> 
+<select #selectedUname>
+    <option *ngFor="let user of heroes">{{user.id}} {{user.name}}</option> 
+<!--{{user.tasks}} works-->
+</select><br /><br />
+<label>Reminder Time</label> <input type="datetime-local" #time/>
+<br /><br />
+    <button (click)="add(taskName.value); taskName.value=''">Submit</button>
+</div>
+<br />
+<hr />
+
+<!--<hero-search></hero-search>-->
