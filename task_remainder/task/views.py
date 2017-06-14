@@ -9,7 +9,7 @@ from django.utils import timezone
 
 from serializers import TaskSerializer
 
-class TaskApiView(ModelViewSet):
+class TaskApiView(ModelViewSet):eee
     queryset = Task.objects.all().order_by('id')
     serializer_class = TaskSerializer
     permission_classes = [permissions.AllowAny]
