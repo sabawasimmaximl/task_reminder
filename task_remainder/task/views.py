@@ -46,7 +46,7 @@ class TaskApiView(ModelViewSet):
             return Response(status=HTTP_200_OK)
 
         except:
-            return Response(status=HTTP_400_BAD_REQUEST)
+            return  Response(status=HTTP_400_BAD_REQUEST)
 
     
 
