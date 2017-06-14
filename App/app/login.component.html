@@ -1,0 +1,11 @@
+<div>
+    <label> name: </label> <input #uname name="username"/> <br /><br />
+
+    <label> password: </label> <input #upass name="password"/> <br /><br />
+
+    <button (click)="submitFunc(uname, upass)">Submit</button>
+    
+    <br /><br /><br />
+    <a routerLink = "/menu" >Menu Page</a>
+    <router-outlet></router-outlet>
+  </div>
