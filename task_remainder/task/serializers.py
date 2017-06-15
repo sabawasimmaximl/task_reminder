@@ -1,66 +1,75 @@
-
 from rest_framework.serializers import (
     ModelSerializer,
     SerializerMethodField
 )
 
 from rest_framework import serializers
-from models import Task,UserProfile
+from models import Task
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-def InvalidUsernameValidator(value):
-    if '@' in value or '+' in value or '-' in value:
-        raise ValidationError('Enter a valid username.')
+from django.contrib.auth import get_user_model
 
-def UniqueEmailValidator(value):
-    if User.objects.filter(email__iexact=value).exists():
-        raise ValidationError('User with this Email already exists.')
+from rest_framework.serializers import (
+    CharField,
+    ModelSerializer,
+    ValidationError
+    )
 
-def UniqueUsernameIgnoreCaseValidator(value):
-    if User.objects.filter(username__iexact=value).exists():
-        raise ValidationError('User with this Username already exists.')
-
+User = get_user_model()
 
 class TaskSerializer(ModelSerializer):
     class Meta:
-        model = Task
-        fields = '__all__'
+        model=Task
+        fields="__all__"
 
 
-class UserRegisterSerializer(ModelSerializer):
-    username = serializers.CharField(
-         max_length=30,
-         required=True,
-         help_text='Usernames may contain <strong>alphanumeric</strong>, <strong>_</strong> and <strong>.</strong> characters')
-    password = serializers.CharField()
-    confirm_password = serializers.CharField( 
-         label="Confirm your password",
-         required=True)
-
+# crateing new user serializer
+class UserCreateSerializer(ModelSerializer):
     class Meta:
-        model=UserProfile
-        fields=['username','password','confirm_password']
+        model = User
+        fields = [
+            'username',
+            'password',
+            
+        ]
+        extra_kwargs = {"password":
+                            {"write_only": True}
+                            }
+    def validate(self, data):
+        return data
 
-    def __init__(self, *args, **kwargs):
-          super(UserProfileSerializer, self).__init__(*args, **kwargs)
-          self.fields['username'].validators.append(InvalidUsernameValidator)
-          self.fields['username'].validators.append(UniqueUsernameIgnoreCaseValidator)
-          
-    def clean(self):
-        super(UserProfileSerializer, self).clean()
-        password = self.cleaned_data.get('password')
-        confirm_password = self.cleaned_data.get('confirm_password')
-        if password and password != confirm_password:
-            self._errors['password'] = self.error_class(['Passwords don\'t match'])
-        return self.cleaned_data 
+    def create(self, validated_data):
+        username = validated_data['username']
+        password = validated_data['password']
+        user_obj = User(
+                username = username,
+            )
+        user_obj.set_password(password)
+        user_obj.save()
+        return validated_data
 
 
+# user login serializer
 class UserLoginSerializer(ModelSerializer):
-
+    token = CharField(allow_blank=True, read_only=True)
+    username = CharField()
     class Meta:
-        model=UserProfile
-        fields=['username','password']          
+        model = User
+        fields = [
+            'username',
+            'password',
+            'token',
+            
+        ]
+        extra_kwargs = {"password":
+                            {"write_only": True}
+                            }
+    def validate(self, data):
+        return data
+
+
+
 
         
 

@@ -5,24 +5,32 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from .views import (
-    TaskApiView,
-    RegisterApiView,
-    LoginApiView
+    # TaskApiView,
+    TaskListApiView,
+    TaskCreateApiView,
+    TaskDetailApiView,
+    UserCreateAPIView,
+    UserLoginAPIView
     )
 
 urlpatterns = [
     
     # Task api view urls
-    url(r'^task/$',csrf_exempt(TaskApiView.as_view({'get':'list'})), name='tasktask-list'),
-    url(r'^task/create/$',csrf_exempt(TaskApiView.as_view({'post':'create_new_task'})), name='create-task'),
-    url(r'^task/(?P<task_id>.+)$',csrf_exempt(TaskApiView.as_view({'get': 'task_detail'})),name="task-detail"),
+    url(r'^task/$',TaskListApiView.as_view(), name='task-list'),
+    url(r'^task/create/$',TaskCreateApiView.as_view(), name='create-task'),
+    url(r'^task/(?P<pk>\d+)$',TaskDetailApiView.as_view(),name="task-detail"),
+
+
+    # url(r'^task/$',TaskApiView.as_view({'get':'list'}), name='task-list'),
+    # url(r'^task/create/$',TaskApiView.as_view({'post':'create_new_task'}), name='create-task'),
+    # url(r'^task/(?P<task_id>\d+)$',TaskApiView.as_view({'get':'task_detail'}),name="task-detail"),
 
     # account Api view
     url(r'^account/register/$',
-            csrf_exempt(RegisterApiView.as_view({'post':'create_new_user'})),name="new_user"),
+            UserCreateAPIView.as_view(),name="new_user"),
 
     url(r'^account/login/$',
-            csrf_exempt(LoginApiView.as_view({'post':'login'})),name="login"),
+            UserLoginAPIView.as_view(),name="login"),
 
 
 ]
