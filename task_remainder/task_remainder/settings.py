@@ -39,9 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #local-apps
     'task',
+
     #third-party library
-    'rest_framework',
     'django_filters',
+    'rest_framework',
     'rest_framework.authtoken',
 ]
 

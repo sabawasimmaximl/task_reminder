@@ -32,8 +32,6 @@ urlpatterns = [
     # url(r'^api-token-auth/', views.obtain_auth_token),
 
 ]
-
-
 urlpatterns +=[
         url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
 ]

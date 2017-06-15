@@ -1,15 +1,15 @@
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+
+from django.contrib.auth import get_user_model
+from models import Task,Person
+
 from rest_framework.serializers import (
     ModelSerializer,
     SerializerMethodField
 )
 
 from rest_framework import serializers
-from models import Task,Person
-from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
-
-from django.contrib.auth import get_user_model
-
 from rest_framework.serializers import (
     CharField,
     ModelSerializer,
@@ -42,7 +42,7 @@ class UserCreateSerializer(ModelSerializer):
         extra_kwargs = {"password":
                             {"write_only": True}
                             }
-                            
+
     def create(self, validated_data):
         username = validated_data['username']
         password = validated_data['password']

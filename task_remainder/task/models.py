@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -13,7 +11,6 @@ class Person(models.Model):
     class Meta:
     	app_label="task"
     		
-
 class Task(models.Model):
     title           = models.CharField(max_length=50, default="")
     # reminder_time   = models.TimeField(blank=True,null=True,help_text="Time format is :HH:MM:SS")
