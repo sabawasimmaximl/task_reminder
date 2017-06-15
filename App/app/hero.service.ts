@@ -35,6 +35,8 @@ export class HeroService {
 
   getHero(id: number): Promise<Hero> {
   const url = `${this.heroesUrl}/${id}`;
+  console.log("Id = "+ id);
+  console.log("Get Hero called");
   return this.http.get(url)
     .toPromise()
     .then(response => response.json().data as Hero)
@@ -51,10 +53,37 @@ export class HeroService {
     .then(() => hero)
     .catch(this.handleError);
   }
+  // update(hero: Hero): Promise<Hero> {
+  // const url = `${this.heroesUrl}/${hero.id}`;
+  // return this.http
+  //   .put(url, JSON.stringify(hero), {headers: this.headers})
+  //   .toPromise()
+  //   .then(() => hero)
+  //   .catch(this.handleError);
+  // }
 
-  create(name: string): Promise<Hero> {
+  
+  assign(hero:Hero): Promise<Hero> {
+    console.log("assign function called");
+    console.log("Id = " + hero.id);
+    console.log("Name = " + hero.name);
+
+    const url = `${this.heroesUrl}/${hero.id}`;
+    console.log("Hero = " + hero)
+    console.log("URL = "+url);
+    console.log("id = " + hero.id);
+
+    return this.http
+    .post(url, JSON.stringify(hero), {headers: this.headers})
+    .toPromise()
+    .then(()=>hero)
+    .catch(this.handleError);
+  
+}
+
+  createName(uname: string,tname:string[],uid:number): Promise<Hero> {
   return this.http
-    .post(this.heroesUrl, JSON.stringify({tasks: name}), {headers: this.headers})
+    .post(this.heroesUrl, JSON.stringify({name:uname,tasks: tname,id:uid}), {headers: this.headers})
     .toPromise()
     .then(res => res.json().data as Hero)
     .catch(this.handleError);

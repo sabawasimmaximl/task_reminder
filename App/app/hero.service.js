@@ -36,6 +36,8 @@ var HeroService = (function () {
     };
     HeroService.prototype.getHero = function (id) {
         var url = this.heroesUrl + "/" + id;
+        console.log("Id = " + id);
+        console.log("Get Hero called");
         return this.http.get(url)
             .toPromise()
             .then(function (response) { return response.json().data; })
@@ -49,9 +51,31 @@ var HeroService = (function () {
             .then(function () { return hero; })
             .catch(this.handleError);
     };
-    HeroService.prototype.create = function (name) {
+    // update(hero: Hero): Promise<Hero> {
+    // const url = `${this.heroesUrl}/${hero.id}`;
+    // return this.http
+    //   .put(url, JSON.stringify(hero), {headers: this.headers})
+    //   .toPromise()
+    //   .then(() => hero)
+    //   .catch(this.handleError);
+    // }
+    HeroService.prototype.assign = function (hero) {
+        console.log("assign function called");
+        console.log("Id = " + hero.id);
+        console.log("Name = " + hero.name);
+        var url = this.heroesUrl + "/" + hero.id;
+        console.log("Hero = " + hero);
+        console.log("URL = " + url);
+        console.log("id = " + hero.id);
         return this.http
-            .post(this.heroesUrl, JSON.stringify({ tasks: name }), { headers: this.headers })
+            .post(url, JSON.stringify(hero), { headers: this.headers })
+            .toPromise()
+            .then(function () { return hero; })
+            .catch(this.handleError);
+    };
+    HeroService.prototype.createName = function (uname, tname, uid) {
+        return this.http
+            .post(this.heroesUrl, JSON.stringify({ name: uname, tasks: tname, id: uid }), { headers: this.headers })
             .toPromise()
             .then(function (res) { return res.json().data; })
             .catch(this.handleError);

@@ -29,13 +29,11 @@ var HeroesComponent = (function () {
     HeroesComponent.prototype.gotoDetail = function () {
         this.router.navigate(['/detail', this.selectedHero.id]);
     };
-    HeroesComponent.prototype.add = function (name) {
+    HeroesComponent.prototype.addName = function (uname, tname, id) {
         var _this = this;
-        name = name.trim();
-        if (!name) {
-            return;
-        }
-        this.heroService.create(name)
+        uname = uname.trim();
+        console.log(uname + " " + tname + " " + id);
+        this.heroService.createName(uname, tname, id)
             .then(function (hero) {
             _this.heroes.push(hero);
             _this.selectedHero = null;
