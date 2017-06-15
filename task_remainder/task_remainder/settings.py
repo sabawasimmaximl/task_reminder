@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'task',
     #third-party library
     'rest_framework',
+    'django_filters',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE_CLASSES = [

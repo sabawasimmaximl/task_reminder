@@ -4,7 +4,7 @@ from rest_framework.serializers import (
 )
 
 from rest_framework import serializers
-from models import Task
+from models import Task,Person
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
@@ -18,10 +18,16 @@ from rest_framework.serializers import (
 
 User = get_user_model()
 
+class PersonSerializer(ModelSerializer):
+    class Meta:
+        model=Person
+        fields='__all__'        
+
+
 class TaskSerializer(ModelSerializer):
     class Meta:
         model=Task
-        fields="__all__"
+        fields=['title','person']
 
 
 # crateing new user serializer
@@ -36,9 +42,7 @@ class UserCreateSerializer(ModelSerializer):
         extra_kwargs = {"password":
                             {"write_only": True}
                             }
-    def validate(self, data):
-        return data
-
+                            
     def create(self, validated_data):
         username = validated_data['username']
         password = validated_data['password']
@@ -65,9 +69,7 @@ class UserLoginSerializer(ModelSerializer):
         extra_kwargs = {"password":
                             {"write_only": True}
                             }
-    def validate(self, data):
-        return data
-
+  
 
 
 
