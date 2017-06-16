@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     <h1>{{title}}</h1>
     <nav>
       <a routerLink="/dashboard" routerLinkActive="active">Create a Task</a>
-      <a routerLink="/heroes" routerLinkActive="active">View Tasks</a>
+      <a routerLink="http://localhost:8000/api/task/list" routerLinkActive="active">View Tasks</a>
     </nav>
     <router-outlet></router-outlet>
   `,
