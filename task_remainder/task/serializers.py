@@ -18,10 +18,10 @@ from rest_framework.serializers import (
 
 User = get_user_model()
 
-class PersonSerializer(ModelSerializer):
+class PersonTaskSerializer(ModelSerializer):
     class Meta:
-        model=Person
-        fields='__all__'        
+        model=Task
+        fields="__all__"     
 
 
 class TaskSerializer(ModelSerializer):

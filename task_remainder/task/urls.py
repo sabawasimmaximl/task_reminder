@@ -24,10 +24,16 @@ urlpatterns = [
 
 
     # Task Api view urls
-    url(r'^task/$',TaskListApiView.as_view(), name='task-list'),
+    # url(r'^task/$',TaskListApiView.as_view(), name='task-list'),
     url(r'^task/create/$',TaskCreateApiView.as_view(), name='create-task'),
     url(r'^task/(?P<pk>\d+)$',TaskDetailApiView.as_view(),name="task-detail"),
-    url(r'^person/(?P<pk>\d+)$',PersonTaskApiView.as_view(),name="person-task"),
 
+    # ModelViewSet
+    url(r'^task/list$',PersonTaskApiView.as_view({"get":"list"}),name="task_list"),
+
+    url(r'^task/person/(?P<person_id>.+)$',PersonTaskApiView.as_view({"get":"person_task_detail"}),name="person-task"),
+
+    # url(r'^person/create$',PersonCreateApiView.as_view(),name="person-create"),
+ 
     
 ]
