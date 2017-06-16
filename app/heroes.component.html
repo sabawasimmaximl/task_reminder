@@ -1,0 +1,26 @@
+<hr />
+<h2 style="font-family: montserrat">All Tasks</h2>
+<ul style="font-family: montserrat">
+  <li *ngFor="let hero of heroes; let i = index"
+    [class.selected]="hero === selectedHero"
+    (click)="onSelect(hero)">
+
+    <span class="badge">Id : {{hero.id}}</span> &nbsp; Name: {{hero.name}} <br />
+     Tasks :- <span *ngFor="let he of hero.task"> {{he.tname}}, </span>
+
+    <button class="delete"
+  (click)="delete(hero); $event.stopPropagation()">x</button><br /><br />
+  </li>
+</ul>
+
+
+<!--<div>
+  <label>Task name:</label> <input #taskName />
+  <label>Hero name:</label> <input #userName />
+  <label>Id:</label> <input #userId />
+  <button (click)="addName(userName.value,taskName.value,userId.value); userName.value='';taskName.value='';userId.value='';">
+    Add
+  </button>
+</div>-->
+
+<hero-search></hero-search>
