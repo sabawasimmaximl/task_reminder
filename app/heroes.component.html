@@ -6,7 +6,7 @@
     (click)="onSelect(hero)">
 
     <span class="badge">Id : {{hero.id}}</span> &nbsp; Name: {{hero.name}} <br />
-    <span> Tasks :- {{hero.task[0].tname}}</span>
+     Tasks :- <span *ngFor="let he of hero.task"> {{he.tname}}, </span>
 
     <button class="delete"
   (click)="delete(hero); $event.stopPropagation()">x</button><br /><br />

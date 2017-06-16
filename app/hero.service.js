@@ -51,22 +51,17 @@ var HeroService = (function () {
             .then(function () { return hero; })
             .catch(this.handleError);
     };
-    // update(hero: Hero): Promise<Hero> {
-    // const url = `${this.heroesUrl}/${hero.id}`;
-    // return this.http
-    //   .put(url, JSON.stringify(hero), {headers: this.headers})
-    //   .toPromise()
-    //   .then(() => hero)
-    //   .catch(this.handleError);
-    // }
     HeroService.prototype.assign = function (hero) {
-        console.log("assign function called");
+        //Printing out Data Acquired
+        console.log("Assign function called");
         console.log("Id = " + hero.id);
         console.log("Name = " + hero.name);
+        for (var i = 0; i < hero.task.length; i++) {
+            console.log("New Task Name = " + hero.task[i].tname);
+            console.log("New Task Doer = " + hero.task[i].tdoer);
+        }
         var url = this.heroesUrl + "/" + hero.id;
-        console.log("Hero = " + hero);
         console.log("URL = " + url);
-        console.log("id = " + hero.id);
         return this.http
             .post(url, JSON.stringify(hero), { headers: this.headers })
             .toPromise()

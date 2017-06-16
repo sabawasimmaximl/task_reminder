@@ -41,17 +41,30 @@ var DashboardComponent = (function () {
     DashboardComponent.prototype.ngOnInit = function () {
         this.getHeroes();
     };
+    // addName(uname: string,tname:string[],id:number): void { 
+    // uname = uname.trim();
+    // console.log(uname + " " + tname + " " + id);
+    // this.heroService.createName(uname,tname,id)
+    //   .then(hero => {
+    //     this.heroes.push(hero);
+    //     this.selectedHero = null;
+    //   });   
+    // }
     DashboardComponent.prototype.add = function (taskname, uid) {
         //saving scope of this in a
         var a = this;
         taskname = taskname.trim();
         this.heroService.getHero(uid)
             .then(function (data) {
-            console.log("data", data);
-            console.log("task", data.task[0]);
+            console.log("User returned = " + data);
+            console.log("task list of user = " + data.task);
+            console.log("new taskname = " + taskname);
+            console.log("Assigned to user id = " + uid);
             //pushing string
-            data.task[0].tname.push(taskname);
-            console.log("Data pushed = " + data.task);
+            data.task.push({ tdoer: uid, tname: taskname });
+            var len = data.task.length;
+            console.log("Lenngth = " + len);
+            console.log("Data = " + data.task[1].tdoer + data.task[1].tname);
             //calling assign function
             a.heroService.assign(data)
                 .then(function () { return a.location.back(); });

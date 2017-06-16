@@ -53,32 +53,31 @@ export class HeroService {
     .then(() => hero)
     .catch(this.handleError);
   }
-  // update(hero: Hero): Promise<Hero> {
-  // const url = `${this.heroesUrl}/${hero.id}`;
-  // return this.http
-  //   .put(url, JSON.stringify(hero), {headers: this.headers})
-  //   .toPromise()
-  //   .then(() => hero)
-  //   .catch(this.handleError);
-  // }
+  
 
   
   assign(hero:Hero): Promise<Hero> {
-    console.log("assign function called");
+    
+    //Printing out Data Acquired
+    console.log("Assign function called");
     console.log("Id = " + hero.id);
     console.log("Name = " + hero.name);
 
+    for(let i=0;i<hero.task.length;i++)
+    {
+    console.log("New Task Name = " + hero.task[i].tname);
+    console.log("New Task Doer = " + hero.task[i].tdoer);
+    }
+
     const url = `${this.heroesUrl}/${hero.id}`;
-    console.log("Hero = " + hero)
-    console.log("URL = "+url);
-    console.log("id = " + hero.id);
+    console.log("URL = " + url);
 
     return this.http
     .post(url, JSON.stringify(hero), {headers: this.headers})
     .toPromise()
     .then(()=>hero)
     .catch(this.handleError);
-  
+
 }
 
   createName(uname: string,tname:string[],uid:number): Promise<Hero> {

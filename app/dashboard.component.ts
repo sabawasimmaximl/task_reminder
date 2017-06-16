@@ -45,22 +45,38 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getHeroes();
   }
+
+
+  // addName(uname: string,tname:string[],id:number): void { 
+  // uname = uname.trim();
+
+  // console.log(uname + " " + tname + " " + id);
+
+  // this.heroService.createName(uname,tname,id)
+  //   .then(hero => {
+  //     this.heroes.push(hero);
+  //     this.selectedHero = null;
+  //   });   
+  // }
   
   add(taskname: string,uid:number): void {
     //saving scope of this in a
     var a = this;
   taskname = taskname.trim();
+  
   this.heroService.getHero(uid)
   .then(function(data) {
-    console.log("data",data);
-
-    console.log("task",data.task[0]);
+    console.log("User returned = " + data);
+    console.log("task list of user = " + data.task);
+    console.log("new taskname = " + taskname);
+    console.log("Assigned to user id = " + uid);
   //pushing string
-  data.task[0].tname.push(taskname); 
 
+  data.task.push({tdoer:uid,tname:taskname}); 
 
-  console.log("Data pushed = "+ data.task);
-  
+  let len = data.task.length;
+console.log("Lenngth = "+ len);
+console.log("Data = "+ data.task[1].tdoer + data.task[1].tname ); 
   //calling assign function
   a.heroService.assign(data)
   .then(() => a.location.back());

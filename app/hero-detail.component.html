@@ -1,5 +1,4 @@
 <div *ngIf="hero">
-
   <h2>{{hero.name}} details!</h2>
   <div>
     <label>id: </label>{{hero.id}}</div>
@@ -9,8 +8,8 @@
   </div>
   <div>
     <label>Tasks: </label>{{hero.task[0].tname}}</div>
-  <div>
-  <!--<button (click)="save()">Save</button>-->
+  
+  <button (click)="save()">Save</button>
   <button (click)="goBack()">Back</button>
   
 </div>

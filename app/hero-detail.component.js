@@ -24,9 +24,15 @@ var HeroDetailComponent = (function () {
         this.route.params
             .switchMap(function (params) { return _this.heroService.getHero(+params['id']); })
             .subscribe(function (hero) { return _this.hero = hero; });
+        console.log(this.hero);
     };
     HeroDetailComponent.prototype.goBack = function () {
         this.location.back();
+    };
+    HeroDetailComponent.prototype.save = function () {
+        var _this = this;
+        this.heroService.update(this.hero)
+            .then(function () { return _this.goBack(); });
     };
     return HeroDetailComponent;
 }());

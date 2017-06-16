@@ -1,8 +1,8 @@
 
 export class Task{
- tname:string[];
- tdoer:number[];
- remtime:Date;
+ tname:string;
+ tdoer:number;
+ //remtime:Date;
 }
 
 export class Hero {
