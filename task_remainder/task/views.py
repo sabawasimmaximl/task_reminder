@@ -17,6 +17,7 @@ from .serializers import (
     UserLoginSerializer,
     TaskSerializer,
     PersonTaskSerializer,
+    PersonSerializer,
     )
 
 from rest_framework.views import APIView
@@ -42,13 +43,18 @@ class TaskCreateApiView(APIView):
     permission_classes=[permissions.AllowAny]
 
     def post(self, request):
-        title =request.POST.get("title")
-        person_id = request.POST.get("person")
-        print person_id
+        print "++++ PRINTING TITLE +++++++"
+        print request.data["title"]
+        print '########'
+        title =request.data["title"]
+        
+        person_id = request.data["person"] 
+        # print "Person id = " + int(person_id)
         # Create a new task
         person =Person.objects.get(id=person_id)
         new_task=Task(title=title,person=person)
         new_task.save()
+        print 'task created'
         return Response({"message": "Successfully Saved!"})
 
 class TaskListApiView(ListAPIView):
@@ -71,6 +77,10 @@ class TaskDetailApiView(RetrieveAPIView):
     serializer_class=TaskSerializer
     permission_classes=[permissions.AllowAny]
     lookup_field="pk"
+
+class PersonListApiView(ListAPIView):
+    queryset=Person.objects.all()
+    serializer_class=PersonSerializer    
 
 
 # Person TaskApi view

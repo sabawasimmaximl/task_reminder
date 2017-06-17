@@ -1,0 +1,19 @@
+# Distribution / packaging
+*.pyc
+.Python
+build/
+lib/
+
+#dependencies
+/node_modules
+/test
+
+npm-debug.log
+
+# e2e
+/e2e/*.js
+/e2e/*.map
+
+# System Files
+.DS_Store
+Thumbs.db

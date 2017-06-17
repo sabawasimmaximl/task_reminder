@@ -11,6 +11,7 @@ from .views import (
     TaskDetailApiView,
     UserCreateAPIView,
     UserLoginAPIView,
+    PersonListApiView,
     )
 
 urlpatterns = [
@@ -34,6 +35,6 @@ urlpatterns = [
     url(r'^task/person/(?P<person_id>.+)$',PersonTaskApiView.as_view({"get":"person_task_detail"}),name="person-task"),
 
     # url(r'^person/create$',PersonCreateApiView.as_view(),name="person-create"),
- 
+    url(r'^person/list/$',PersonListApiView.as_view(),name="person_list"),
     
 ]
