@@ -2,9 +2,9 @@
 <div style="text-align: center">
 <br />
 <label>Task Name : </label><input #taskName /> <br /><br />
-<label>Assign Task to :</label> 
+<label>Assign Task to :</label>
 <select #selectedUid>
-    <option *ngFor="let object of userlist">{{object.user}}</option> 
+    <option *ngFor="let object of userlist">{{object.user}}</option>
 <!--{{user.tasks}} works-->
 </select><br /><br />
 <label>Reminder Time</label> <input type="datetime-local" #time/>

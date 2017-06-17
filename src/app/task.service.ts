@@ -8,7 +8,7 @@ import {DashboardComponent} from './dashboard.component';
 @Injectable()
 export class TaskService {
 
-  
+
   private getPersonListUrl = 'http://localhost:8000/api/person/list/';
 
   private headers = new Headers({'Content-Type': 'application/json'});
@@ -17,9 +17,9 @@ export class TaskService {
 //Error Handling function
 
   getPersonList(){
-              
+
     return this.http.get(this.getPersonListUrl).toPromise();
-          
+
   }
 
 }

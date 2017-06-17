@@ -9,7 +9,7 @@ import { HeroService } from './hero.service';
   styleUrls: [ './heroes.component.css' ]
 })
 export class HeroesComponent implements OnInit {
-   
+
   // hero1:Hero ={
   //   id:1,
   //   person:'riths',
@@ -35,9 +35,9 @@ export class HeroesComponent implements OnInit {
 
   getHeroes(): void {
     this.heroService.getHeroes()
-    .then(heroes => {this.heroes = heroes.json().results; 
+    .then(heroes => {this.heroes = heroes.json().results;
       console.log("Testing 123 in heroes component - ",heroes.json())});
-  
+
 
   }
 
@@ -52,8 +52,8 @@ export class HeroesComponent implements OnInit {
   gotoDetail(): void {
     this.router.navigate(['/detail', this.selectedHero.id]);
   }
-  
-  addName(uname: string,tname:string[],id:number): void { 
+
+  addName(uname: string,tname:string[],id:number): void {
   uname = uname.trim();
 
   console.log(uname + " " + tname + " " + id);
@@ -62,9 +62,9 @@ export class HeroesComponent implements OnInit {
     .then(hero => {
       this.heroes.push(hero);
       this.selectedHero = null;
-    });   
+    });
   }
-  
+
   delete(hero: Hero): void {
   this.heroService
       .delete(hero.id)

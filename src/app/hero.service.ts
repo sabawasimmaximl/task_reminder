@@ -39,9 +39,9 @@ export class HeroService {
 
   //Getting All heroes
   getHeroes(){
-              
+
     return this.http.get(this.heroesUrl).toPromise();
-          
+
   }
 
   //Updating Hero data
@@ -55,11 +55,11 @@ export class HeroService {
     .then(() => hero)
     .catch(this.handleError);
   }
-  
 
-//   //Assigning task to a user  
+
+//   //Assigning task to a user
 //   assign(hero:Hero): Promise<Hero> {
-    
+
 //     //Printing out Data Acquired
 //     console.log("Assign function called");
 //     console.log("Id = " + hero.id);
