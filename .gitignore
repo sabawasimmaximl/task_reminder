@@ -1,11 +1,12 @@
 # Distribution / packaging
 *.pyc
+**/*.pyc
 .Python
 build/
 lib/
 
 #dependencies
-/node_modules
+node_modules
 /test
 
 npm-debug.log
