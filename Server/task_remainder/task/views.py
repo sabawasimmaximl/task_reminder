@@ -142,6 +142,9 @@ class UserApiView(ModelViewSet):
                         'error': 'User already exists'
                     }, status=HTTP_400_BAD_REQUEST)
                 token = Token.objects.create(user=user)
+                new_user=Person()
+                new_user.user=user
+                new_user.save()
                 return Response({
                     'token':token,
                     'username': user.username
@@ -155,9 +158,13 @@ class UserApiView(ModelViewSet):
             return Response({'error': 'Invalid Method'}, status=HTTP_400_BAD_REQUES)
 
     def login(self,request,*args,**kwargs):
+        print '##################'
+        print 'inside login'
+        print '###################'
         try:
-            username = request.POST.get('username', None)
-            password = request.POST.get('password', None)
+            username = request.data['username']
+            password = request.data['password']
+            print username,password
 
             if username is not None and password is not None:
                 user = authenticate(username=username, password=password)
@@ -165,7 +172,7 @@ class UserApiView(ModelViewSet):
                     if user.is_active:
                         token, created = Token.objects.get_or_create(user=user)
                         return Response({
-                            'token': token.token,
+                            'token': token,
                             'username': user.username
                         })
                     else:
