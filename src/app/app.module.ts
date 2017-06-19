@@ -5,20 +5,23 @@ import { HttpModule }    from '@angular/http';
  
 import { AppRoutingModule } from './app-routing.module';
 
-
-// // Imports for loading & configuring the in-memory web api
-// import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-// import { InMemoryDataService }  from './in-memory-data.service';
+//Components
  
-import { AppComponent }         from './app.component';
-import { DashboardComponent }   from './dashboard.component';
-import { HeroesComponent }      from './heroes.component';
-import { HeroDetailComponent }  from './hero-detail.component';
-import { HeroSearchComponent }  from './hero-search.component';
+import { AppComponent }         from './Components/AppComponent/app.component';
+import { DashboardComponent }   from './Components/DashboardComponent/dashboard.component';
+import { UsersComponent }      from './Components/UsersComponent/users.component';
+import { UserDetailComponent }  from './Components/UserDetailComponent/user-detail.component';
+import { UserSearchComponent }  from './Components/UserSearchComponent/user-search.component';
+import { LoginComponent }       from './Components/LoginComponent/login.component';
 
+//Services
 
-import { HeroService }          from './hero.service';
-import { TaskService }          from './task.service';
+import { UserService }          from './Services/UserService/user.service';
+import { UserSearchService }          from './Services/UserSearchService/user-search.service';
+import { TaskService }          from './Services/TaskService/task.service';
+import { SyncService }          from './Services/SyncService/sync-service.service';
+import { AuthService }          from './Services/AuthService/auth-service.service';
+
 
 
 @NgModule({
@@ -26,18 +29,18 @@ import { TaskService }          from './task.service';
     BrowserModule,
     FormsModule,
     HttpModule,
-    // InMemoryWebApiModule.forRoot(InMemoryDataService),
     AppRoutingModule
   ],
   declarations: [
     AppComponent,
     DashboardComponent,
-    HeroSearchComponent,
-    HeroDetailComponent,
-    HeroesComponent,
+    UserSearchComponent,
+    UserDetailComponent,
+    UsersComponent,
+    LoginComponent
 
   ],
-  providers: [ HeroService,TaskService ],
+  providers: [ UserService,TaskService,UserSearchService,SyncService, AuthService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

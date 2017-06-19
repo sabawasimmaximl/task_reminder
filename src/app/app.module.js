@@ -10,16 +10,19 @@ var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
 var app_routing_module_1 = require("./app-routing.module");
-// // Imports for loading & configuring the in-memory web api
-// import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-// import { InMemoryDataService }  from './in-memory-data.service';
-var app_component_1 = require("./app.component");
-var dashboard_component_1 = require("./dashboard.component");
-var heroes_component_1 = require("./heroes.component");
-var hero_detail_component_1 = require("./hero-detail.component");
-var hero_search_component_1 = require("./hero-search.component");
-var hero_service_1 = require("./hero.service");
-var task_service_1 = require("./task.service");
+//Components
+var app_component_1 = require("./Components/AppComponent/app.component");
+var dashboard_component_1 = require("./Components/DashboardComponent/dashboard.component");
+var users_component_1 = require("./Components/UsersComponent/users.component");
+var user_detail_component_1 = require("./Components/UserDetailComponent/user-detail.component");
+var user_search_component_1 = require("./Components/UserSearchComponent/user-search.component");
+var login_component_1 = require("./Components/LoginComponent/login.component");
+//Services
+var user_service_1 = require("./Services/UserService/user.service");
+var user_search_service_1 = require("./Services/UserSearchService/user-search.service");
+var task_service_1 = require("./Services/TaskService/task.service");
+var sync_service_service_1 = require("./Services/SyncService/sync-service.service");
+var auth_service_service_1 = require("./Services/AuthService/auth-service.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -31,17 +34,17 @@ AppModule = __decorate([
             platform_browser_1.BrowserModule,
             forms_1.FormsModule,
             http_1.HttpModule,
-            // InMemoryWebApiModule.forRoot(InMemoryDataService),
             app_routing_module_1.AppRoutingModule
         ],
         declarations: [
             app_component_1.AppComponent,
             dashboard_component_1.DashboardComponent,
-            hero_search_component_1.HeroSearchComponent,
-            hero_detail_component_1.HeroDetailComponent,
-            heroes_component_1.HeroesComponent,
+            user_search_component_1.UserSearchComponent,
+            user_detail_component_1.UserDetailComponent,
+            users_component_1.UsersComponent,
+            login_component_1.LoginComponent
         ],
-        providers: [hero_service_1.HeroService, task_service_1.TaskService],
+        providers: [user_service_1.UserService, task_service_1.TaskService, user_search_service_1.UserSearchService, sync_service_service_1.SyncService, auth_service_service_1.AuthService],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);
