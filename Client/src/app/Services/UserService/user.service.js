@@ -25,20 +25,22 @@ var UserService = (function () {
         console.error('An error has occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
     };
-    // Getting One User
-    // getHero(id: number): Promise<User> {
-    // const url = `${this.usersUrl}/${id}`;
-    // console.log("Id = "+ id);
-    // console.log("Get User called");
-    // return this.http.get(url)
-    //   .toPromise()
-    //   .then(response => response.json().data as User)
-    //   .catch(this.handleError);
-    // }
+    //  Getting One User
+    UserService.prototype.getHero = function (id) {
+        var url = this.usersUrl + "/" + id;
+        console.log("Id = " + id);
+        console.log("Get User called");
+        return this.http.get(url)
+            .toPromise()
+            .then(function (response) { return response.json().data; })
+            .catch(this.handleError);
+    };
+    //List Of User Id's to display on Assign a Task page.
     UserService.prototype.getPersonList = function () {
         this.operation = "getPersonList";
         return this.syncService.retrieve(this.getPersonListUrl, this.operation);
     };
+    //Getting All details to call on View Details Page.
     UserService.prototype.getAllDetails = function () {
         this.operation = "getPersonList";
         return this.syncService.retrieve(this.usersUrl, this.operation);

@@ -22,8 +22,8 @@ export class UserDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params
-      .switchMap((params: Params) => this.userService.getHero(+params['id']))
-      .subscribe(hero => this.user = hero);
+      .switchMap((params: Params) => this.userService.getUser(+params['id']))
+      .subscribe(singleuser => this.user = singleuser);
       console.log(this.user);
   }
 

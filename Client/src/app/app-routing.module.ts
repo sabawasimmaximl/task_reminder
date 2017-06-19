@@ -10,10 +10,11 @@ import { UserSearchComponent }  from './Components/UserSearchComponent/user-sear
 import { LoginComponent }       from './Components/LoginComponent/login.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/my-app', pathMatch: 'full' },
   { path: 'dashboard',  component: DashboardComponent },
   { path: 'detail/:id', component: UserDetailComponent },
-  { path: 'users',     component: UsersComponent }
+  { path: 'users',     component: UsersComponent },
+  { path: 'login',     component: LoginComponent }
 ];
 
 

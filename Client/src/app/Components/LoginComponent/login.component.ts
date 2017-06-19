@@ -12,7 +12,9 @@ providers:[]
 export class LoginComponent{
 
 private headers = new Headers({'Content-type':'application/json'});
-private loginUrl = '';
+private loginUrl = 'http://localhost:8000/api/account/login/';
+private registerUrl = 'http://localhost:8000/api/account/register/';
+
 constructor(public router:Router, public http:Http){}
 
 loginFunc(username:string,password:string)
@@ -30,6 +32,17 @@ loginFunc(username:string,password:string)
                 }
 
                 )
+        }
+
+registerFunc(username:string,password:string)
+        {
+        this.http.post(this.registerUrl,JSON.stringify({username,password}),this.headers)
+                .subscribe(
+                    response => {
+                        console.log("Status : ",response.json());
+                    }
+                )
+                
         }
 
 }

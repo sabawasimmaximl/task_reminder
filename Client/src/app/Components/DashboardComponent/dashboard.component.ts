@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
     users: User[];
 
    userlist:User[];
-   assignMsg:String;
+   assignMsg:number=0;
 
    private getUsersUrl = 'http://localhost:8000/api/task/person/';
    private getPersonListUrl = 'http://localhost:8000/api/person/list/';
@@ -64,7 +64,7 @@ export class DashboardComponent implements OnInit {
   
   addtask(taskname: string,uid:number){
   
-    this.taskService.addTask(taskname,uid).then(()=>this.assignMsg="Success");
+    this.taskService.addTask(taskname,uid).then(()=>this.assignMsg=1);
     
         }
 }

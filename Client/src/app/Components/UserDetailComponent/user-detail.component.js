@@ -22,8 +22,8 @@ var UserDetailComponent = (function () {
     UserDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params
-            .switchMap(function (params) { return _this.userService.getHero(+params['id']); })
-            .subscribe(function (hero) { return _this.user = hero; });
+            .switchMap(function (params) { return _this.userService.getUser(+params['id']); })
+            .subscribe(function (singleuser) { return _this.user = singleuser; });
         console.log(this.user);
     };
     UserDetailComponent.prototype.goBack = function () {

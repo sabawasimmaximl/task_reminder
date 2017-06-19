@@ -24,6 +24,7 @@ var DashboardComponent = (function () {
         this.http = http;
         this.route = route;
         this.location = location;
+        this.assignMsg = 0;
         this.getUsersUrl = 'http://localhost:8000/api/task/person/';
         this.getPersonListUrl = 'http://localhost:8000/api/person/list/';
         this.createTaskUrl = 'http://localhost:8000/api/task/create/';
@@ -47,7 +48,7 @@ var DashboardComponent = (function () {
     };
     DashboardComponent.prototype.addtask = function (taskname, uid) {
         var _this = this;
-        this.taskService.addTask(taskname, uid).then(function () { return _this.assignMsg = "Success"; });
+        this.taskService.addTask(taskname, uid).then(function () { return _this.assignMsg = 1; });
     };
     return DashboardComponent;
 }());
