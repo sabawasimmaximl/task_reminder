@@ -8,21 +8,13 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class HeroService {
 
-  private heroesUrl = 'api/heroes';
-  
+  private heroesUrl = 'http://localhost:8000/api/task/list';
+  private getPersonListUrl = 'http://localhost:8000/api/person/list/';
 
   constructor(private http:Http){}
-
-  getHeroes(): Promise<Hero[]> {
-    return this.http.get(this.heroesUrl)
-                .toPromise()
-             .then(response => response.json().data as Hero[])
-             .catch(this.handleError);
-
-  }
-
-  private handleError(error: any): Promise<any> {
-  console.error('An error occurred', error); // for demo purposes only
+//Error Handling function
+  public handleError(error: any): Promise<any> {
+  console.error('An error has occurred', error); // for demo purposes only
   return Promise.reject(error.message || error);
 }
 
@@ -33,6 +25,7 @@ export class HeroService {
     });
   }
 
+  //Getting One Hero
   getHero(id: number): Promise<Hero> {
   const url = `${this.heroesUrl}/${id}`;
   console.log("Id = "+ id);
@@ -43,6 +36,15 @@ export class HeroService {
     .catch(this.handleError);
   }
 
+
+  //Getting All heroes
+  getHeroes(){
+
+    return this.http.get(this.heroesUrl).toPromise();
+
+  }
+
+  //Updating Hero data
   private headers = new Headers({'Content-Type': 'application/json'});
 
   update(hero: Hero): Promise<Hero> {
@@ -53,32 +55,32 @@ export class HeroService {
     .then(() => hero)
     .catch(this.handleError);
   }
-  
 
-  
-  assign(hero:Hero): Promise<Hero> {
-    
-    //Printing out Data Acquired
-    console.log("Assign function called");
-    console.log("Id = " + hero.id);
-    console.log("Name = " + hero.name);
 
-    for(let i=0;i<hero.task.length;i++)
-    {
-    console.log("New Task Name = " + hero.task[i].tname);
-    console.log("New Task Doer = " + hero.task[i].tdoer);
-    }
+//   //Assigning task to a user
+//   assign(hero:Hero): Promise<Hero> {
 
-    const url = `${this.heroesUrl}/${hero.id}`;
-    console.log("URL = " + url);
+//     //Printing out Data Acquired
+//     console.log("Assign function called");
+//     console.log("Id = " + hero.id);
+//     console.log("Name = " + hero.person);
 
-    return this.http
-    .post(url, JSON.stringify(hero), {headers: this.headers})
-    .toPromise()
-    .then(()=>hero)
-    .catch(this.handleError);
+//     for(let i=0;i<hero.task.length;i++)
+//     {
+//     console.log("New Task Name = " + hero.task[i].tname);
+//     console.log("New Task Doer = " + hero.task[i].tdoer);
+//     }
 
-}
+//     const url = `${this.heroesUrl}/${hero.id}`;
+//     console.log("URL = " + url);
+
+//     return this.http
+//     .post(url, JSON.stringify(hero), {headers: this.headers})
+//     .toPromise()
+//     .then(()=>hero)
+//     .catch(this.handleError);
+
+// }
 
   createName(uname: string,tname:string[],uid:number): Promise<Hero> {
   return this.http

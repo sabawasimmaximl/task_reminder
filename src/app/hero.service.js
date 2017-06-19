@@ -14,17 +14,14 @@ require("rxjs/add/operator/toPromise");
 var HeroService = (function () {
     function HeroService(http) {
         this.http = http;
-        this.heroesUrl = 'api/heroes';
+        this.heroesUrl = 'http://localhost:8000/api/task/list';
+        this.getPersonListUrl = 'http://localhost:8000/api/person/list/';
+        //Updating Hero data
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
-    HeroService.prototype.getHeroes = function () {
-        return this.http.get(this.heroesUrl)
-            .toPromise()
-            .then(function (response) { return response.json().data; })
-            .catch(this.handleError);
-    };
+    //Error Handling function
     HeroService.prototype.handleError = function (error) {
-        console.error('An error occurred', error); // for demo purposes only
+        console.error('An error has occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
     };
     HeroService.prototype.getHeroesSlowly = function () {
@@ -34,6 +31,7 @@ var HeroService = (function () {
             setTimeout(function () { return resolve(_this.getHeroes()); }, 2000);
         });
     };
+    //Getting One Hero
     HeroService.prototype.getHero = function (id) {
         var url = this.heroesUrl + "/" + id;
         console.log("Id = " + id);
@@ -43,6 +41,10 @@ var HeroService = (function () {
             .then(function (response) { return response.json().data; })
             .catch(this.handleError);
     };
+    //Getting All heroes
+    HeroService.prototype.getHeroes = function () {
+        return this.http.get(this.heroesUrl).toPromise();
+    };
     HeroService.prototype.update = function (hero) {
         var url = this.heroesUrl + "/" + hero.id;
         return this.http
@@ -51,23 +53,25 @@ var HeroService = (function () {
             .then(function () { return hero; })
             .catch(this.handleError);
     };
-    HeroService.prototype.assign = function (hero) {
-        //Printing out Data Acquired
-        console.log("Assign function called");
-        console.log("Id = " + hero.id);
-        console.log("Name = " + hero.name);
-        for (var i = 0; i < hero.task.length; i++) {
-            console.log("New Task Name = " + hero.task[i].tname);
-            console.log("New Task Doer = " + hero.task[i].tdoer);
-        }
-        var url = this.heroesUrl + "/" + hero.id;
-        console.log("URL = " + url);
-        return this.http
-            .post(url, JSON.stringify(hero), { headers: this.headers })
-            .toPromise()
-            .then(function () { return hero; })
-            .catch(this.handleError);
-    };
+    //   //Assigning task to a user  
+    //   assign(hero:Hero): Promise<Hero> {
+    //     //Printing out Data Acquired
+    //     console.log("Assign function called");
+    //     console.log("Id = " + hero.id);
+    //     console.log("Name = " + hero.person);
+    //     for(let i=0;i<hero.task.length;i++)
+    //     {
+    //     console.log("New Task Name = " + hero.task[i].tname);
+    //     console.log("New Task Doer = " + hero.task[i].tdoer);
+    //     }
+    //     const url = `${this.heroesUrl}/${hero.id}`;
+    //     console.log("URL = " + url);
+    //     return this.http
+    //     .post(url, JSON.stringify(hero), {headers: this.headers})
+    //     .toPromise()
+    //     .then(()=>hero)
+    //     .catch(this.handleError);
+    // }
     HeroService.prototype.createName = function (uname, tname, uid) {
         return this.http
             .post(this.heroesUrl, JSON.stringify({ name: uname, tasks: tname, id: uid }), { headers: this.headers })

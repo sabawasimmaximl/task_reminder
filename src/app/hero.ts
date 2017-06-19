@@ -1,12 +1,14 @@
 
 export class Task{
- tname:string;
- tdoer:number;
- //remtime:Date;
+
+ title:string;
+ personid:number;
+
 }
 
 export class Hero {
   id: number;
-  name: string;
-  task:Task[];
+  person: string;
+  title:string;
+  // task:Task[];
 }

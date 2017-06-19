@@ -15,10 +15,25 @@ var HeroesComponent = (function () {
     function HeroesComponent(router, heroService) {
         this.router = router;
         this.heroService = heroService;
+        // hero1:Hero ={
+        //   id:1,
+        //   person:'riths',
+        //   title:'Task Name 1'
+        // };
+        // hero2:Hero ={
+        //   id:2,
+        //   person:'ajith',
+        //   title:'Task Name 2'
+        // };
+        this.heroes = [];
     }
     HeroesComponent.prototype.getHeroes = function () {
         var _this = this;
-        this.heroService.getHeroes().then(function (heroes) { return _this.heroes = heroes; });
+        this.heroService.getHeroes()
+            .then(function (heroes) {
+            _this.heroes = heroes.json().results;
+            console.log("Testing 123 in heroes component - ", heroes.json());
+        });
     };
     HeroesComponent.prototype.ngOnInit = function () {
         this.getHeroes();

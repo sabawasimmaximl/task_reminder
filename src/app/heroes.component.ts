@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { Hero } from './hero';
 import { HeroService } from './hero.service';
 
@@ -10,15 +9,36 @@ import { HeroService } from './hero.service';
   styleUrls: [ './heroes.component.css' ]
 })
 export class HeroesComponent implements OnInit {
-  heroes: Hero[];
+
+  // hero1:Hero ={
+  //   id:1,
+  //   person:'riths',
+  //   title:'Task Name 1'
+  // };
+
+  // hero2:Hero ={
+  //   id:2,
+  //   person:'ajith',
+  //   title:'Task Name 2'
+  // };
+
+  heroes: Hero[]=[];
+  // heroes1: Hero[]=[this.hero1,this.hero2];
   selectedHero: Hero;
+
+
+
 
   constructor(
     private router: Router,
     private heroService: HeroService) { }
 
   getHeroes(): void {
-    this.heroService.getHeroes().then(heroes => this.heroes = heroes);
+    this.heroService.getHeroes()
+    .then(heroes => {this.heroes = heroes.json().results;
+      console.log("Testing 123 in heroes component - ",heroes.json())});
+
+
   }
 
   ngOnInit(): void {
@@ -32,8 +52,8 @@ export class HeroesComponent implements OnInit {
   gotoDetail(): void {
     this.router.navigate(['/detail', this.selectedHero.id]);
   }
-  
-  addName(uname: string,tname:string[],id:number): void { 
+
+  addName(uname: string,tname:string[],id:number): void {
   uname = uname.trim();
 
   console.log(uname + " " + tname + " " + id);
@@ -42,9 +62,9 @@ export class HeroesComponent implements OnInit {
     .then(hero => {
       this.heroes.push(hero);
       this.selectedHero = null;
-    });   
+    });
   }
-  
+
   delete(hero: Hero): void {
   this.heroService
       .delete(hero.id)
