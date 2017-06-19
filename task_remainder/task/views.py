@@ -3,30 +3,34 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.utils import timezone
 from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate
+from django.db import IntegrityError
 import json
+from models import Task,Person
 from rest_framework import permissions
+from rest_framework.authtoken.models import Token
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK,HTTP_400_BAD_REQUEST
 from rest_framework import generics
-from models import Task,Person
-
-# serializers
-from .serializers import (
-    UserLoginSerializer,
-    TaskSerializer,
-    PersonTaskSerializer,
-    )
-
 from rest_framework.views import APIView
-from rest_framework.mixins import DestroyModelMixin, UpdateModelMixin
 from rest_framework.permissions import (
     AllowAny,
     IsAuthenticated,
     IsAdminUser,
     IsAuthenticatedOrReadOnly,
 
+
     )
+
+# serializers
+from .serializers import (
+    UserLoginSerializer,
+    TaskSerializer,
+    PersonTaskSerializer,
+    UserSerializer,
+    )
+
 User = get_user_model()
 
 class TaskApiView(ModelViewSet):
@@ -39,9 +43,10 @@ class TaskApiView(ModelViewSet):
         task_list = Task.objects.all()
         for task in task_list:
             task_dict = {}
-            task_dict['id']=task.id
+            task_dict['task_id']=task.id
             task_dict['title'] = task.title
-            task_dict['person'] = task.person.id
+            task_dict['person_id'] = task.person.id
+            task_dict['username']=task.person.user.username
             task_data.append(task_dict)
 
         return Response({"results":task_data},status=HTTP_200_OK)
@@ -119,15 +124,61 @@ class PersonApiView(ModelViewSet):
             return Response({"message":"Something went wrong"},status=HTTP_400_BAD_REQUEST)           
     
 
-    
-class UserLoginAPIView(APIView):
-    permission_classes = [AllowAny]
-    serializer_class = UserLoginSerializer
+# Account Api view 
+class UserApiView(ModelViewSet):
+    queryset=Person.objects.all()
+    serializer_class=UserSerializer
 
-    def post(self, request, *args, **kwargs):
-        data = request.data
-        serializer = UserLoginSerializer(data=data)
-        if serializer.is_valid(raise_exception=True):
-            new_data = serializer.data
-            return Response(new_data, status=HTTP_200_OK)
-        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+    def register(self,request,*args,**kwargs):
+        try:
+            username = request.POST.get('username', None)
+            password = request.POST.get('password', None)
+
+            if username is not None and password is not None:
+                try:
+                    user = User.objects.create_user(username, None, password)
+                except IntegrityError:
+                    return Response({
+                        'error': 'User already exists'
+                    }, status=HTTP_400_BAD_REQUEST)
+                token = Token.objects.create(user=user)
+                return Response({
+                    'token':token,
+                    'username': user.username
+                },status=HTTP_200_OK)
+            else:
+                return Response({
+                    'error': 'Invalid Data'
+                }, status=HTTP_400_BAD_REQUEST)
+    
+        except:
+            return Response({'error': 'Invalid Method'}, status=HTTP_400_BAD_REQUES)
+
+    def login(self,request,*args,**kwargs):
+        try:
+            username = request.POST.get('username', None)
+            password = request.POST.get('password', None)
+
+            if username is not None and password is not None:
+                user = authenticate(username=username, password=password)
+                if user is not None:
+                    if user.is_active:
+                        token, created = Token.objects.get_or_create(user=user)
+                        return Response({
+                            'token': token.token,
+                            'username': user.username
+                        })
+                    else:
+                        return Response({
+                            'error': 'Invalid User'
+                        }, status=HTTP_400_BAD_REQUEST)
+                else:
+                    return Response({
+                        'error': 'Invalid Username/Password'
+                    }, status=HTTP_400_BAD_REQUEST)
+            else:
+                return Response({
+                    'error': 'Invalid Data'
+                }, status=HTTP_400_BAD_REQUEST)
+        except:
+            return Response({'error': 'Invalid Method'}, status=HTTP_400_BAD_REQUEST)       
