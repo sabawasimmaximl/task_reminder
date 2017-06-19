@@ -23,11 +23,6 @@ class PersonTaskSerializer(ModelSerializer):
         model=Task
         fields="__all__"     
 
-class PersonSerializer(ModelSerializer):
-    class Meta:
-        model=Person
-        fields="__all__"
-
 class TaskSerializer(ModelSerializer):
     class Meta:
         model=Task

@@ -26,10 +26,10 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     # For API
-    url(r'^api/', include('task.urls')),
-    # url(r'^api-auth/', include('rest_framework.urls',
-    #                            namespace='rest_framework')),
-    # url(r'^api-token-auth/', views.obtain_auth_token),
+    url(r'^api/', include('task.urls',namespace="task")),
+    url(r'^api-auth/', include('rest_framework.urls',
+                               namespace='rest_framework')),
+    url(r'^api-token-auth/', views.obtain_auth_token),
 
 ]
 urlpatterns +=[

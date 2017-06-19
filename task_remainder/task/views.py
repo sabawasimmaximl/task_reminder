@@ -13,21 +13,13 @@ from models import Task,Person
 
 # serializers
 from .serializers import (
-    UserCreateSerializer,
     UserLoginSerializer,
     TaskSerializer,
     PersonTaskSerializer,
-    PersonSerializer,
     )
 
 from rest_framework.views import APIView
 from rest_framework.mixins import DestroyModelMixin, UpdateModelMixin
-from rest_framework.generics import (
-    CreateAPIView,
-    ListAPIView, 
-    RetrieveAPIView,
-    )
-
 from rest_framework.permissions import (
     AllowAny,
     IsAuthenticated,
@@ -37,60 +29,12 @@ from rest_framework.permissions import (
     )
 User = get_user_model()
 
-class TaskCreateApiView(APIView):
+class TaskApiView(ModelViewSet):
     queryset=Task.objects.all()
     serializer_class=TaskSerializer
-    permission_classes=[permissions.AllowAny]
-
-    def post(self, request):
-        print "++++ PRINTING TITLE +++++++"
-        print request.data["title"]
-        print '########'
-        title =request.data["title"]
-        
-        person_id = request.data["person"] 
-        # print "Person id = " + int(person_id)
-        # Create a new task
-        person =Person.objects.get(id=person_id)
-        new_task=Task(title=title,person=person)
-        new_task.save()
-        print 'task created'
-        return Response({"message": "Successfully Saved!"})
-
-class TaskListApiView(ListAPIView):
-    queryset=Task.objects.all()
-    serializer_class=TaskSerializer
-    permission_classes=[permissions.AllowAny]
-
-
-    def perform_create(self,serializer):
-        serializer.save(person=self.request.user.username)
-
-    def list(self,request):
-        queryset=self.get_queryset()
-        serializer=TaskSerializer(queryset,many=True)
-        return Response({"task_data":serializer.data})    
-
-
-class TaskDetailApiView(RetrieveAPIView):
-    queryset=Task.objects.all()
-    serializer_class=TaskSerializer
-    permission_classes=[permissions.AllowAny]
-    lookup_field="pk"
-
-class PersonListApiView(ListAPIView):
-    queryset=Person.objects.all()
-    serializer_class=PersonSerializer    
-
-
-# Person TaskApi view
-class PersonTaskApiView(ModelViewSet):
-    queryset=Person.objects.all()
-    serializer_class=PersonTaskSerializer
     permission_classes=[permissions.AllowAny]
 
     def list(self,request,*args,**kwargs):
-        print 'fetching task data'
         task_data = []
         task_list = Task.objects.all()
         for task in task_list:
@@ -101,14 +45,55 @@ class PersonTaskApiView(ModelViewSet):
             task_data.append(task_dict)
 
         return Response({"results":task_data},status=HTTP_200_OK)
+    
 
-    def person_task_detail(self,request,*args,**kwargs):
-        print 'inside task detail'
+    def create_new_task(self, request,*args,**kwargs):
+        title =request.data["title"]
+        person_id = request.data["person"]
+        # Create a new task
+        person =Person.objects.get(id=person_id)
+        new_task=Task(title=title,person=person)
+        new_task.save()
+        return Response({"message": "Successfully Saved!"})
+
+
+    def get_task_detail(self,request,*args,**kwargs):
+        try:
+            task_data = {}
+            task_id = kwargs['task_id']
+            task_instance = Task.objects.get(id=task_id)
+            task_data['id']=task_instance.id
+            task_data['title']= task_instance.title
+            task_data['username']= task_instance.person.user.username
+
+            return Response({"results":task_data})
+        except:
+            return Response(status=HTTP_400_BAD_REQUEST) 
+
+# Person TaskApi view
+class PersonApiView(ModelViewSet):
+    queryset=Person.objects.all()
+    serializer_class=PersonTaskSerializer
+    permission_classes=[permissions.AllowAny]
+
+    def person_list(self,request,*args,**kwargs):
+        print 'fetching person data'
+        person_data = []
+        person_list = Person.objects.all()
+        for person in person_list:
+            person_dict = {}
+            person_dict['id']=person.id
+            person_dict['name'] = person.user.username
+            person_data.append(person_dict)
+
+        return Response({"results":person_data},status=HTTP_200_OK)
+
+    def get_person_task_detail(self,request,*args,**kwargs):
+        print 'inside fetching person task detail'
         person_task_data=[]
         try:
             person_data = {}
             person_id = kwargs['person_id']
-            print person_id
             person_instance = Person.objects.get(id=person_id)
             print person_instance.user.username
             person_data['id']=person_instance.id
@@ -120,30 +105,25 @@ class PersonTaskApiView(ModelViewSet):
             print list_of_task
             for task in list_of_task:
                 task_dict = {}
-                task_dict['id']=task.id
+                task_dict['task_id']=task.id
                 task_dict['title']=task.title
                 task_list.append(task_dict)
 
-            print task_list    
-            
+            print task_list
+
             person_task_data.append(task_list)
-            print '@@@@@@@@@@'
             print person_data
 
             return Response({"results":person_task_data},status=HTTP_200_OK)
         except:
-            return Response({"message":"Something went wrong"},status=HTTP_400_BAD_REQUEST)
+            return Response({"message":"Something went wrong"},status=HTTP_400_BAD_REQUEST)           
+    
 
-
-class UserCreateAPIView(CreateAPIView):
-    serializer_class = UserCreateSerializer
-    queryset = User.objects.all()
-    permission_classes = [AllowAny]
-
+    
 class UserLoginAPIView(APIView):
     permission_classes = [AllowAny]
     serializer_class = UserLoginSerializer
-    
+
     def post(self, request, *args, **kwargs):
         data = request.data
         serializer = UserLoginSerializer(data=data)
@@ -151,13 +131,3 @@ class UserLoginAPIView(APIView):
             new_data = serializer.data
             return Response(new_data, status=HTTP_200_OK)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
-
-
-
-
-
-
- 
-
-
-
