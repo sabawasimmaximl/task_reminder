@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
 from django.db import IntegrityError
+from django.core import serializers
 import json
 from models import Task,Person
 from rest_framework import permissions
@@ -142,6 +143,9 @@ class UserApiView(ModelViewSet):
                         'error': 'User already exists'
                     }, status=HTTP_400_BAD_REQUEST)
                 token = Token.objects.create(user=user)
+                new_user=Person()
+                new_user.user=user
+                new_user.save()
                 return Response({
                     'token':token,
                     'username': user.username
@@ -155,17 +159,31 @@ class UserApiView(ModelViewSet):
             return Response({'error': 'Invalid Method'}, status=HTTP_400_BAD_REQUES)
 
     def login(self,request,*args,**kwargs):
+        print '##################'
+        print 'inside login'
+        print '###################'
         try:
-            username = request.POST.get('username', None)
-            password = request.POST.get('password', None)
+            username = request.data['username']
+            password = request.data['password']
+            print username,password
 
             if username is not None and password is not None:
                 user = authenticate(username=username, password=password)
+                print user
+                print '@@@@@@@@@user'
+                if user.is_authenticated():
+                    print 'authenticated'
+                else:
+                    print 'not authenticated'    
+
+                print '@@@@@@@@@@@user.'
                 if user is not None:
                     if user.is_active:
                         token, created = Token.objects.get_or_create(user=user)
+                        token_data=serializers.serialize('json',[token,])
+                        token_data=json.loads(token_data)
                         return Response({
-                            'token': token.token,
+                            'token':token_data,
                             'username': user.username
                         })
                     else:
