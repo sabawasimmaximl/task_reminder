@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
 from django.db import IntegrityError
+from django.core import serializers
 import json
 from models import Task,Person
 from rest_framework import permissions
@@ -168,11 +169,21 @@ class UserApiView(ModelViewSet):
 
             if username is not None and password is not None:
                 user = authenticate(username=username, password=password)
+                print user
+                print '@@@@@@@@@user'
+                if user.is_authenticated():
+                    print 'authenticated'
+                else:
+                    print 'not authenticated'    
+
+                print '@@@@@@@@@@@user.'
                 if user is not None:
                     if user.is_active:
                         token, created = Token.objects.get_or_create(user=user)
+                        token_data=serializers.serialize('json',[token,])
+                        token_data=json.loads(token_data)
                         return Response({
-                            'token': token,
+                            'token':token_data,
                             'username': user.username
                         })
                     else:
