@@ -17,7 +17,6 @@ var LoginComponent = (function () {
         this.http = http;
         this.headers = new http_1.Headers({ 'Content-type': 'application/json' });
         this.loginUrl = 'http://localhost:8000/api/account/login/';
-        this.registerUrl = 'http://localhost:8000/api/account/register/';
     }
     LoginComponent.prototype.loginFunc = function (username, password) {
         var _this = this;
@@ -28,12 +27,6 @@ var LoginComponent = (function () {
         }, function (error) {
             alert(error.text());
             console.log(error.text());
-        });
-    };
-    LoginComponent.prototype.registerFunc = function (username, password) {
-        this.http.post(this.registerUrl, JSON.stringify({ username: username, password: password }), this.headers)
-            .subscribe(function (response) {
-            console.log("Status : ", response.json());
         });
     };
     return LoginComponent;

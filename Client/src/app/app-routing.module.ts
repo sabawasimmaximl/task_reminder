@@ -10,13 +10,13 @@ import { UserSearchComponent }  from './Components/UserSearchComponent/user-sear
 import { LoginComponent }       from './Components/LoginComponent/login.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/my-app', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'dashboard',  component: DashboardComponent },
   { path: 'detail/:id', component: UserDetailComponent },
   { path: 'users',     component: UsersComponent },
+  { path: 'myapp',     component: AppComponent },
   { path: 'login',     component: LoginComponent }
-];
-
+]
 
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],

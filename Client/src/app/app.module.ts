@@ -38,7 +38,6 @@ import { AuthService }          from './Services/AuthService/auth-service.servic
     UserDetailComponent,
     UsersComponent,
     LoginComponent
-
   ],
   providers: [ UserService,TaskService,UserSearchService,SyncService, AuthService ],
   bootstrap: [ AppComponent ]

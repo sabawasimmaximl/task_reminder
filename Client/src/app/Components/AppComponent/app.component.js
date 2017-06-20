@@ -10,6 +10,9 @@ var AppComponent = (function () {
     function AppComponent() {
         this.title = 'Task Reminder Application';
     }
+    AppComponent.prototype.ngOnInit = function () {
+        console.log("my app component");
+    };
     return AppComponent;
 }());
 AppComponent = __decorate([
