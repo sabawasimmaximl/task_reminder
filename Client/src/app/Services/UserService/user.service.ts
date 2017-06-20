@@ -26,40 +26,32 @@ export class UserService {
 }
 
 
-  // Getting One User
-  // getHero(id: number): Promise<User> {
-  // const url = `${this.usersUrl}/${id}`;
-  // console.log("Id = "+ id);
-  // console.log("Get User called");
-  // return this.http.get(url)
-  //   .toPromise()
-  //   .then(response => response.json().data as User)
-  //   .catch(this.handleError);
-  // }
+//  Getting One User
+  getHero(id: number): Promise<User> {
+  const url = `${this.usersUrl}/${id}`;
+  console.log("Id = "+ id);
+  console.log("Get User called");
+  return this.http.get(url)
+    .toPromise()
+    .then(response => response.json().data as User)
+    .catch(this.handleError);
+  }
 
 
+//List Of User Id's to display on Assign a Task page.
   getPersonList(){
     this.operation="getPersonList";
     return this.syncService.retrieve(this.getPersonListUrl,this.operation); 
 
   }
 
-   getAllDetails(){
+//Getting All details to call on View Details Page.
+  getAllDetails(){
     this.operation="getPersonList";
     return this.syncService.retrieve(this.usersUrl,this.operation); 
 
   }
 
-  //Updating User data
-  
-
-//   createName(uname: string,tname:string[],uid:number): Promise<User> {
-//   return this.http
-//     .post(this.usersUrl, JSON.stringify({name:uname,tasks: tname,id:uid}), {headers: this.headers})
-//     .toPromise()
-//     .then(res => res.json().data as User)
-//     .catch(this.handleError);
-//   }
 
 //   delete(id: number): Promise<void> {
 //   const url = `${this.usersUrl}/${id}`;

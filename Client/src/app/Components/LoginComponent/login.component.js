@@ -16,7 +16,7 @@ var LoginComponent = (function () {
         this.router = router;
         this.http = http;
         this.headers = new http_1.Headers({ 'Content-type': 'application/json' });
-        this.loginUrl = '';
+        this.loginUrl = 'http://localhost:8000/api/account/login/';
     }
     LoginComponent.prototype.loginFunc = function (username, password) {
         var _this = this;

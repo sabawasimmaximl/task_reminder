@@ -20,11 +20,10 @@ var UserDetailComponent = (function () {
         this.location = location;
     }
     UserDetailComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.route.params
-            .switchMap(function (params) { return _this.userService.getHero(+params['id']); })
-            .subscribe(function (hero) { return _this.user = hero; });
-        console.log(this.user);
+        // this.route.params
+        //   .switchMap((params: Params) => this.userService.getUser(+params['id']))
+        //   .subscribe(singleuser => this.user = singleuser);
+        //   console.log(this.user);
     };
     UserDetailComponent.prototype.goBack = function () {
         this.location.back();

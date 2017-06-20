@@ -1,5 +1,15 @@
-<body></body>
 <div style="text-align: center">
+<br />
+
+
+<h2>Welcome {{username}}</h2>
+
+    <nav>
+      <a routerLink="/dashboard" routerLinkActive="active">Assign a Task</a>
+      <a routerLink="/users" >View Tasks</a>
+    </nav>
+
+
 <br />
 <label>Task Name : </label><input #taskName /> <br /><br />
 <label>Assign Task to :</label>
@@ -13,11 +23,8 @@
 </div>
 
 <div *ngIf="assignMsg">
-    <h1>{{assignMsg.message}}</h1>
+    <h2>Successfully Assigned!</h2>
 </div>
-
-<!--Testing Login Page Html-->
-<login></login>
 
 <br />
 <hr />

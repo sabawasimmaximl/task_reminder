@@ -12,7 +12,8 @@ providers:[]
 export class LoginComponent{
 
 private headers = new Headers({'Content-type':'application/json'});
-private loginUrl = '';
+private loginUrl = 'http://localhost:8000/api/account/login/';
+
 constructor(public router:Router, public http:Http){}
 
 loginFunc(username:string,password:string)

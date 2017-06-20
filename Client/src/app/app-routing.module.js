@@ -7,14 +7,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
+var app_component_1 = require("./Components/AppComponent/app.component");
 var dashboard_component_1 = require("./Components/DashboardComponent/dashboard.component");
 var users_component_1 = require("./Components/UsersComponent/users.component");
 var user_detail_component_1 = require("./Components/UserDetailComponent/user-detail.component");
+var login_component_1 = require("./Components/LoginComponent/login.component");
 var routes = [
-    { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
     { path: 'detail/:id', component: user_detail_component_1.UserDetailComponent },
-    { path: 'users', component: users_component_1.UsersComponent }
+    { path: 'users', component: users_component_1.UsersComponent },
+    { path: 'myapp', component: app_component_1.AppComponent },
+    { path: 'login', component: login_component_1.LoginComponent }
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {
