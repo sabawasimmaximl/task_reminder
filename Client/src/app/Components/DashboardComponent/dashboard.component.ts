@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit {
 
   getPersonList() {
       this.userService.getPersonList()
-      .then(users => {this.userlist = users.json();
+      .then(users => {this.userlist = users.json().results; 
       console.log("Testing userList in Task component - ",this.userlist);
       console.log("Testing User.json in Task component - ",users.json());});
 

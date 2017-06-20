@@ -21,9 +21,6 @@ var UserDetailComponent = (function () {
     }
     UserDetailComponent.prototype.ngOnInit = function () {
         // this.route.params
-        //   .switchMap((params: Params) => this.userService.getUser(+params['id']))
-        //   .subscribe(singleuser => this.user = singleuser);
-        //   console.log(this.user);
     };
     UserDetailComponent.prototype.goBack = function () {
         this.location.back();

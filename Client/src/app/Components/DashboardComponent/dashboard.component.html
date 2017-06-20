@@ -1,3 +1,4 @@
+
 <div style="text-align: center">
 <br />
 
@@ -11,10 +12,12 @@
 
 
 <br />
+
 <label>Task Name : </label><input #taskName /> <br /><br />
+
 <label>Assign Task to :</label>
 <select #selectedUid>
-    <option *ngFor="let object of userlist">{{object.user}}</option>
+    <option *ngFor="let object of userlist">{{object.id}}</option>
 <!--{{user.tasks}} works-->
 </select><br /><br />
 <label>Reminder Time</label> <input type="datetime-local" #time/>
@@ -26,6 +29,11 @@
     <h2>Successfully Assigned!</h2>
 </div>
 
+<<<<<<< 34df98d6e41140deae069d1722945d28682c44ee
+=======
+
+
+>>>>>>> added login.component
 <br />
 <hr />
 
