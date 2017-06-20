@@ -29,7 +29,6 @@ urlpatterns = [
     url(r'^api/', include('task.urls',namespace="task")),
     url(r'^api-auth/', include('rest_framework.urls',
                                namespace='rest_framework')),
-    url(r'^api-token-auth/', views.obtain_auth_token),
 
 ]
 urlpatterns +=[

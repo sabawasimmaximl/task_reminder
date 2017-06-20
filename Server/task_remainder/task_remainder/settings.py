@@ -134,11 +134,36 @@ STATIC_URL = '/static/'
 
 # Authentication stuffs
 REST_FRAMEWORK={
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+
     'DEFAULT_AUTHENTICATION_CLASSES':(
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+    ),
+
+    "DEFAULT_PERMISSION_CLASSES":(
+        'rest_framework.permissions.IsAuthenticated',
     )
 
 
 
 }
+
+
+# Authentication checking
+
+'''
+curl -X POST -d "username=mark&password=m123456789" http://localhost:8000/api/auth/token/
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hcmsiLCJ1c2VyX2lkIjo1LCJlbWFpbCI6IiIsImV4cCI6MTQ5Nzk1NjczM30.8IUTgVGgwvUjiGjEF3lDphrDy0hhwArbJjg9Zll80uY
+
+curl -H "Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hcmsiLCJ1c2VyX2lkIjo1LCJlbWFpbCI6IiIsImV4cCI6MTQ5Nzk1NjczM30.8IUTgVGgwvUjiGjEF3lDphrDy0hhwArbJjg9Zll80uY
+" http://localhost:8000/api/task/list/
+
+
+curl http://localhost:8000/api/task/list/
+
+'''

@@ -37,7 +37,7 @@ User = get_user_model()
 class TaskApiView(ModelViewSet):
     queryset=Task.objects.all()
     serializer_class=TaskSerializer
-    permission_classes=[permissions.AllowAny]
+    # permission_classes=[permissions.IsAuthenticated]
 
     def list(self,request,*args,**kwargs):
         task_data = []
@@ -81,7 +81,6 @@ class TaskApiView(ModelViewSet):
 class PersonApiView(ModelViewSet):
     queryset=Person.objects.all()
     serializer_class=PersonTaskSerializer
-    permission_classes=[permissions.AllowAny]
 
     def person_list(self,request,*args,**kwargs):
         print 'fetching person data'

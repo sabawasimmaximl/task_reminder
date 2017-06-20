@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework.authtoken import views
+from rest_framework_jwt.views import obtain_jwt_token
 
 from .views import (
     TaskApiView,     
@@ -18,6 +19,8 @@ urlpatterns = [
 
     url(r'^account/login/$',
             UserApiView.as_view({'post':'login'}),name="login"),
+
+    url(r'^auth/token/', obtain_jwt_token),        
 
     # Task Api view urls
     url(r'^task/list/$',TaskApiView.as_view({'get':'list'}), name='task-list'),
