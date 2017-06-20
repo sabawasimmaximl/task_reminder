@@ -37,7 +37,7 @@ var DashboardComponent = (function () {
         var _this = this;
         this.userService.getPersonList()
             .then(function (users) {
-            _this.userlist = users.json();
+            _this.userlist = users.json().results;
             console.log("Testing userList in Task component - ", _this.userlist);
             console.log("Testing User.json in Task component - ", users.json());
         });

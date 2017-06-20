@@ -20,13 +20,12 @@ var LoginComponent = (function () {
     }
     LoginComponent.prototype.loginFunc = function (username, password) {
         var _this = this;
-        this.http.post(this.loginUrl, JSON.stringify({ username: username, password: password }), this.headers)
-            .subscribe(function (response) {
-            localStorage.setItem('token', response.json().token_value);
+        this.http.post(this.loginUrl, { username: username, password: password }, this.headers)
+            .toPromise().then(function (response) {
+            console.log("Backend data = ", response.json().token[0].pk);
+            localStorage.setItem('auth_token', response.json().token[0].pk);
+            console.log("Auth Token = ", localStorage.getItem('auth_token'));
             _this.router.navigate(['dashboard']);
-        }, function (error) {
-            alert(error.text());
-            console.log(error.text());
         });
     };
     return LoginComponent;
