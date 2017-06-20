@@ -54,6 +54,7 @@ class TaskApiView(ModelViewSet):
     
 
     def create_new_task(self, request,*args,**kwargs):
+        # token=request.data['token']
         title =request.data["title"]
         person_id = request.data["person"]
         # Create a new task
@@ -159,9 +160,6 @@ class UserApiView(ModelViewSet):
             return Response({'error': 'Invalid Method'}, status=HTTP_400_BAD_REQUES)
 
     def login(self,request,*args,**kwargs):
-        print '##################'
-        print 'inside login'
-        print '###################'
         try:
             username = request.data['username']
             password = request.data['password']
@@ -169,14 +167,6 @@ class UserApiView(ModelViewSet):
 
             if username is not None and password is not None:
                 user = authenticate(username=username, password=password)
-                print user
-                print '@@@@@@@@@user'
-                if user.is_authenticated():
-                    print 'authenticated'
-                else:
-                    print 'not authenticated'    
-
-                print '@@@@@@@@@@@user.'
                 if user is not None:
                     if user.is_active:
                         token, created = Token.objects.get_or_create(user=user)
