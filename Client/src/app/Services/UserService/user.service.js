@@ -19,6 +19,7 @@ var UserService = (function () {
         this.syncService = syncService;
         this.usersUrl = 'http://localhost:8000/api/task/list';
         this.getPersonListUrl = 'http://localhost:8000/api/person/list/';
+        this.getSinglePersonUrl = 'http://localhost:8000/api/person/';
     }
     //Error Handling function
     UserService.prototype.handleError = function (error) {
@@ -26,14 +27,12 @@ var UserService = (function () {
         return Promise.reject(error.message || error);
     };
     //  Getting One User
-    UserService.prototype.getHero = function (id) {
-        var url = this.usersUrl + "/" + id;
-        console.log("Id = " + id);
-        console.log("Get User called");
-        return this.http.get(url)
-            .toPromise()
-            .then(function (response) { return response.json().data; })
-            .catch(this.handleError);
+    UserService.prototype.getSingleUser = function (id) {
+        this.operation = "GetOneUser";
+        var url = this.getSinglePersonUrl;
+        url = url + id;
+        console.log("SINGLE PERSON URL -------", url);
+        return this.syncService.getSingleUser(url, this.operation);
     };
     //List Of User Id's to display on Assign a Task page.
     UserService.prototype.getPersonList = function () {

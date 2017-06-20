@@ -49,11 +49,19 @@ export class SyncService {
   assigntask(createTaskUrl:string,title:string,person:number,operation:string){
     
     console.log("Operation = ", operation);
+    
     return this.http.post(createTaskUrl, JSON.stringify({title,person}), {headers: this.headers})
                     .toPromise();
 
   }
 
+  getSingleUser(url:string,operation:string){
+    console.log("Operation = ", operation);
 
+  return this.http.get(url)
+    .toPromise()
+    .then(response => response.json())
+    .catch(this.handleError);
+  }
 
 }

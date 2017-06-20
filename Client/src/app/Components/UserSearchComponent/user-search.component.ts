@@ -12,46 +12,61 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
  
-import { UserSearchService }          from '../../Services/UserSearchService/user-search.service';
-import { User } from '../../Class/user';
+//Services
+import { UserService }          from '../../Services/UserService/user.service';
+import { TaskService }          from '../../Services/TaskService/task.service';
  
+//Classes
+import {User} from '../../Class/user';
+
+
+
 @Component({
   selector: 'user-search',
   templateUrl: './user-search.component.html',
   styleUrls: [ './user-search.component.css' ],
-  providers: [UserSearchService]
+  providers: [UserService,TaskService]
 })
 export class UserSearchComponent implements OnInit {
-  users: Observable<User[]>;
-  private searchTerms = new Subject<string>();
- 
+  userlist: User[];
+  user:User;
+  selectedUser:User;
+  userExists:number=0;
+  
   constructor(
-    private heroSearchService: UserSearchService,
-    private router: Router) {}
+    
+    private taskService: TaskService,
+    private userService: UserService,
+    private router: Router) {
+    }
  
   // Push a search term into the observable stream.
-  search(term: string): void {
-    this.searchTerms.next(term);
-  }
+ 
  
   ngOnInit(): void {
-    this.users = this.searchTerms
-      .debounceTime(300)        // wait 300ms after each keystroke before considering the term
-      .distinctUntilChanged()   // ignore if next search term is same as previous
-      .switchMap(term => term   // switch to new observable each time the term changes
-        // return the http search observable
-        ? this.heroSearchService.search(term)
-        // or the observable of empty users if there was no search term
-        : Observable.of<User[]>([]))
-      .catch(error => {
-        // TODO: add real error handling
-        console.log(error);
-        return Observable.of<User[]>([]);
-      });
+    this.userService.getPersonList().then(users => {
+      this.userlist = users.json().results; 
+      this.user = users.json().results[0];
+      console.log("Testing User.json in User-Search component - ",this.user);});
+
+
   }
  
-  gotoDetail(user: User): void {
-    let link = ['/detail', user.id];
-    this.router.navigate(link);
-  }
+  getUserDetail(selectedUserObj:any){
+    
+    this.selectedUser=selectedUserObj;
+    this.userExists=1;
+    
+    console.log("PRNTING selected User = ", this.selectedUser);
+    console.log("PRNTING USER ID VALUE for selected User = ", this.selectedUser.id);
+    this.userService.getSingleUser(this.selectedUser.id).then(
+      response => {
+        this.user = response.results;
+        console.log("Response = ",this.user);
+      }
+    )
+ }
+
 }
+ 
+

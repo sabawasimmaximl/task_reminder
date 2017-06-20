@@ -15,7 +15,7 @@ export class UserService {
   operation:string;
   private usersUrl = 'http://localhost:8000/api/task/list';
   private getPersonListUrl = 'http://localhost:8000/api/person/list/';
-
+private getSinglePersonUrl = 'http://localhost:8000/api/person/';
 
   constructor(private http:Http,private syncService:SyncService){}
 
@@ -27,14 +27,15 @@ export class UserService {
 
 
 //  Getting One User
-  getHero(id: number): Promise<User> {
-  const url = `${this.usersUrl}/${id}`;
-  console.log("Id = "+ id);
-  console.log("Get User called");
-  return this.http.get(url)
-    .toPromise()
-    .then(response => response.json().data as User)
-    .catch(this.handleError);
+  getSingleUser(id:number): Promise<User> {
+  this.operation="GetOneUser";
+  let url = this.getSinglePersonUrl;
+  url=url+id;
+  console.log("SINGLE PERSON URL -------",url);
+
+  return this.syncService.getSingleUser(url,this.operation);
+  
+  
   }
 
 
@@ -52,13 +53,5 @@ export class UserService {
 
   }
 
-
-//   delete(id: number): Promise<void> {
-//   const url = `${this.usersUrl}/${id}`;
-//   return this.http.delete(url, {headers: this.headers})
-//     .toPromise()
-//     .then(() => null)
-//     .catch(this.handleError);
-// }
 
 }

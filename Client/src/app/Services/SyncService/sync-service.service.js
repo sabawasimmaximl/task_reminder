@@ -29,6 +29,13 @@ var SyncService = (function () {
         return this.http.post(createTaskUrl, JSON.stringify({ title: title, person: person }), { headers: this.headers })
             .toPromise();
     };
+    SyncService.prototype.getSingleUser = function (url, operation) {
+        console.log("Operation = ", operation);
+        return this.http.get(url)
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
     return SyncService;
 }());
 SyncService = __decorate([

@@ -10,42 +10,41 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var Observable_1 = require("rxjs/Observable");
-var Subject_1 = require("rxjs/Subject");
 // Observable class extensions
 require("rxjs/add/observable/of");
 // Observable operators
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/debounceTime");
 require("rxjs/add/operator/distinctUntilChanged");
-var user_search_service_1 = require("../../Services/UserSearchService/user-search.service");
+//Services
+var user_service_1 = require("../../Services/UserService/user.service");
+var task_service_1 = require("../../Services/TaskService/task.service");
 var UserSearchComponent = (function () {
-    function UserSearchComponent(heroSearchService, router) {
-        this.heroSearchService = heroSearchService;
+    function UserSearchComponent(taskService, userService, router) {
+        this.taskService = taskService;
+        this.userService = userService;
         this.router = router;
-        this.searchTerms = new Subject_1.Subject();
+        this.userExists = 0;
     }
     // Push a search term into the observable stream.
-    UserSearchComponent.prototype.search = function (term) {
-        this.searchTerms.next(term);
-    };
     UserSearchComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.users = this.searchTerms
-            .debounceTime(300) // wait 300ms after each keystroke before considering the term
-            .distinctUntilChanged() // ignore if next search term is same as previous
-            .switchMap(function (term) { return term // switch to new observable each time the term changes
-            ? _this.heroSearchService.search(term)
-            : Observable_1.Observable.of([]); })
-            .catch(function (error) {
-            // TODO: add real error handling
-            console.log(error);
-            return Observable_1.Observable.of([]);
+        this.userService.getPersonList().then(function (users) {
+            _this.userlist = users.json().results;
+            _this.user = users.json().results[0];
+            console.log("Testing User.json in User-Search component - ", _this.user);
         });
     };
-    UserSearchComponent.prototype.gotoDetail = function (user) {
-        var link = ['/detail', user.id];
-        this.router.navigate(link);
+    UserSearchComponent.prototype.getUserDetail = function (selectedUserObj) {
+        var _this = this;
+        this.selectedUser = selectedUserObj;
+        this.userExists = 1;
+        console.log("PRNTING selected User = ", this.selectedUser);
+        console.log("PRNTING USER ID VALUE for selected User = ", this.selectedUser.id);
+        this.userService.getSingleUser(this.selectedUser.id).then(function (response) {
+            _this.user = response.results;
+            console.log("Response = ", _this.user);
+        });
     };
     return UserSearchComponent;
 }());
@@ -54,9 +53,10 @@ UserSearchComponent = __decorate([
         selector: 'user-search',
         templateUrl: './user-search.component.html',
         styleUrls: ['./user-search.component.css'],
-        providers: [user_search_service_1.UserSearchService]
+        providers: [user_service_1.UserService, task_service_1.TaskService]
     }),
-    __metadata("design:paramtypes", [user_search_service_1.UserSearchService,
+    __metadata("design:paramtypes", [task_service_1.TaskService,
+        user_service_1.UserService,
         router_1.Router])
 ], UserSearchComponent);
 exports.UserSearchComponent = UserSearchComponent;
