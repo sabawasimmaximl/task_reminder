@@ -44,22 +44,22 @@ export class UserSearchComponent implements OnInit {
  
  
   ngOnInit(): void {
-    this.userService.getPersonList().then(users => {
-      this.userlist = users.json().results; 
-      this.user = users.json().results[0];
-      console.log("Testing User.json in User-Search component - ",this.user);});
-
+    this.userService.getPersonListService().subscribe(users => {
+      //initialising userlist,user arrays
+      this.userlist = users.results; 
+      this.user = users.results[0];
+    });
 
   }
  
-  getUserDetail(selectedUserObj:any){
+  getSingleUserDetail(selectedUserObj:any){
     
     this.selectedUser=selectedUserObj;
     this.userExists=1;
     
     console.log("PRNTING selected User = ", this.selectedUser);
     console.log("PRNTING USER ID VALUE for selected User = ", this.selectedUser.id);
-    this.userService.getSingleUser(this.selectedUser.id).then(
+    this.userService.getSingleUser(this.selectedUser.id).subscribe(
       response => {
         this.user = response.results;
         console.log("Response = ",this.user);

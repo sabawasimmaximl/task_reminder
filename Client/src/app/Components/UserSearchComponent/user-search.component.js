@@ -29,19 +29,19 @@ var UserSearchComponent = (function () {
     // Push a search term into the observable stream.
     UserSearchComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.userService.getPersonList().then(function (users) {
-            _this.userlist = users.json().results;
-            _this.user = users.json().results[0];
-            console.log("Testing User.json in User-Search component - ", _this.user);
+        this.userService.getPersonListService().subscribe(function (users) {
+            //initialising userlist,user arrays
+            _this.userlist = users.results;
+            _this.user = users.results[0];
         });
     };
-    UserSearchComponent.prototype.getUserDetail = function (selectedUserObj) {
+    UserSearchComponent.prototype.getSingleUserDetail = function (selectedUserObj) {
         var _this = this;
         this.selectedUser = selectedUserObj;
         this.userExists = 1;
         console.log("PRNTING selected User = ", this.selectedUser);
         console.log("PRNTING USER ID VALUE for selected User = ", this.selectedUser.id);
-        this.userService.getSingleUser(this.selectedUser.id).then(function (response) {
+        this.userService.getSingleUser(this.selectedUser.id).subscribe(function (response) {
             _this.user = response.results;
             console.log("Response = ", _this.user);
         });

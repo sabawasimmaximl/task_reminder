@@ -2,33 +2,55 @@
 import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 
+import { Observable } from 'rxjs';
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
 //Components
-import { DashboardComponent }   from '../../Components/DashboardComponent/dashboard.component';
 
 //Services
-import { UserService }          from '../../Services/UserService/user.service';
+import { SyncService }          from '../../Services/SyncService/sync-service.service';
 
 
 //Classes
 import { User } from '../../Class/user';
-
+import {BaseUrl} from '../../Class/baseUrl';
 
 @Injectable()
 export class AuthService {
 
-
-  private getPersonListUrl = 'http://localhost:8000/api/person/list/';
-
+  private loginUrl = BaseUrl.baseurl + 'account/login/';
   private headers = new Headers({'Content-Type': 'application/json'});
 
-  constructor(private http:Http, private userService:UserService){}
-//Error Handling function
+  constructor(private http:Http){}
 
-  getPersonList(){
+  
+  login(username: string, password: string):Observable<any>  { 
+  
+     console.log("Calling Login on Auth Service");
+     return this.http.post(this.loginUrl,{username,password},this.headers)
+        .map((response:any) => 
+                {
+                  console.log("Backend data received = " , response.json());
+                  console.log("UserName received = " , response.json().username);
+                  localStorage.setItem('auth_token',response.json().token[0].pk);
+                  localStorage.setItem('username',response.json().username);
+                  console.log("Auth Token (AuthService) = " , localStorage.getItem('auth_token'));
+                  return response.json();
+             });
+  }
 
-    return this.http.get(this.getPersonListUrl).toPromise();
+  logout()
+  {
+    console.log("Calling LogOut on Auth Service");
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('username');
+    console.log("Removing Token, Auth Token value now =",localStorage.getItem('auth_token'));
+    console.log("Removing Token, Username value now =",localStorage.getItem('username'));
+  }
 
+  get_authorization_header(){
+    console.log("Calling Get Authorization Header on Auth Service");
+   return localStorage.getItem('auth_token'); 
   }
 
 }

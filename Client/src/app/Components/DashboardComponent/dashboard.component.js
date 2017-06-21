@@ -13,42 +13,55 @@ var router_1 = require("@angular/router");
 var http_1 = require("@angular/http");
 var router_2 = require("@angular/router");
 var common_1 = require("@angular/common");
+//Component
+// import { LoginComponent }          from '../../Components/LoginComponent/login.component';
 //Services
 var user_service_1 = require("../../Services/UserService/user.service");
 var task_service_1 = require("../../Services/TaskService/task.service");
+var auth_service_service_1 = require("../../Services/AuthService/auth-service.service");
 var DashboardComponent = (function () {
-    function DashboardComponent(router, userService, taskService, http, route, location) {
+    function DashboardComponent(
+        // private loginComp:LoginComponent,
+        router, userService, taskService, authService, http, route, location) {
         this.router = router;
         this.userService = userService;
         this.taskService = taskService;
+        this.authService = authService;
         this.http = http;
         this.route = route;
         this.location = location;
         this.assignMsg = 0;
-        this.getUsersUrl = 'http://localhost:8000/api/task/person/';
-        this.getPersonListUrl = 'http://localhost:8000/api/person/list/';
-        this.createTaskUrl = 'http://localhost:8000/api/task/create/';
-        this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        console.log("Getting Username");
+        this.username = localStorage.getItem('username');
+        console.log("Printing Username in Dashboard Component", this.username);
     }
     DashboardComponent.prototype.ngOnInit = function () {
         this.getPersonList(); //returns list of users
     };
     DashboardComponent.prototype.getPersonList = function () {
         var _this = this;
-        this.userService.getPersonList()
-            .then(function (users) {
-            _this.userlist = users.json().results;
+        this.userService.getPersonListService()
+            .subscribe(function (users) {
+            _this.userlist = users.results;
             console.log("Testing userList in Task component - ", _this.userlist);
-            console.log("Testing User.json in Task component - ", users.json());
-        });
+            console.log("Testing User.json in Task component - ", users);
+        }, function (err) { return console.log("ERROR = ", err); });
     };
     DashboardComponent.prototype.handleError = function (error) {
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
     };
+    DashboardComponent.prototype.logout = function () {
+        this.authService.logout();
+        console.log("Printing Authorization Token after Logout : ", this.authService.get_authorization_header());
+        this.router.navigate(['login']);
+    };
     DashboardComponent.prototype.addtask = function (taskname, uid) {
         var _this = this;
-        this.taskService.addTask(taskname, uid).then(function () { return _this.assignMsg = 1; });
+        this.taskService.addTask(taskname, uid).subscribe(function (response) {
+            console.log("hello");
+            _this.assignMsg = 1;
+        });
     };
     return DashboardComponent;
 }());
@@ -62,6 +75,7 @@ DashboardComponent = __decorate([
     __metadata("design:paramtypes", [router_1.Router,
         user_service_1.UserService,
         task_service_1.TaskService,
+        auth_service_service_1.AuthService,
         http_1.Http,
         router_2.ActivatedRoute,
         common_1.Location])

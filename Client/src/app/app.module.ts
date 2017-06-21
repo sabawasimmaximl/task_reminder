@@ -17,7 +17,6 @@ import { LoginComponent }       from './Components/LoginComponent/login.componen
 //Services
 
 import { UserService }          from './Services/UserService/user.service';
-
 import { TaskService }          from './Services/TaskService/task.service';
 import { SyncService }          from './Services/SyncService/sync-service.service';
 import { AuthService }          from './Services/AuthService/auth-service.service';

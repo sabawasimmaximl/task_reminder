@@ -10,40 +10,27 @@ import { LoginComponent }   from '../../Components/LoginComponent/login.componen
 
 //Services
 
-import { UserService }          from '../../Services/UserService/user.service';
-import { TaskService }          from '../../Services/TaskService/task.service';
-// import { AuthService }          from '../../Services/AuthService/auth-service.service';
+import { AuthService }          from '../../Services/AuthService/auth-service.service';
 
 
 
 //Classes
 import { User } from '../../Class/user';
-
+import {BaseUrl} from '../../Class/baseUrl';
 
 @Injectable()
 export class SyncService {
 
-    private token:string;
+  private token:string;
   private headers = new Headers(
     {'Content-Type': 'application/json'});
-
+    
   
-  constructor(private http:Http,private router:Router){
-      
-      this.token=localStorage.getItem('auth_token');
-        
-      if(this.token) {
-          this.headers.append('Authorization', 'Bearer ' + this.token);
-          console.log("TOKEN EXISTS----------");
-          console.log(this.headers);
-          console.log("Navigating to users----------");
-          this.router.navigate(['dashboard'])
-      }
-        else{
-          console.log("TOKEN DOES NOT EXIST");
-           console.log("Navigating to users----------");
-          this.router.navigate(['login'])
-        }
+  
+  constructor(private http:Http,public router:Router,public authService:AuthService){
+    console.log("Storing Auth Token in Sync Service");
+      this.token=authService.get_authorization_header();
+
   }
 
   public handleError(error: any): Promise<any> {
@@ -52,44 +39,57 @@ export class SyncService {
   }
 
 
-  
-  
-  retrieve(url:string,operation:string){
+get(endpoint: string,operation:string){
 
+  if(this.authService.get_authorization_header())
+  {
+
+    console.log("Calling HTTP GET- SyncService");
     console.log("Operation = ", operation);
-    if(this.token)
-    return this.http.get(url,this.token).toPromise();
-    else{
-          console.log("TOKEN DOES NOT EXIST");
-          
-        }
+
+    let url=BaseUrl.baseurl+endpoint;
+
+    //appending headers
+    this.headers.append('Authorization',this.token);
+    return this.http.get(url,this.headers).map(
+    (response:any) => {
+      return response.json();
+    }
+    );
+    
+  }
+  else
+  {
+    console.log("Please Login (GET Fn - SyncService)");
+    this.router.navigate(['/login']);
+    
   
+  }
 }
 
-  assigntask(createTaskUrl:string,title:string,person:number,operation:string){
-    
-    console.log("Operation = ", operation);
-    if(this.token)
-    return this.http.post(createTaskUrl, JSON.stringify({title,person}), {headers: this.headers})
-                    .toPromise();
-    else{
-          console.log("TOKEN DOES NOT EXIST");
-          
-        }                
+post(endpoint: string, data: any,operation:string)
+{
+    if(this.authService.get_authorization_header()){
 
-  }
+        console.log("Calling HTTP POST - SyncService");
+        console.log("Operation = ", operation);
 
-  getSingleUser(url:string,operation:string){
-    console.log("Operation = ", operation);
-    if(this.token)
-    return this.http.get(url,this.token)
-    .toPromise()
-    .then(response => response.json())
-    .catch(this.handleError);
-    else{
-          console.log("TOKEN DOES NOT EXIST");  
-        }
+        let url=BaseUrl.baseurl+endpoint;
+        
+        //appending headers
+        this.headers.append('Authorization',this.token);
+        console.log("Data Sent in Post Request= ",data);
+        console.log("URL in Post Request= ",url);
+        return this.http.post(url,data,this.headers);
 
-  }
+    }
+    else
+    {
+        console.log("Please Login (POST Fn - SyncService)");
+        this.router.navigate(['/login']);
+         
+    }
+
+}
 
 }
