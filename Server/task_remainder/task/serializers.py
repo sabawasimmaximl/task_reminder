@@ -35,47 +35,6 @@ class UserSerializer(ModelSerializer):
         model=Person
         fields="__all__" 
 
-# crateing new user serializer
-class UserCreateSerializer(ModelSerializer):
-    class Meta:
-        model = User
-        fields = [
-            'username',
-            'password',
-            
-        ]
-        extra_kwargs = {"password":
-                            {"write_only": True}
-                            }
-
-    def create(self, validated_data):
-        username = validated_data['username']
-        password = validated_data['password']
-        user_obj = User(
-                username = username,
-            )
-        user_obj.set_password(password)
-        user_obj.save()
-        return validated_data
-
-
-# user login serializer
-class UserLoginSerializer(ModelSerializer):
-    token = CharField(allow_blank=True, read_only=True)
-    username = CharField()
-    class Meta:
-        model = User
-        fields = [
-            'username',
-            'password',
-            'token',
-            
-        ]
-        extra_kwargs = {"password":
-                            {"write_only": True}
-                            }
-  
-
 
 
         

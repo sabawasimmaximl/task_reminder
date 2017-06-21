@@ -10,6 +10,8 @@ import json
 from models import Task,Person
 from rest_framework import permissions
 from rest_framework.authtoken.models import Token
+from rest_framework import parsers, renderers
+from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK,HTTP_400_BAD_REQUEST
@@ -26,7 +28,6 @@ from rest_framework.permissions import (
 
 # serializers
 from .serializers import (
-    UserLoginSerializer,
     TaskSerializer,
     PersonTaskSerializer,
     UserSerializer,
@@ -158,34 +159,16 @@ class UserApiView(ModelViewSet):
         except:
             return Response({'error': 'Invalid Method'}, status=HTTP_400_BAD_REQUES)
 
-    def login(self,request,*args,**kwargs):
-        try:
-            username = request.data['username']
-            password = request.data['password']
-            print username,password
 
-            if username is not None and password is not None:
-                user = authenticate(username=username, password=password)
-                if user is not None:
-                    if user.is_active:
-                        token, created = Token.objects.get_or_create(user=user)
-                        token_data=serializers.serialize('json',[token,])
-                        token_data=json.loads(token_data)
-                        return Response({
-                            'token':token_data,
-                            'username': user.username
-                        })
-                    else:
-                        return Response({
-                            'error': 'Invalid User'
-                        }, status=HTTP_400_BAD_REQUEST)
-                else:
-                    return Response({
-                        'error': 'Invalid Username/Password'
-                    }, status=HTTP_400_BAD_REQUEST)
-            else:
-                return Response({
-                    'error': 'Invalid Data'
-                }, status=HTTP_400_BAD_REQUEST)
-        except:
-            return Response({'error': 'Invalid Method'}, status=HTTP_400_BAD_REQUEST)       
+class AuthTokenApiView(APIView):
+    serializer_class = AuthTokenSerializer
+    permission_classes =[AllowAny]    
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            user = serializer.validated_data['user']
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({'token': token.key,'username':user.username})
+
+
