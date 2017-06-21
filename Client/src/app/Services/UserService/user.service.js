@@ -11,14 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var http_1 = require("@angular/http");
 var core_1 = require("@angular/core");
 require("rxjs/add/operator/toPromise");
+require("rxjs/add/operator/map");
 //Services
 var sync_service_service_1 = require("../../Services/SyncService/sync-service.service");
 var UserService = (function () {
     function UserService(http, syncService) {
         this.http = http;
         this.syncService = syncService;
-        this.usersUrl = 'http://localhost:8000/api/task/list';
-        this.getPersonListUrl = 'http://localhost:8000/api/person/list/';
     }
     //Error Handling function
     UserService.prototype.handleError = function (error) {
@@ -26,24 +25,19 @@ var UserService = (function () {
         return Promise.reject(error.message || error);
     };
     //  Getting One User
-    UserService.prototype.getHero = function (id) {
-        var url = this.usersUrl + "/" + id;
-        console.log("Id = " + id);
-        console.log("Get User called");
-        return this.http.get(url)
-            .toPromise()
-            .then(function (response) { return response.json().data; })
-            .catch(this.handleError);
+    UserService.prototype.getSingleUser = function (id) {
+        this.operation = "GetOneUser";
+        return this.syncService.get("person/" + id, this.operation);
     };
     //List Of User Id's to display on Assign a Task page.
-    UserService.prototype.getPersonList = function () {
+    UserService.prototype.getPersonListService = function () {
         this.operation = "getPersonList";
-        return this.syncService.retrieve(this.getPersonListUrl, this.operation);
+        return this.syncService.get("person/list/", this.operation);
     };
     //Getting All details to call on View Details Page.
     UserService.prototype.getAllDetails = function () {
         this.operation = "getPersonList";
-        return this.syncService.retrieve(this.usersUrl, this.operation);
+        return this.syncService.get("task/list/", this.operation);
     };
     return UserService;
 }());

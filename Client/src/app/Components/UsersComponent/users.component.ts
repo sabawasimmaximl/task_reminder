@@ -30,17 +30,9 @@ export class UsersComponent implements OnInit {
 
   getAllDetails(): void {
     this.userService.getAllDetails()
-    .then(users => {this.users = users.json().results;
-      console.log("Testing 123 in users component - ",users.json())});
+    .subscribe(users => {this.users = users.results;
+      console.log("Printing Get All Details in users component - ",users)});
 
-  }
-
-  onSelect(hero: User): void {
-    this.selectedUser = hero;
-  }
-
-  gotoDetail(): void {
-    this.router.navigate(['/detail', this.selectedUser.id]);
   }
 
 

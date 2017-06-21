@@ -1,13 +1,26 @@
-<div id="search-component" style="font-family:montserrat;">
-  <hr />
-  <h2>User Search</h2>
-  <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+<hr />
+<br />
+<div style="font-family:montserrat; padding-left:10%;">
   
+  <h2>User Details :</h2>
+  <label> Select User = </label>
+  <select [(ngModel)]="selectedUser" (ngModelChange)="getSingleUserDetail(selectedUser);" >
+    <option *ngFor="let object of userlist" [ngValue] = "object"  >{{object.name}}</option>
+<!--{{user.tasks}} works-->
+</select><br /><br />
+
   <!--Displaying Search Results-->
-  <div>
-    <div *ngFor="let user of users | async"
-         (click)="gotoDetail(user)" class="search-result" >
-      {{hero.name}}
-    </div>
+  <div *ngIf="userExists">
+      
+    <label>Id : </label> {{selectedUser.id}} &nbsp;&nbsp;
+    <label>Name : </label> {{selectedUser.name}} <br /><br />
+    <label>Task List : </label> <br />
+    <ul *ngFor="let task of user[0]">
+      <li>Task Id: {{task.task_id}}</li>
+      <li>Title : {{task.title}}</li>
+      
+      
+    </ul>
+        
   </div>
 </div>

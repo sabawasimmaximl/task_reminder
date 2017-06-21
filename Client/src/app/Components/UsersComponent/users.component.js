@@ -26,16 +26,10 @@ var UsersComponent = (function () {
     UsersComponent.prototype.getAllDetails = function () {
         var _this = this;
         this.userService.getAllDetails()
-            .then(function (users) {
-            _this.users = users.json().results;
-            console.log("Testing 123 in users component - ", users.json());
+            .subscribe(function (users) {
+            _this.users = users.results;
+            console.log("Printing Get All Details in users component - ", users);
         });
-    };
-    UsersComponent.prototype.onSelect = function (hero) {
-        this.selectedUser = hero;
-    };
-    UsersComponent.prototype.gotoDetail = function () {
-        this.router.navigate(['/detail', this.selectedUser.id]);
     };
     return UsersComponent;
 }());

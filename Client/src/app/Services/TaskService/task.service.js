@@ -17,14 +17,10 @@ var TaskService = (function () {
     function TaskService(http, syncService) {
         this.http = http;
         this.syncService = syncService;
-        this.getUsersUrl = 'http://localhost:8000/api/task/person/';
-        this.getPersonListUrl = 'http://localhost:8000/api/person/list/';
-        this.createTaskUrl = 'http://localhost:8000/api/task/create/';
     }
     TaskService.prototype.addTask = function (taskname, uid) {
-        var title = taskname, person = uid;
         this.operation = "AssignTaskOperation";
-        return this.syncService.assigntask(this.createTaskUrl, title, person, this.operation);
+        return this.syncService.post("task/create/", { "title": taskname, "person": uid }, this.operation);
     };
     return TaskService;
 }());
