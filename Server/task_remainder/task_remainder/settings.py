@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     #third-party library
     'django_filters',
+    'django_extensions',
     'rest_framework',
     'rest_framework.authtoken',
 ]
@@ -78,6 +79,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'task_remainder.wsgi.application'
+
+
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}
 
 
 # Database
@@ -135,7 +142,7 @@ STATIC_URL = '/static/'
 # Authentication stuffs
 REST_FRAMEWORK={
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
 
     'DEFAULT_AUTHENTICATION_CLASSES':(
@@ -146,4 +153,8 @@ REST_FRAMEWORK={
 
 
 
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
 }
