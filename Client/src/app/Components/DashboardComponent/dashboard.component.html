@@ -1,16 +1,23 @@
+<br />
+<br />
+<br />
 
-<div style="text-align: center">
+<div style="float:right;"><notif></notif></div>
+
+<div>
 <br />
 
 
-<h2>Welcome {{username}}</h2>
+<h2>Welcome User - <span style="color:brown">{{username}}</span></h2> <br/> <button (click)="logout()">Logout</button>
+<br />
+<br />
+<br />
 
-    <nav>
-      <a routerLink="/dashboard" routerLinkActive="active">Assign a Task</a>
-      <a routerLink="/users" >View Tasks</a>
+    <nav >
+     <button style="font-size:1.2em;"> <a routerLink="/dashboard" routerLinkActive="active">Assign a Task</a></button>
+      <button style="font-size:1.2em;"> <a routerLink="/users" >View Tasks</a> </button>
     </nav>
-
-
+<br />
 <br />
 
 <label>Task Name : </label><input #taskName /> <br /><br />
@@ -29,12 +36,6 @@
     <h2>Successfully Assigned!</h2>
 </div>
 
-<<<<<<< 34df98d6e41140deae069d1722945d28682c44ee
-=======
-
-
->>>>>>> added login.component
-<br />
+<br /><br /><br />
 <hr />
 
-<!--<hero-search></hero-search>-->

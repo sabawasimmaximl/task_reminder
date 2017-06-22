@@ -10,14 +10,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent }         from './Components/AppComponent/app.component';
 import { DashboardComponent }   from './Components/DashboardComponent/dashboard.component';
 import { UsersComponent }      from './Components/UsersComponent/users.component';
-import { UserDetailComponent }  from './Components/UserDetailComponent/user-detail.component';
+import { NotificationComponent }       from './Components/NotificationComponent/notification.component';
 import { UserSearchComponent }  from './Components/UserSearchComponent/user-search.component';
 import { LoginComponent }       from './Components/LoginComponent/login.component';
 
 //Services
 
 import { UserService }          from './Services/UserService/user.service';
-import { UserSearchService }          from './Services/UserSearchService/user-search.service';
 import { TaskService }          from './Services/TaskService/task.service';
 import { SyncService }          from './Services/SyncService/sync-service.service';
 import { AuthService }          from './Services/AuthService/auth-service.service';
@@ -35,11 +34,11 @@ import { AuthService }          from './Services/AuthService/auth-service.servic
     AppComponent,
     DashboardComponent,
     UserSearchComponent,
-    UserDetailComponent,
     UsersComponent,
-    LoginComponent
+    LoginComponent,
+    NotificationComponent
   ],
-  providers: [ UserService,TaskService,UserSearchService,SyncService, AuthService ],
+  providers: [ UserService,TaskService,SyncService, AuthService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

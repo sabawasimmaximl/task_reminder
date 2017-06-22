@@ -14,12 +14,11 @@ var app_routing_module_1 = require("./app-routing.module");
 var app_component_1 = require("./Components/AppComponent/app.component");
 var dashboard_component_1 = require("./Components/DashboardComponent/dashboard.component");
 var users_component_1 = require("./Components/UsersComponent/users.component");
-var user_detail_component_1 = require("./Components/UserDetailComponent/user-detail.component");
+var notification_component_1 = require("./Components/NotificationComponent/notification.component");
 var user_search_component_1 = require("./Components/UserSearchComponent/user-search.component");
 var login_component_1 = require("./Components/LoginComponent/login.component");
 //Services
 var user_service_1 = require("./Services/UserService/user.service");
-var user_search_service_1 = require("./Services/UserSearchService/user-search.service");
 var task_service_1 = require("./Services/TaskService/task.service");
 var sync_service_service_1 = require("./Services/SyncService/sync-service.service");
 var auth_service_service_1 = require("./Services/AuthService/auth-service.service");
@@ -40,11 +39,11 @@ AppModule = __decorate([
             app_component_1.AppComponent,
             dashboard_component_1.DashboardComponent,
             user_search_component_1.UserSearchComponent,
-            user_detail_component_1.UserDetailComponent,
             users_component_1.UsersComponent,
-            login_component_1.LoginComponent
+            login_component_1.LoginComponent,
+            notification_component_1.NotificationComponent
         ],
-        providers: [user_service_1.UserService, task_service_1.TaskService, user_search_service_1.UserSearchService, sync_service_service_1.SyncService, auth_service_service_1.AuthService],
+        providers: [user_service_1.UserService, task_service_1.TaskService, sync_service_service_1.SyncService, auth_service_service_1.AuthService],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

@@ -1,21 +1,22 @@
 import { DashboardComponent }   from '../../Components/DashboardComponent/dashboard.component';
 import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
+
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
 
 //Services
 import { SyncService }          from '../../Services/SyncService/sync-service.service';
 
 //Classes
 import { User } from '../../Class/user';
+import { BaseUrl } from '../../Class/baseUrl';
 
 @Injectable()
 export class UserService {
   
   operation:string;
-  private usersUrl = 'http://localhost:8000/api/task/list';
-  private getPersonListUrl = 'http://localhost:8000/api/person/list/';
-
+  
 
   constructor(private http:Http,private syncService:SyncService){}
 
@@ -27,38 +28,28 @@ export class UserService {
 
 
 //  Getting One User
-  getHero(id: number): Promise<User> {
-  const url = `${this.usersUrl}/${id}`;
-  console.log("Id = "+ id);
-  console.log("Get User called");
-  return this.http.get(url)
-    .toPromise()
-    .then(response => response.json().data as User)
-    .catch(this.handleError);
+  getSingleUser(id:number){
+  this.operation="GetOneUser";
+  
+  return this.syncService.get("person/"+id,this.operation);
+  
   }
 
 
 //List Of User Id's to display on Assign a Task page.
-  getPersonList(){
+  getPersonListService(){
     this.operation="getPersonList";
-    return this.syncService.retrieve(this.getPersonListUrl,this.operation); 
+    return this.syncService.get("person/list/",this.operation);
+    
 
   }
 
 //Getting All details to call on View Details Page.
   getAllDetails(){
     this.operation="getPersonList";
-    return this.syncService.retrieve(this.usersUrl,this.operation); 
+    return this.syncService.get("task/list/",this.operation);
 
   }
 
-
-//   delete(id: number): Promise<void> {
-//   const url = `${this.usersUrl}/${id}`;
-//   return this.http.delete(url, {headers: this.headers})
-//     .toPromise()
-//     .then(() => null)
-//     .catch(this.handleError);
-// }
 
 }

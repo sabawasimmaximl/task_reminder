@@ -1,0 +1,1 @@
+{"version":3,"file":"notification.component.js","sourceRoot":"","sources":["notification.component.ts"],"names":[],"mappings":";;;;;;;AAAA,sCAAwC;AASxC,IAAa,qBAAqB;IAAlC;IAEA,CAAC;IAAD,4BAAC;AAAD,CAAC,AAFD,IAEC;AAFY,qBAAqB;IAPjC,gBAAS,CAAC;QACT,QAAQ,EAAE,OAAO;QACjB,WAAW,EAAE,+BAA+B;QAC5C,SAAS,EAAC,CAAC,8BAA8B,CAAC;QAC1C,SAAS,EAAE,EAAE;KACd,CAAC;GAEW,qBAAqB,CAEjC;AAFY,sDAAqB"}
