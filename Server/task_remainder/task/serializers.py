@@ -27,7 +27,7 @@ class PersonTaskSerializer(ModelSerializer):
 class TaskSerializer(ModelSerializer):
     class Meta:
         model=Task
-        fields=['title','person']
+        fields=['id','title','person']
 
 
 class UserSerializer(ModelSerializer):
