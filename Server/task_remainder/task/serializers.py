@@ -18,11 +18,10 @@ from rest_framework.serializers import (
 
 User = get_user_model()
 
-
-class PersonTaskSerializer(ModelSerializer):
+class UserSerializer(ModelSerializer):
     class Meta:
-        model=Task
-        fields="__all__"     
+        model=User
+        fields=['id','username']    
 
 class TaskSerializer(ModelSerializer):
     class Meta:
@@ -30,11 +29,11 @@ class TaskSerializer(ModelSerializer):
         fields=['id','title','person']
 
 
-class UserSerializer(ModelSerializer):
+class PersonSerializer(ModelSerializer):
+    user=UserSerializer()
     class Meta:
         model=Person
-        fields="__all__" 
-
+        fields=['user','id']  
 
 class NotificationSerializer(ModelSerializer):
     class Meta:
