@@ -10,7 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent }         from './Components/AppComponent/app.component';
 import { DashboardComponent }   from './Components/DashboardComponent/dashboard.component';
 import { UsersComponent }      from './Components/UsersComponent/users.component';
-
+import { NotificationComponent }       from './Components/NotificationComponent/notification.component';
 import { UserSearchComponent }  from './Components/UserSearchComponent/user-search.component';
 import { LoginComponent }       from './Components/LoginComponent/login.component';
 
@@ -35,7 +35,8 @@ import { AuthService }          from './Services/AuthService/auth-service.servic
     DashboardComponent,
     UserSearchComponent,
     UsersComponent,
-    LoginComponent
+    LoginComponent,
+    NotificationComponent
   ],
   providers: [ UserService,TaskService,SyncService, AuthService ],
   bootstrap: [ AppComponent ]
