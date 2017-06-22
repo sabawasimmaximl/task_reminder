@@ -15,7 +15,6 @@ const routes: Routes = [
   { path: 'users',     component: UsersComponent },
   { path: 'myapp',     component: AppComponent },
   { path: 'login',     component: LoginComponent }
-
 ];
 
 

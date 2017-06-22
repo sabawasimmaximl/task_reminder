@@ -18,18 +18,20 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views.decorators.csrf import ensure_csrf_cookie
-
 from rest_framework.authtoken import views
 from django.conf import settings
+
+from rest_framework import authtoken
+from task.views import AuthTokenApiView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     # For API
     url(r'^api/', include('task.urls',namespace="task")),
-    url(r'^api-auth/', include('rest_framework.urls',
-                               namespace='rest_framework')),
-    url(r'^api-token-auth/', views.obtain_auth_token),
+
+    # handling Token authentication
+    url(r'^api/auth/token/',AuthTokenApiView.as_view()),
 
 ]
 urlpatterns +=[
