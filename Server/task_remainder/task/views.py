@@ -33,7 +33,6 @@ from rest_framework.generics import ListAPIView,CreateAPIView,RetrieveAPIView
 from .serializers import (
     NotificationSerializer,
     TaskSerializer,
-    TaskCreateSerializer,
     PersonSerializer,
     )
 
@@ -51,11 +50,12 @@ class AuthTokenApiView(APIView):
         if serializer.is_valid():
             user = serializer.validated_data['user']
             token, created = Token.objects.get_or_create(user=user)
-
+            
             return Response({'token': token.key,'username':user.username})
 
 
 class TaskListApiView(ListAPIView):
+    sum.delay(2,44)
     serializer_class=TaskSerializer
     queryset=Task.objects.all()
 
@@ -63,9 +63,10 @@ class TaskListApiView(ListAPIView):
 
 class TaskCreateApiView(CreateAPIView):
     queryset=Task.objects.all()
-    serializer_class=TaskCreateSerializer
+    serializer_class=TaskSerializer
 
 class TaskDetailApiView(RetrieveAPIView):
+    sum.delay(2,488)
     queryset=Task.objects.all()
     serializer_class=TaskSerializer
     lookup_field="pk"
