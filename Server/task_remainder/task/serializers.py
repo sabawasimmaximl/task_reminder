@@ -23,22 +23,24 @@ class UserSerializer(ModelSerializer):
         model=User
         fields=['id','username']    
 
-class TaskSerializer(ModelSerializer):
-    class Meta:
-        model=Task
-        fields=['id','title','person']
-
 
 class PersonSerializer(ModelSerializer):
     user=UserSerializer()
     class Meta:
         model=Person
-        fields=['user','id']  
+        fields=['user','id']
+
+class TaskSerializer(ModelSerializer):
+    person=PersonSerializer()
+    class Meta:
+        model=Task
+        fields=['id','title','person']
+          
 
 class NotificationSerializer(ModelSerializer):
     class Meta:
         model=Notification
-        fields=['time_created','message','person']        
+        fields=['time_created','message']        
 
 
 
