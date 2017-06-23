@@ -11,12 +11,12 @@ class Person(models.Model):
 
     class Meta:
     	app_label="task"
-        db_table="person"
+        db_table="person_record"
     		
 class Task(models.Model):
-    title           = models.CharField(max_length=50, default="")
-    reminder_time   = models.TimeField(blank=True,null=True,help_text="Time format is :HH:MM:SS")
-    person          = models.ForeignKey(Person,related_name="task_user")
+    title                     = models.CharField(max_length=50, default="")
+    reminder_time             = models.TimeField(blank=True,null=True,help_text="Time format is :HH:MM:SS")
+    person                    = models.ForeignKey(Person,related_name="task_user")
 
     def __unicode__(self):
         return "Task is {}".format(self.title)
@@ -30,7 +30,7 @@ class Task(models.Model):
 class Notification(models.Model):
     time_created    = models.TimeField(blank=True,null=True,help_text="Time format is :HH:MM:SS") 
     message         = models.TextField(max_length=500)
-    person          = models.ForeignKey(Person,related_name="notify_user")
+    # person_id       = models.ForeignKey(Person,related_name="notify_user")
 
     def __unicode__(self):
         return self.message    
