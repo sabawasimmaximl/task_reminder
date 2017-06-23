@@ -33,8 +33,7 @@ from rest_framework.generics import ListAPIView,CreateAPIView,RetrieveAPIView
 from .serializers import (
     NotificationSerializer,
     TaskSerializer,
-    PersonTaskSerializer,
-    UserSerializer,
+    PersonSerializer,
     )
 
 #celery tasks
@@ -51,13 +50,15 @@ class AuthTokenApiView(APIView):
         if serializer.is_valid():
             user = serializer.validated_data['user']
             token, created = Token.objects.get_or_create(user=user)
-            # sum.delay(2,3)
+          
             return Response({'token': token.key,'username':user.username})
 
 
 class TaskListApiView(ListAPIView):
-    queryset=Task.objects.all()
     serializer_class=TaskSerializer
+    queryset=Task.objects.all()
+
+
 
 class TaskCreateApiView(CreateAPIView):
     queryset=Task.objects.all()
@@ -71,7 +72,7 @@ class TaskDetailApiView(RetrieveAPIView):
 
 class PersonListApiView(ListAPIView):
     queryset=Person.objects.all()
-    serializer_class=UserSerializer
+    serializer_class=PersonSerializer
 
 class TaskFilter(django_filters.FilterSet):
     class Meta:
