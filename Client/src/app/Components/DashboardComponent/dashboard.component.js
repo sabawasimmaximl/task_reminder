@@ -48,6 +48,7 @@ var DashboardComponent = (function () {
     DashboardComponent.prototype.handleUserUpdated = function ($event) {
         console.log("HANDLING USER EVENT HERE ----", $event.user);
         this.selectedUid = $event.user.id;
+        this.selectedUname = $event.user.usernamename;
     };
     DashboardComponent.prototype.handleError = function (error) {
         console.error('An error occurred', error); // for demo purposes only

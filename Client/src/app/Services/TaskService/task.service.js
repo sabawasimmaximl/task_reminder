@@ -19,6 +19,14 @@ var TaskService = (function () {
         this.syncService = syncService;
     }
     TaskService.prototype.addTask = function (taskname, uid) {
+        //       let obj = {
+        //     "title": taskname,
+        //     "person": {
+        //         "user": {
+        //             "username": uname
+        //         }
+        //     }
+        // }
         this.operation = "AssignTaskOperation";
         return this.syncService.post("task/create/", { "title": taskname, "person": uid }, this.operation);
     };

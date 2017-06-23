@@ -30,6 +30,7 @@ export class DashboardComponent implements OnInit {
    assignMsg:number=0;
    username:string;
    selectedUid:number;
+   selectedUname:string;
 
   constructor(
     // private loginComp:LoginComponent,
@@ -68,6 +69,7 @@ export class DashboardComponent implements OnInit {
   handleUserUpdated($event:any){
     console.log("HANDLING USER EVENT HERE ----", $event.user);
     this.selectedUid=$event.user.id;
+    this.selectedUname=$event.user.usernamename;
 
   }
 
