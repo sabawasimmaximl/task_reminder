@@ -14,6 +14,7 @@ import { NotificationComponent }       from './Components/NotificationComponent/
 import { UserSearchComponent }  from './Components/UserSearchComponent/user-search.component';
 import { LoginComponent }       from './Components/LoginComponent/login.component';
 import { TaskListComponent }       from './Components/TaskListComponent/task-list.component';
+import { PersonNameComponent }       from './Components/PersonNameComponent/person-name.component';
 import { PersonSelectorComponent }       from './Components/PersonSelectorComponent/person-selector.component';
 
 //Services
@@ -40,6 +41,7 @@ import { AuthGuard }          from './auth.guard';
     LoginComponent,
     TaskListComponent,
     NotificationComponent,
+    PersonNameComponent,
     PersonSelectorComponent
   ],
   providers: [ UserService,TaskService,SyncService, AuthService, AuthGuard ],
