@@ -67,7 +67,7 @@ export class DashboardComponent implements OnInit {
 
   handleUserUpdated($event:any){
     console.log("HANDLING USER EVENT HERE ----", $event.user);
-    this.selectedUid=$event.user;
+    this.selectedUid=$event.user.id;
 
   }
 

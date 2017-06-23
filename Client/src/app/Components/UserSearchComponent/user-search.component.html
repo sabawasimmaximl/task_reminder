@@ -10,10 +10,10 @@
   <!--Displaying Search Results-->
   <div *ngIf="userExists">
       
-    <!--<label>Id : </label> {{person.id}} &nbsp;&nbsp;
-    <label>Name : </label> {{person.person}} <br /><br />
+  <label>Id : </label> {{selectedUid}} &nbsp;&nbsp;
+    <label>Name : </label> {{selectedName}} <br /><br />
     <label>Task List : </label> <br />
-  -->
+  
     <ul *ngFor="let task of person">
       <li>Task Id: {{task.id}}</li>
       <li>Title : {{task.title}}</li>

@@ -35,7 +35,8 @@ var UserSearchComponent = (function () {
     };
     UserSearchComponent.prototype.handleUserUpdated = function ($event) {
         console.log("HANDLING USER EVENT HERE ----", $event.user);
-        this.selectedUid = $event.user;
+        this.selectedUid = $event.user.id;
+        this.selectedName = $event.user.username;
         this.getSingleUserDetail();
     };
     UserSearchComponent.prototype.getSingleUserDetail = function () {

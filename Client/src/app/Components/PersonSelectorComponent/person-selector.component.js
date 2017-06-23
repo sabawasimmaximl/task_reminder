@@ -31,7 +31,7 @@ var PersonSelectorComponent = (function () {
         this.userService.getPersonListService()
             .subscribe(function (users) {
             _this.userlist = users;
-            console.log("USER LIST =", _this.userlist);
+            console.log("USER LIST in Person Selector = ", _this.userlist);
         });
     };
     PersonSelectorComponent.prototype.onSelect = function (user) {

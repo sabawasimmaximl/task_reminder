@@ -32,6 +32,7 @@ export class UserSearchComponent implements OnInit {
   
   person:User;
   selectedUid:number;
+  selectedName:string;
   userExists:number=0;
   
   constructor(
@@ -53,7 +54,8 @@ export class UserSearchComponent implements OnInit {
  
   handleUserUpdated($event:any){
     console.log("HANDLING USER EVENT HERE ----", $event.user);
-    this.selectedUid=$event.user;
+    this.selectedUid=$event.user.id;
+    this.selectedName=$event.user.username;
     this.getSingleUserDetail();
   }
 

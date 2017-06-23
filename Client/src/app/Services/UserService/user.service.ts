@@ -39,7 +39,7 @@ export class UserService {
 //List Of User Id's to display on Assign a Task page.
   getPersonListService(){
     this.operation="getPersonList";
-    return this.syncService.get("person/list/",this.operation);
+    return this.syncService.get("persons/",this.operation);
     
 
   }

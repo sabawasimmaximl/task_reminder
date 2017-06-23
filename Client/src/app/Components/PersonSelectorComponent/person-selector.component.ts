@@ -44,7 +44,7 @@ export class PersonSelectorComponent implements OnInit {
     this.userService.getPersonListService()
     .subscribe(users => { 
       this.userlist = users;
-      console.log("USER LIST =",this.userlist); 
+      console.log("USER LIST in Person Selector = ",this.userlist); 
       
     });
 
