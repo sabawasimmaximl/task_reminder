@@ -13,8 +13,6 @@ var router_1 = require("@angular/router");
 var http_1 = require("@angular/http");
 var router_2 = require("@angular/router");
 var common_1 = require("@angular/common");
-//Component
-// import { LoginComponent }          from '../../Components/LoginComponent/login.component';
 //Services
 var user_service_1 = require("../../Services/UserService/user.service");
 var task_service_1 = require("../../Services/TaskService/task.service");
@@ -42,10 +40,15 @@ var DashboardComponent = (function () {
         var _this = this;
         this.userService.getPersonListService()
             .subscribe(function (users) {
-            _this.userlist = users.results;
+            _this.userlist = users;
             console.log("Testing userList in Task component - ", _this.userlist);
             console.log("Testing User.json in Task component - ", users);
         }, function (err) { return console.log("ERROR = ", err); });
+    };
+    DashboardComponent.prototype.handleUserUpdated = function ($event) {
+        console.log("HANDLING USER EVENT HERE ----", $event.user);
+        this.selectedUid = $event.user.id;
+        this.selectedUname = $event.user.usernamename;
     };
     DashboardComponent.prototype.handleError = function (error) {
         console.error('An error occurred', error); // for demo purposes only
@@ -56,9 +59,10 @@ var DashboardComponent = (function () {
         console.log("Printing Authorization Token after Logout : ", this.authService.get_authorization_header());
         this.router.navigate(['login']);
     };
-    DashboardComponent.prototype.addtask = function (taskname, uid) {
+    DashboardComponent.prototype.addtask = function (taskname) {
         var _this = this;
-        this.taskService.addTask(taskname, uid).subscribe(function (response) {
+        console.log("User id in addtask = ", this.selectedUid);
+        this.taskService.addTask(taskname, this.selectedUid).subscribe(function (response) {
             console.log("hello");
             _this.assignMsg = 1;
         });

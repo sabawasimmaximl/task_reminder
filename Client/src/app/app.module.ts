@@ -13,6 +13,8 @@ import { UsersComponent }      from './Components/UsersComponent/users.component
 import { NotificationComponent }       from './Components/NotificationComponent/notification.component';
 import { UserSearchComponent }  from './Components/UserSearchComponent/user-search.component';
 import { LoginComponent }       from './Components/LoginComponent/login.component';
+import { TaskListComponent }       from './Components/TaskListComponent/task-list.component';
+import { PersonSelectorComponent }       from './Components/PersonSelectorComponent/person-selector.component';
 
 //Services
 
@@ -20,7 +22,7 @@ import { UserService }          from './Services/UserService/user.service';
 import { TaskService }          from './Services/TaskService/task.service';
 import { SyncService }          from './Services/SyncService/sync-service.service';
 import { AuthService }          from './Services/AuthService/auth-service.service';
-
+import { AuthGuard }          from './auth.guard';
 
 
 @NgModule({
@@ -36,9 +38,11 @@ import { AuthService }          from './Services/AuthService/auth-service.servic
     UserSearchComponent,
     UsersComponent,
     LoginComponent,
-    NotificationComponent
+    TaskListComponent,
+    NotificationComponent,
+    PersonSelectorComponent
   ],
-  providers: [ UserService,TaskService,SyncService, AuthService ],
+  providers: [ UserService,TaskService,SyncService, AuthService, AuthGuard ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

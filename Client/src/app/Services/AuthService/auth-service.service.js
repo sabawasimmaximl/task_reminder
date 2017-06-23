@@ -16,7 +16,7 @@ var baseUrl_1 = require("../../Class/baseUrl");
 var AuthService = (function () {
     function AuthService(http) {
         this.http = http;
-        this.loginUrl = baseUrl_1.BaseUrl.baseurl + 'account/login/';
+        this.loginUrl = baseUrl_1.BaseUrl.baseurl + 'auth/token/';
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
     AuthService.prototype.login = function (username, password) {

@@ -7,26 +7,12 @@
       <button style="font-size:1.2em;"> <a routerLink="/users" >View Tasks</a> </button>
     </nav>
 
-<h2 style="font-family: montserrat">All Tasks</h2>
-
-<ul style="font-family: montserrat">
-
-  <li *ngFor="let t of users">
 
 
-
-    <span class="badge">Id : {{t.task_id}}</span> &nbsp; Name: {{t.username}} &nbsp;&nbsp; Tasks = {{t.title}} <br />
-     <!--Tasks :- {{hero.title}} -->
-     <br />
-     <!--<span *ngFor="let he of hero.task"> {{he.tname}}, </span>-->
-
-    <!--<button class="delete"
-  (click)="delete(hero); $event.stopPropagation()">x</button><br /><br />-->
-
-  </li>
-</ul>
+<task-list></task-list>
 
 </div>
 
+<!--Searching for a user-->
 <user-search></user-search>
 

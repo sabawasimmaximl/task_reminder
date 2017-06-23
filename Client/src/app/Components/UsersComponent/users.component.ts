@@ -14,26 +14,10 @@ import { TaskService }  from '../../Services/TaskService/task.service';
   styleUrls: [ './users.component.css' ],
   providers:[UserService,TaskService]
 })
-export class UsersComponent implements OnInit {
-
-  users: User[]=[];
+export class UsersComponent {
   
-  selectedUser: User;
-
   constructor(
     private router: Router,
     private userService: UserService,private taskService: TaskService) { }
-
-  ngOnInit(): void {
-    this.getAllDetails();
-  }
-
-  getAllDetails(): void {
-    this.userService.getAllDetails()
-    .subscribe(users => {this.users = users.results;
-      console.log("Printing Get All Details in users component - ",users)});
-
-  }
-
 
 }

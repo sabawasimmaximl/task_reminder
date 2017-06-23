@@ -1,0 +1,9 @@
+<select [(ngModel)]="personSelected" (ngModelChange)="onSelect(personSelected);" >
+       
+        <option *ngFor="let object of userlist" [ngValue] = "object"  > {{object.user.username}}    </option>
+
+</select>
+
+<br /><br />
+
+

@@ -24,7 +24,14 @@ export class TaskService {
 
 
   addTask(taskname: string,uid:number){
-
+//       let obj = {
+//     "title": taskname,
+//     "person": {
+//         "user": {
+//             "username": uname
+//         }
+//     }
+// }
         this.operation="AssignTaskOperation";
     return  this.syncService.post("task/create/", {"title": taskname, "person": uid},this.operation);
 

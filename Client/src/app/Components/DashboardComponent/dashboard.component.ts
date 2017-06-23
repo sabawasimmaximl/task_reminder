@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Headers, Http } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location }               from '@angular/common';
 
 //Component
-// import { LoginComponent }          from '../../Components/LoginComponent/login.component';
+ import { PersonSelectorComponent }          from '../../Components/PersonSelectorComponent/person-selector.component';
 
 //Services
 import { UserService }          from '../../Services/UserService/user.service';
@@ -29,6 +29,8 @@ export class DashboardComponent implements OnInit {
    userlist:User[];
    assignMsg:number=0;
    username:string;
+   selectedUid:number;
+   selectedUname:string;
 
   constructor(
     // private loginComp:LoginComponent,
@@ -56,7 +58,7 @@ export class DashboardComponent implements OnInit {
   getPersonList() {
    
       this.userService.getPersonListService()
-      .subscribe(users => {this.userlist = users.results; 
+      .subscribe(users => {this.userlist = users; 
       console.log("Testing userList in Task component - ",this.userlist);
       console.log("Testing User.json in Task component - ",users);},
        (err:any) => console.log("ERROR = ",err)
@@ -64,6 +66,12 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  handleUserUpdated($event:any){
+    console.log("HANDLING USER EVENT HERE ----", $event.user);
+    this.selectedUid=$event.user.id;
+    this.selectedUname=$event.user.usernamename;
+
+  }
 
   private handleError(error: any): Promise<any> {
   console.error('An error occurred', error); // for demo purposes only
@@ -76,8 +84,9 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['login']);
   }
   
-  addtask(taskname: string,uid:number){
-    this.taskService.addTask(taskname,uid).subscribe(
+  addtask(taskname: string){
+    console.log("User id in addtask = ",this.selectedUid);
+    this.taskService.addTask(taskname,this.selectedUid).subscribe(
       (response:any) => {
         console.log("hello");
         this.assignMsg=1;

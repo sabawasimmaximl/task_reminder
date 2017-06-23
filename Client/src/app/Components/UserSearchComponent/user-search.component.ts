@@ -29,8 +29,10 @@ import {User} from '../../Class/user';
 })
 export class UserSearchComponent implements OnInit {
   userlist: User[];
-  user:User;
-  selectedUser:User;
+  
+  person:User;
+  selectedUid:number;
+  selectedName:string;
   userExists:number=0;
   
   constructor(
@@ -40,29 +42,32 @@ export class UserSearchComponent implements OnInit {
     private router: Router) {
     }
  
-  // Push a search term into the observable stream.
- 
- 
   ngOnInit(): void {
     this.userService.getPersonListService().subscribe(users => {
-      //initialising userlist,user arrays
-      this.userlist = users.results; 
-      this.user = users.results[0];
+      
+      this.userlist = users;
+      console.log("USER LIST =",this.userlist); 
+      
     });
 
   }
  
-  getSingleUserDetail(selectedUserObj:any){
+  handleUserUpdated($event:any){
+    console.log("HANDLING USER EVENT HERE ----", $event.user);
+    this.selectedUid=$event.user.id;
+    this.selectedName=$event.user.username;
+    this.getSingleUserDetail();
+  }
+
+  getSingleUserDetail(){
     
-    this.selectedUser=selectedUserObj;
     this.userExists=1;
-    
-    console.log("PRNTING selected User = ", this.selectedUser);
-    console.log("PRNTING USER ID VALUE for selected User = ", this.selectedUser.id);
-    this.userService.getSingleUser(this.selectedUser.id).subscribe(
+    console.log("GetSingleUserDetail Function in User-Search Component");
+    console.log("PRNTING selected User Id = ", this.selectedUid);
+    this.userService.getSingleUser(this.selectedUid).subscribe(
       response => {
-        this.user = response.results;
-        console.log("Response = ",this.user);
+        this.person = response;
+        console.log("Response = ",this.person);
       }
     )
  }

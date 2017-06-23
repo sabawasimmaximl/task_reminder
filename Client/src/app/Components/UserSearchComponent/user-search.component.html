@@ -4,23 +4,23 @@
   
   <h2>User Details :</h2>
   <label> Select User = </label>
-  <select [(ngModel)]="selectedUser" (ngModelChange)="getSingleUserDetail(selectedUser);" >
-    <option *ngFor="let object of userlist" [ngValue] = "object"  >{{object.name}}</option>
-<!--{{user.tasks}} works-->
-</select><br /><br />
+
+<person-selector (personSelectedEmit)="handleUserUpdated($event)"></person-selector>
 
   <!--Displaying Search Results-->
   <div *ngIf="userExists">
       
-    <label>Id : </label> {{selectedUser.id}} &nbsp;&nbsp;
-    <label>Name : </label> {{selectedUser.name}} <br /><br />
+  <label>Id : </label> {{selectedUid}} &nbsp;&nbsp;
+    <label>Name : </label> {{selectedName}} <br /><br />
     <label>Task List : </label> <br />
-    <ul *ngFor="let task of user[0]">
-      <li>Task Id: {{task.task_id}}</li>
+  
+    <ul *ngFor="let task of person">
+      <li>Task Id: {{task.id}}</li>
       <li>Title : {{task.title}}</li>
       
       
     </ul>
         
   </div>
+  <br /><br /><br /><br /><br />
 </div>

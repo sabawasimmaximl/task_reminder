@@ -11,10 +11,11 @@ var app_component_1 = require("./Components/AppComponent/app.component");
 var dashboard_component_1 = require("./Components/DashboardComponent/dashboard.component");
 var users_component_1 = require("./Components/UsersComponent/users.component");
 var login_component_1 = require("./Components/LoginComponent/login.component");
+var auth_guard_1 = require("./auth.guard");
 var routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
-    { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
-    { path: 'users', component: users_component_1.UsersComponent },
+    { path: 'dashboard', component: dashboard_component_1.DashboardComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'users', component: users_component_1.UsersComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'myapp', component: app_component_1.AppComponent },
     { path: 'login', component: login_component_1.LoginComponent }
 ];
