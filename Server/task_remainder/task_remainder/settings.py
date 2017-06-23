@@ -48,6 +48,7 @@ OUR_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+    'djcelery',
     'django_filters',
     'django_extensions',
     'rest_framework',
