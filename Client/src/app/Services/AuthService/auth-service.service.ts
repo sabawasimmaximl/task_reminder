@@ -18,7 +18,7 @@ import {BaseUrl} from '../../Class/baseUrl';
 @Injectable()
 export class AuthService {
 
-  private loginUrl = BaseUrl.baseurl + 'account/login/';
+  private loginUrl = BaseUrl.baseurl + 'auth/token/';
   private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http:Http){}
@@ -32,8 +32,10 @@ export class AuthService {
                 {
                   console.log("Backend data received = " , response.json());
                   console.log("UserName received = " , response.json().username);
+
                   localStorage.setItem('auth_token',response.json().token[0].pk);
                   localStorage.setItem('username',response.json().username);
+                  
                   console.log("Auth Token (AuthService) = " , localStorage.getItem('auth_token'));
                   return response.json();
              });

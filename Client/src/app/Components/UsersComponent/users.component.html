@@ -14,19 +14,16 @@
   <li *ngFor="let t of users">
 
 
-
-    <span class="badge">Id : {{t.task_id}}</span> &nbsp; Name: {{t.username}} &nbsp;&nbsp; Tasks = {{t.title}} <br />
-     <!--Tasks :- {{hero.title}} -->
+    <span class="badge">Id : {{t.id}}</span> &nbsp; Name: {{t.person}} &nbsp;&nbsp; Tasks = {{t.title}} <br />
+     
      <br />
-     <!--<span *ngFor="let he of hero.task"> {{he.tname}}, </span>-->
-
-    <!--<button class="delete"
-  (click)="delete(hero); $event.stopPropagation()">x</button><br /><br />-->
+     
 
   </li>
 </ul>
 
 </div>
 
+<!--Searching for a user-->
 <user-search></user-search>
 

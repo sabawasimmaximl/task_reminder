@@ -27,7 +27,8 @@ var UserService = (function () {
     //  Getting One User
     UserService.prototype.getSingleUser = function (id) {
         this.operation = "GetOneUser";
-        return this.syncService.get("person/" + id, this.operation);
+        console.log("ID in GetSingleUser ----- ", id);
+        return this.syncService.get("task/?person=" + id, this.operation);
     };
     //List Of User Id's to display on Assign a Task page.
     UserService.prototype.getPersonListService = function () {

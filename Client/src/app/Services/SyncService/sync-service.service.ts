@@ -2,6 +2,8 @@ import {Router} from '@angular/router';
 import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 
+
+
 import 'rxjs/add/operator/toPromise';
 
 //Components
@@ -11,7 +13,7 @@ import { LoginComponent }   from '../../Components/LoginComponent/login.componen
 //Services
 
 import { AuthService }          from '../../Services/AuthService/auth-service.service';
-
+import { AuthGuard }          from '../../auth.guard';
 
 
 //Classes
@@ -19,7 +21,7 @@ import { User } from '../../Class/user';
 import {BaseUrl} from '../../Class/baseUrl';
 
 @Injectable()
-export class SyncService {
+export class SyncService{
 
   private token:string;
   private headers = new Headers(
@@ -27,11 +29,15 @@ export class SyncService {
     
   
   
-  constructor(private http:Http,public router:Router,public authService:AuthService){
-    console.log("Storing Auth Token in Sync Service");
-      this.token=authService.get_authorization_header();
+  constructor(private http:Http,
+              public router:Router,
+              public authService:AuthService,
+              public authGuard:AuthGuard)
+              {
+              console.log("Storing Auth Token in Sync Service");
+              this.token=authService.get_authorization_header();
+              }
 
-  }
 
   public handleError(error: any): Promise<any> {
   console.error('An error has occurred', error); // for demo purposes only
@@ -41,9 +47,8 @@ export class SyncService {
 
 get(endpoint: string,operation:string){
 
-  if(this.authService.get_authorization_header())
+  if(this.authGuard.canActivate())
   {
-
     console.log("Calling HTTP GET- SyncService");
     console.log("Operation = ", operation);
 
@@ -61,16 +66,14 @@ get(endpoint: string,operation:string){
   else
   {
     console.log("Please Login (GET Fn - SyncService)");
-    this.router.navigate(['/login']);
-    
-  
+    this.router.navigate(['login']);
   }
 }
 
 post(endpoint: string, data: any,operation:string)
 {
-    if(this.authService.get_authorization_header()){
-
+    if(this.authGuard.canActivate())
+    {  
         console.log("Calling HTTP POST - SyncService");
         console.log("Operation = ", operation);
 
@@ -86,7 +89,7 @@ post(endpoint: string, data: any,operation:string)
     else
     {
         console.log("Please Login (POST Fn - SyncService)");
-        this.router.navigate(['/login']);
+        this.router.navigate(['login']);
          
     }
 

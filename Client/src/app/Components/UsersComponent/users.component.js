@@ -27,7 +27,7 @@ var UsersComponent = (function () {
         var _this = this;
         this.userService.getAllDetails()
             .subscribe(function (users) {
-            _this.users = users.results;
+            _this.users = users;
             console.log("Printing Get All Details in users component - ", users);
         });
     };

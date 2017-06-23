@@ -30,7 +30,7 @@ export class UsersComponent implements OnInit {
 
   getAllDetails(): void {
     this.userService.getAllDetails()
-    .subscribe(users => {this.users = users.results;
+    .subscribe(users => {this.users = users;
       console.log("Printing Get All Details in users component - ",users)});
 
   }

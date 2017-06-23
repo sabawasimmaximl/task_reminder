@@ -19,47 +19,41 @@ require("rxjs/add/operator/distinctUntilChanged");
 //Services
 var user_service_1 = require("../../Services/UserService/user.service");
 var task_service_1 = require("../../Services/TaskService/task.service");
-var UserSearchComponent = (function () {
-    function UserSearchComponent(taskService, userService, router) {
+var PersonSelectorComponent = (function () {
+    function PersonSelectorComponent(taskService, userService, router) {
         this.taskService = taskService;
         this.userService = userService;
         this.router = router;
-        this.userExists = 0;
+        this.personSelectedEmit = new core_1.EventEmitter();
     }
-    UserSearchComponent.prototype.ngOnInit = function () {
+    PersonSelectorComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.userService.getPersonListService().subscribe(function (users) {
+        this.userService.getPersonListService()
+            .subscribe(function (users) {
             _this.userlist = users;
             console.log("USER LIST =", _this.userlist);
         });
     };
-    UserSearchComponent.prototype.handleUserUpdated = function ($event) {
-        console.log("HANDLING USER EVENT HERE ----", $event.user);
-        this.selectedUid = $event.user;
-        this.getSingleUserDetail();
+    PersonSelectorComponent.prototype.onSelect = function (user) {
+        this.personSelected = user;
+        console.log("Selected Person = ", this.personSelected);
+        this.personSelectedEmit.emit(this.personSelected);
     };
-    UserSearchComponent.prototype.getSingleUserDetail = function () {
-        var _this = this;
-        this.userExists = 1;
-        console.log("GetSingleUserDetail Function in User-Search Component");
-        console.log("PRNTING selected User Id = ", this.selectedUid);
-        this.userService.getSingleUser(this.selectedUid).subscribe(function (response) {
-            _this.person = response;
-            console.log("Response = ", _this.person);
-        });
-    };
-    return UserSearchComponent;
+    return PersonSelectorComponent;
 }());
-UserSearchComponent = __decorate([
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", Object)
+], PersonSelectorComponent.prototype, "personSelectedEmit", void 0);
+PersonSelectorComponent = __decorate([
     core_1.Component({
-        selector: 'user-search',
-        templateUrl: './user-search.component.html',
-        styleUrls: ['./user-search.component.css'],
+        selector: 'person-selector',
+        templateUrl: './person-selector.component.html',
         providers: [user_service_1.UserService, task_service_1.TaskService]
     }),
     __metadata("design:paramtypes", [task_service_1.TaskService,
         user_service_1.UserService,
         router_1.Router])
-], UserSearchComponent);
-exports.UserSearchComponent = UserSearchComponent;
-//# sourceMappingURL=user-search.component.js.map
+], PersonSelectorComponent);
+exports.PersonSelectorComponent = PersonSelectorComponent;
+//# sourceMappingURL=person-selector.component.js.map

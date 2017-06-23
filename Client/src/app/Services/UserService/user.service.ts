@@ -30,8 +30,8 @@ export class UserService {
 //  Getting One User
   getSingleUser(id:number){
   this.operation="GetOneUser";
-  
-  return this.syncService.get("person/"+id,this.operation);
+  console.log("ID in GetSingleUser ----- ",id);
+  return this.syncService.get("task/?person="+id,this.operation);
   
   }
 

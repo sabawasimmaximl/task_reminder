@@ -14,12 +14,14 @@ var core_1 = require("@angular/core");
 require("rxjs/add/operator/toPromise");
 //Services
 var auth_service_service_1 = require("../../Services/AuthService/auth-service.service");
+var auth_guard_1 = require("../../auth.guard");
 var baseUrl_1 = require("../../Class/baseUrl");
 var SyncService = (function () {
-    function SyncService(http, router, authService) {
+    function SyncService(http, router, authService, authGuard) {
         this.http = http;
         this.router = router;
         this.authService = authService;
+        this.authGuard = authGuard;
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         console.log("Storing Auth Token in Sync Service");
         this.token = authService.get_authorization_header();
@@ -29,7 +31,7 @@ var SyncService = (function () {
         return Promise.reject(error.message || error);
     };
     SyncService.prototype.get = function (endpoint, operation) {
-        if (this.authService.get_authorization_header()) {
+        if (this.authGuard.canActivate()) {
             console.log("Calling HTTP GET- SyncService");
             console.log("Operation = ", operation);
             var url = baseUrl_1.BaseUrl.baseurl + endpoint;
@@ -41,11 +43,11 @@ var SyncService = (function () {
         }
         else {
             console.log("Please Login (GET Fn - SyncService)");
-            this.router.navigate(['/login']);
+            this.router.navigate(['login']);
         }
     };
     SyncService.prototype.post = function (endpoint, data, operation) {
-        if (this.authService.get_authorization_header()) {
+        if (this.authGuard.canActivate()) {
             console.log("Calling HTTP POST - SyncService");
             console.log("Operation = ", operation);
             var url = baseUrl_1.BaseUrl.baseurl + endpoint;
@@ -57,14 +59,17 @@ var SyncService = (function () {
         }
         else {
             console.log("Please Login (POST Fn - SyncService)");
-            this.router.navigate(['/login']);
+            this.router.navigate(['login']);
         }
     };
     return SyncService;
 }());
 SyncService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http, router_1.Router, auth_service_service_1.AuthService])
+    __metadata("design:paramtypes", [http_1.Http,
+        router_1.Router,
+        auth_service_service_1.AuthService,
+        auth_guard_1.AuthGuard])
 ], SyncService);
 exports.SyncService = SyncService;
 //# sourceMappingURL=sync-service.service.js.map
