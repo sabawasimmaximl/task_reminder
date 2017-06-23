@@ -4,6 +4,7 @@ from django.utils import timezone
 
 class Person(models.Model):
     user    = models.ForeignKey(User)
+
     
     def __unicode__(self):
     	return self.user.username

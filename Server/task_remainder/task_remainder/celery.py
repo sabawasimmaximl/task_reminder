@@ -1,6 +1,6 @@
 from celery import Celery
 
-app = Celery('tasks', backend='redis://localhost')
+app = Celery('celery_task', backend='redis://localhost')
 
 
 app.conf.update(

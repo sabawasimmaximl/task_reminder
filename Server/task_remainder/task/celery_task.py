@@ -1,5 +1,14 @@
-from celery import app
-from ..models import Notification
+from celery import Celery
+from django.conf import settings
+import os
+import django
+
+settings.configure()
+django.setup()
+
+app = Celery('celery_task', backend='redis://localhost')
+
+from models import Notification
 
 @app.task
 def notification(user,reminder_time):

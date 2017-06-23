@@ -26,7 +26,5 @@ urlpatterns = [
 
     
     # person list
-    url(r'^person/list/$',PersonListApiView.as_view(),name="person_list"),
-    # url(r'^person/(?P<person_id>.+)/$',PersonApiView.as_view({'get':'get_person_task_detail'}),name="person-task"),
-    
+    url(r'^persons/$',PersonListApiView.as_view(),name="person_list"),    
 ]
