@@ -27,27 +27,35 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-APPEND_SLASH=True
+SITE_ID=1
 
+APPEND_SLASH=True
 
 # Application definition
 
-INSTALLED_APPS = [
+DEFAULT_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #local-apps
-    'task',
+    'django.contrib.sites',
+]
 
-    #third-party library
+OUR_APPS = [
+    'task',
+]
+
+THIRD_PARTY_APPS = [
     'django_filters',
     'django_extensions',
     'rest_framework',
     'rest_framework.authtoken',
+    'ws4redis',
 ]
+
+INSTALLED_APPS = DEFAULT_APPS + OUR_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -73,6 +81,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.static',
+                'ws4redis.context_processors.default',
             ],
         },
     },
@@ -94,8 +104,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
 
 
 # Password validation
@@ -158,3 +168,9 @@ REST_FRAMEWORK={
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
 }
+
+
+# BROKER_URL = 'redis://127.0.0.1:6379/0'
+# BROKER_TRANSPORT = 'redis'
+
+# CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
