@@ -31,10 +31,15 @@ class PersonSerializer(ModelSerializer):
         fields=['user','id']
 
 class TaskSerializer(ModelSerializer):
-    person=PersonSerializer()
+    person=UserSerializer()
     class Meta:
         model=Task
-        fields=['id','title','person']
+        fields=['title','person']
+
+class TaskCreateSerializer(ModelSerializer):
+    class Meta:
+        model=Task
+        fields='__all__'        
           
 
 class NotificationSerializer(ModelSerializer):

@@ -33,6 +33,7 @@ from rest_framework.generics import ListAPIView,CreateAPIView,RetrieveAPIView
 from .serializers import (
     NotificationSerializer,
     TaskSerializer,
+    TaskCreateSerializer,
     PersonSerializer,
     )
 
@@ -62,7 +63,7 @@ class TaskListApiView(ListAPIView):
 
 class TaskCreateApiView(CreateAPIView):
     queryset=Task.objects.all()
-    serializer_class=TaskSerializer
+    serializer_class=TaskCreateSerializer
 
 class TaskDetailApiView(RetrieveAPIView):
     queryset=Task.objects.all()
