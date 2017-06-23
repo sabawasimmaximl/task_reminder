@@ -52,10 +52,11 @@ export class UserSearchComponent implements OnInit {
 
   }
  
-  handleUserUpdated($event:any){
-    console.log("HANDLING USER EVENT HERE ----", $event.user);
-    this.selectedUid=$event.user.id;
-    this.selectedName=$event.user.username;
+//Receives Output Emitted by the Person-Selector Component
+  handleUserUpdated(obj:any){
+    console.log("HANDLING USER EVENT HERE ----", obj.user);
+    this.selectedUid=obj.id;
+    this.selectedName=obj.user.username;
     this.getSingleUserDetail();
   }
 

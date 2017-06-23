@@ -33,10 +33,11 @@ var UserSearchComponent = (function () {
             console.log("USER LIST =", _this.userlist);
         });
     };
-    UserSearchComponent.prototype.handleUserUpdated = function ($event) {
-        console.log("HANDLING USER EVENT HERE ----", $event.user);
-        this.selectedUid = $event.user.id;
-        this.selectedName = $event.user.username;
+    //Receives Output Emitted by the Person-Selector Component
+    UserSearchComponent.prototype.handleUserUpdated = function (obj) {
+        console.log("HANDLING USER EVENT HERE ----", obj.user);
+        this.selectedUid = obj.id;
+        this.selectedName = obj.user.username;
         this.getSingleUserDetail();
     };
     UserSearchComponent.prototype.getSingleUserDetail = function () {

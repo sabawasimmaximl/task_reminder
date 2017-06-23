@@ -45,10 +45,12 @@ var DashboardComponent = (function () {
             console.log("Testing User.json in Task component - ", users);
         }, function (err) { return console.log("ERROR = ", err); });
     };
-    DashboardComponent.prototype.handleUserUpdated = function ($event) {
-        console.log("HANDLING USER EVENT HERE ----", $event.user);
-        this.selectedUid = $event.user.id;
-        this.selectedUname = $event.user.usernamename;
+    //Receives Output Emitted by the Person-Selector Component
+    DashboardComponent.prototype.handleUserUpdated = function (obj) {
+        console.log("HANDLING USER EVENT HERE ----", obj.user);
+        //Return User object here.
+        this.selectedUid = obj.id;
+        this.selectedUname = obj.user.usernamename;
     };
     DashboardComponent.prototype.handleError = function (error) {
         console.error('An error occurred', error); // for demo purposes only
