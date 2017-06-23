@@ -17,6 +17,7 @@ var users_component_1 = require("./Components/UsersComponent/users.component");
 var notification_component_1 = require("./Components/NotificationComponent/notification.component");
 var user_search_component_1 = require("./Components/UserSearchComponent/user-search.component");
 var login_component_1 = require("./Components/LoginComponent/login.component");
+var task_list_component_1 = require("./Components/TaskListComponent/task-list.component");
 var person_selector_component_1 = require("./Components/PersonSelectorComponent/person-selector.component");
 //Services
 var user_service_1 = require("./Services/UserService/user.service");
@@ -43,6 +44,7 @@ AppModule = __decorate([
             user_search_component_1.UserSearchComponent,
             users_component_1.UsersComponent,
             login_component_1.LoginComponent,
+            task_list_component_1.TaskListComponent,
             notification_component_1.NotificationComponent,
             person_selector_component_1.PersonSelectorComponent
         ],

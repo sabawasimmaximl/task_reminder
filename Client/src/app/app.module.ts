@@ -13,6 +13,7 @@ import { UsersComponent }      from './Components/UsersComponent/users.component
 import { NotificationComponent }       from './Components/NotificationComponent/notification.component';
 import { UserSearchComponent }  from './Components/UserSearchComponent/user-search.component';
 import { LoginComponent }       from './Components/LoginComponent/login.component';
+import { TaskListComponent }       from './Components/TaskListComponent/task-list.component';
 import { PersonSelectorComponent }       from './Components/PersonSelectorComponent/person-selector.component';
 
 //Services
@@ -37,6 +38,7 @@ import { AuthGuard }          from './auth.guard';
     UserSearchComponent,
     UsersComponent,
     LoginComponent,
+    TaskListComponent,
     NotificationComponent,
     PersonSelectorComponent
   ],
