@@ -17,9 +17,9 @@ var PersonNameComponent = (function () {
     }
     PersonNameComponent.prototype.ngOnChanges = function () {
         var _this = this;
-        console.log("User ID MIla", this.personId);
+        console.log("User ID Mila", this.personId);
         this.userService.getSingleUser(this.personId).subscribe(function (response) {
-            _this.username = response.user.username;
+            _this.username = response.username;
             console.log("Response = ", _this.username);
         });
     };

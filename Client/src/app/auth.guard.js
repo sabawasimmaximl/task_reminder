@@ -14,12 +14,16 @@ var auth_service_service_1 = require("./Services/AuthService/auth-service.servic
 var AuthGuard = (function () {
     function AuthGuard(authService, router) {
         this.authService = authService;
+        this.router = router;
     }
     AuthGuard.prototype.canActivate = function () {
         if (this.authService.isLoggedIn()) {
+            console.log("CAN ACTIVATE FUNCTION IF CALLED");
+            this.router.navigate['/assigntask'];
             return true;
         }
         else {
+            console.log("CAN ACTIVATE FUNCTION ELSE CALLED");
             return false;
         }
     };

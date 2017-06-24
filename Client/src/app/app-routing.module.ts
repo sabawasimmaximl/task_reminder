@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
  
 import { AppComponent }         from './Components/AppComponent/app.component';
+
 import { AssignTaskComponent }   from './Components/AssignTaskComponent/assign-task.component';
 import { AllDetailsComponent }      from './Components/AllDetailsComponent/all-details.component';
 
@@ -12,12 +13,13 @@ import { LoginComponent }       from './Components/LoginComponent/login.componen
 import { AuthGuard }          from './auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: './', redirectTo: 'login', pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'assigntask',  component: AssignTaskComponent, canActivate: [AuthGuard] },
-  { path: 'alldetails',     component: AllDetailsComponent, canActivate: [AuthGuard] },
-  { path: 'usersearch',     component: UserSearchComponent },
-  { path: 'myapp',     component: AppComponent },
-  { path: 'login',     component: LoginComponent }
+  { path: 'alldetails',     component: AllDetailsComponent, canActivate: [AuthGuard]},
+  { path: 'usersearch',     component: UserSearchComponent, canActivate: [AuthGuard]},
+  { path: 'myapp',     component: AppComponent},
+  { path: 'login',     component: LoginComponent},
+  {path: "**",       component: LoginComponent}
 ];
 
 

@@ -24,6 +24,7 @@ export class AllDetailsComponent implements OnInit{
     }
 
   ngOnInit(){
+    
     this.taskService.getAllDetails().subscribe(
       (result: any) => {
         this.tasks = result;

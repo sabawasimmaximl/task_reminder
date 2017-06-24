@@ -27,9 +27,11 @@ export class UserSearchComponent {
   task_exists:number=0;
 
   constructor(
-    
+  
     private taskService: TaskService) {
     }
+
+ 
  
 //Receives Output Emitted by the Person-Selector Component
   handleUserUpdated(obj:any){

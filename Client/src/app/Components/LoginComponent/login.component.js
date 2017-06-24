@@ -19,9 +19,17 @@ var LoginComponent = (function () {
         this.http = http;
         this.authService = authService;
         this.headers = new http_1.Headers({ 'Content-type': 'application/json' });
-        localStorage.removeItem('auth_token');
-        localStorage.removeItem('username');
     }
+    LoginComponent.prototype.ngOnInit = function () {
+        if (this.authService.get_authorization_header()) {
+            console.log("Succeded login");
+            this.router.navigate(['/assigntask']);
+        }
+        else {
+            console.log("No User logged in");
+            this.router.navigate(['/login']);
+        }
+    };
     LoginComponent.prototype.loginFunc = function (username, password) {
         var _this = this;
         console.log("Calling AuthService Login");
@@ -34,7 +42,7 @@ var LoginComponent = (function () {
             }
             else {
                 console.log("Failed login");
-                _this.router.navigate(['login']);
+                _this.router.navigate(['/login']);
             }
         });
     };

@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 //Components
  
 import { AppComponent }         from './Components/AppComponent/app.component';
+
 import { AssignTaskComponent }   from './Components/AssignTaskComponent/assign-task.component';
 import { AllDetailsComponent }      from './Components/AllDetailsComponent/all-details.component';
 import { NotificationComponent }       from './Components/NotificationComponent/notification.component';
@@ -36,6 +37,7 @@ import { AuthGuard }          from './auth.guard';
   ],
   declarations: [
     AppComponent,
+    
     AssignTaskComponent,
     UserSearchComponent,
     AllDetailsComponent,

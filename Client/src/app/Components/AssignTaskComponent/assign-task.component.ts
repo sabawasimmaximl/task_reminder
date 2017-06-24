@@ -15,14 +15,14 @@ import { User } from '../../Class/user';
 
 
 @Component({
-  selector: 'dashboard',
+  selector: 'assign-task',
   templateUrl: './assign-task.component.html',
   styleUrls: [ './assign-task.component.css' ],
   providers:[UserService,TaskService]
   
 })
 
-export class AssignTaskComponent implements OnInit {
+export class AssignTaskComponent{
     
 
    assignMsg:number=0;
@@ -40,15 +40,9 @@ export class AssignTaskComponent implements OnInit {
       {
           console.log("Getting Username");
           this.username=localStorage.getItem('username');
-          console.log("Printing Username in Dashboard Component",this.username)
+          console.log("Printing Username in Assing Task Component",this.username)
 
       }
-
-
-  ngOnInit(): void {
-    
-  }
-
   //Receives Output Emitted by the Person-Selector Component
   handleUserUpdated(obj:any){
     console.log("HANDLING USER EVENT HERE ----", obj.user);

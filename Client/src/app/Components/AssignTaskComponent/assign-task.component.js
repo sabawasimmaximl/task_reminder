@@ -24,10 +24,8 @@ var AssignTaskComponent = (function () {
         this.assignMsg = 0;
         console.log("Getting Username");
         this.username = localStorage.getItem('username');
-        console.log("Printing Username in Dashboard Component", this.username);
+        console.log("Printing Username in Assing Task Component", this.username);
     }
-    AssignTaskComponent.prototype.ngOnInit = function () {
-    };
     //Receives Output Emitted by the Person-Selector Component
     AssignTaskComponent.prototype.handleUserUpdated = function (obj) {
         console.log("HANDLING USER EVENT HERE ----", obj.user);
@@ -51,7 +49,7 @@ var AssignTaskComponent = (function () {
 }());
 AssignTaskComponent = __decorate([
     core_1.Component({
-        selector: 'dashboard',
+        selector: 'assign-task',
         templateUrl: './assign-task.component.html',
         styleUrls: ['./assign-task.component.css'],
         providers: [user_service_1.UserService, task_service_1.TaskService]

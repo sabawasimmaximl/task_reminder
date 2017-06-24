@@ -22,11 +22,11 @@ constructor(private userService:UserService)
 }
 
     ngOnChanges(){
-        console.log("User ID MIla", this.personId);
+        console.log("User ID Mila", this.personId);
     
     this.userService.getSingleUser(this.personId).subscribe(
       (response:any) => {
-        this.username = response.user.username;
+        this.username = response.username;
         console.log("Response = ",this.username);
       });
 

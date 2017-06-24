@@ -43,7 +43,8 @@ var SyncService = (function () {
         }
         else {
             console.log("Please Login (GET Fn - SyncService)");
-            this.router.navigate(['login']);
+            alert("Please Login");
+            this.router.navigate['/login'];
         }
     };
     SyncService.prototype.post = function (endpoint, data, operation) {
@@ -59,7 +60,8 @@ var SyncService = (function () {
         }
         else {
             console.log("Please Login (POST Fn - SyncService)");
-            this.router.navigate(['login']);
+            alert("Please Login");
+            this.router.navigate['/login'];
         }
     };
     return SyncService;

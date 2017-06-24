@@ -66,7 +66,8 @@ get(endpoint: string,operation:string){
   else
   {
     console.log("Please Login (GET Fn - SyncService)");
-    this.router.navigate(['login']);
+    alert("Please Login");
+           this.router.navigate['/login'];  
   }
 }
 
@@ -89,7 +90,8 @@ post(endpoint: string, data: any,operation:string)
     else
     {
         console.log("Please Login (POST Fn - SyncService)");
-        this.router.navigate(['login']);
+        alert("Please Login");
+                this.router.navigate['/login'];  
          
     }
 

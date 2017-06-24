@@ -31,6 +31,15 @@ var AuthService = (function () {
             return response.json();
         });
     };
+    //Logout Function
+    AuthService.prototype.logout = function () {
+        console.log("Calling LogOut on Auth Service");
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('username');
+        console.log("Removing Token, Auth Token value now =", localStorage.getItem('auth_token'));
+        console.log("Removing Token, Username value now =", localStorage.getItem('username'));
+    };
+    //Check if User is Logged In Function
     AuthService.prototype.isLoggedIn = function () {
         if (this.get_authorization_header()) {
             return true;
@@ -39,13 +48,7 @@ var AuthService = (function () {
             return false;
         }
     };
-    AuthService.prototype.logout = function () {
-        console.log("Calling LogOut on Auth Service");
-        localStorage.removeItem('auth_token');
-        localStorage.removeItem('username');
-        console.log("Removing Token, Auth Token value now =", localStorage.getItem('auth_token'));
-        console.log("Removing Token, Username value now =", localStorage.getItem('username'));
-    };
+    //Function to return Authorization Token if it exists  
     AuthService.prototype.get_authorization_header = function () {
         console.log("Calling Get Authorization Header on Auth Service");
         return localStorage.getItem('auth_token');

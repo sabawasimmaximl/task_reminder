@@ -31,9 +31,11 @@ export class UserService {
   getSingleUser(id:number){
   this.operation="GetOneUser";
   console.log("ID in GetSingleUser ----- ",id);
-  return this.getPersonListService().map(
+  return this.syncService.get("person/"+id,this.operation).map(
     (result) => {
-      return result[0];
+        console.log("RESULT in GET SINGLE USER = ",result);
+      return result;
+      
     }
   )
   
