@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import djcelery
+djcelery.setup_loader()
+
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -92,10 +96,21 @@ TEMPLATES = [
 WSGI_APPLICATION = 'task_remainder.wsgi.application'
 
 
-GRAPH_MODELS = {
-  'all_applications': True,
-  'group_models': True,
-}
+BROKER_HOST = "redis://"
+BROKER_PORT = 6379
+BROKER_USER = "guest"
+BROKER_PASSWORD = "guest"
+BROKER_VHOST = "/"
+
+
+# websockets
+# WEBSOCKET_URL = '/ws/'
+# WS4REDIS_EXPIRE = 5
+# WS4REDIS_PREFIX = 'ws'
+
+# SESSION_ENGINE = 'redis_sessions.session'
+# SESSION_REDIS_PREFIX = 'session'
+
 
 
 # Database
@@ -171,7 +186,7 @@ REST_FRAMEWORK = {
 }
 
 
-# BROKER_URL = 'redis://127.0.0.1:6379/0'
-# BROKER_TRANSPORT = 'redis'
+BROKER_URL = 'redis://127.0.0.1:6379/0'
+BROKER_TRANSPORT = 'redis'
 
-# CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'

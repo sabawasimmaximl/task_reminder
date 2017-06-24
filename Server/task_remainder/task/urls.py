@@ -5,18 +5,19 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 
 from .views import (
-    NotificationApiView,
+    NotificationListApiView,
+    PersonDetailApiView,     
+    PersonListApiView,
     TaskCreateApiView,
     TaskDetailApiView,
-    TaskListApiView,      
-    PersonListApiView,
     TaskListApiView,
+    TaskListApiView, 
     )
 
 urlpatterns = [
 
     # Notification Api view urls
-    url(r'^notification/list/',NotificationApiView.as_view(),name="notification-list"),
+    url(r'^notification/list/',NotificationListApiView.as_view(),name="notification-list"),
 
     # Task Api view urls
     url(r'^task/list/$',TaskListApiView.as_view(), name='task-list'),
@@ -26,5 +27,8 @@ urlpatterns = [
 
     
     # person list
-    url(r'^persons/$',PersonListApiView.as_view(),name="person_list"),    
+    url(r'^persons/$',PersonListApiView.as_view(),name="person_list"),
+    url(r'^person/(?P<pk>\d+)/$',PersonDetailApiView.as_view(),name="person_detail"),
+    
 ]
+
