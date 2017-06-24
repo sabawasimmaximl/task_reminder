@@ -15,10 +15,7 @@ export class AuthGuard implements CanActivate{
 
     canActivate():boolean{
         
-        let loggedIn = this.authService.get_authorization_header();
-
-
-        if(loggedIn)
+        if(this.authService.isLoggedIn())
         {
             return true;
         }
@@ -26,8 +23,7 @@ export class AuthGuard implements CanActivate{
         {
             return false;
         }
-    
-    }
-
+        
+        }
 
 }

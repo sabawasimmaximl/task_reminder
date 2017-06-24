@@ -19,16 +19,18 @@ var TaskService = (function () {
         this.syncService = syncService;
     }
     TaskService.prototype.addTask = function (taskname, uid) {
-        //       let obj = {
-        //     "title": taskname,
-        //     "person": {
-        //         "user": {
-        //             "username": uname
-        //         }
-        //     }
-        // }
         this.operation = "AssignTaskOperation";
         return this.syncService.post("task/create/", { "title": taskname, "person": uid }, this.operation);
+    };
+    //Get specific Task Details
+    TaskService.prototype.getSpecificTaskDetails = function (id) {
+        this.operation = "GetSpecificTaskDetails";
+        return this.syncService.get("task/?person=" + id, this.operation);
+    };
+    //Getting All details to call on View Details Page.
+    TaskService.prototype.getAllDetails = function () {
+        this.operation = "getPersonList";
+        return this.syncService.get("task/list/", this.operation);
     };
     return TaskService;
 }());

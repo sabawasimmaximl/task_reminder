@@ -9,27 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
 //Services
 var user_service_1 = require("../../Services/UserService/user.service");
 var task_service_1 = require("../../Services/TaskService/task.service");
-var UsersComponent = (function () {
-    function UsersComponent(router, userService, taskService) {
-        this.router = router;
+var AllDetailsComponent = (function () {
+    function AllDetailsComponent(userService, taskService) {
         this.userService = userService;
         this.taskService = taskService;
     }
-    return UsersComponent;
+    AllDetailsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.taskService.getAllDetails().subscribe(function (result) {
+            _this.tasks = result;
+        });
+    };
+    return AllDetailsComponent;
 }());
-UsersComponent = __decorate([
+AllDetailsComponent = __decorate([
     core_1.Component({
         selector: 'users',
-        templateUrl: './users.component.html',
-        styleUrls: ['./users.component.css'],
+        templateUrl: './all-details.component.html',
+        styleUrls: ['./all-details.component.css'],
         providers: [user_service_1.UserService, task_service_1.TaskService]
     }),
-    __metadata("design:paramtypes", [router_1.Router,
-        user_service_1.UserService, task_service_1.TaskService])
-], UsersComponent);
-exports.UsersComponent = UsersComponent;
-//# sourceMappingURL=users.component.js.map
+    __metadata("design:paramtypes", [user_service_1.UserService, task_service_1.TaskService])
+], AllDetailsComponent);
+exports.AllDetailsComponent = AllDetailsComponent;
+//# sourceMappingURL=all-details.component.js.map

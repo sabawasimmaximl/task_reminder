@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 
 //Services
 import { UserService }          from '../../Services/UserService/user.service';
@@ -7,18 +7,30 @@ import { UserService }          from '../../Services/UserService/user.service';
 @Component({
 
     selector:'person-name',
-    templateUrl:'./person-name.component.html'
+    templateUrl:'./person-name.component.html',
+    providers:[UserService]
 
 })
 
-export class PersonNameComponent{
+export class PersonNameComponent implements OnChanges{
+    username:any;
+    
+    @Input() personId:any;
 
-constructor(userService:UserService)
+constructor(private userService:UserService)
 {
 }
 
+    ngOnChanges(){
+        console.log("User ID MIla", this.personId);
+    
+    this.userService.getSingleUser(this.personId).subscribe(
+      (response:any) => {
+        this.username = response.user.username;
+        console.log("Response = ",this.username);
+      });
 
-getUserName(id:Number){
+    
 }
 
 

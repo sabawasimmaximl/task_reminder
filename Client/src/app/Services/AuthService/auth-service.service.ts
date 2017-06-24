@@ -41,6 +41,18 @@ export class AuthService {
              });
   }
 
+  isLoggedIn()
+    {
+    if(this.get_authorization_header())
+      {
+      return true; 
+      }
+    else
+      {
+      return false; 
+      }
+    }
+
   logout()
   {
     console.log("Calling LogOut on Auth Service");

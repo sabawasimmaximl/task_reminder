@@ -12,11 +12,12 @@ var http_1 = require("@angular/http");
 var app_routing_module_1 = require("./app-routing.module");
 //Components
 var app_component_1 = require("./Components/AppComponent/app.component");
-var dashboard_component_1 = require("./Components/DashboardComponent/dashboard.component");
-var users_component_1 = require("./Components/UsersComponent/users.component");
+var assign_task_component_1 = require("./Components/AssignTaskComponent/assign-task.component");
+var all_details_component_1 = require("./Components/AllDetailsComponent/all-details.component");
 var notification_component_1 = require("./Components/NotificationComponent/notification.component");
 var user_search_component_1 = require("./Components/UserSearchComponent/user-search.component");
 var login_component_1 = require("./Components/LoginComponent/login.component");
+var dashboard_component_1 = require("./Components/DashboardComponent/dashboard.component");
 var task_list_component_1 = require("./Components/TaskListComponent/task-list.component");
 var person_name_component_1 = require("./Components/PersonNameComponent/person-name.component");
 var person_selector_component_1 = require("./Components/PersonSelectorComponent/person-selector.component");
@@ -41,10 +42,11 @@ AppModule = __decorate([
         ],
         declarations: [
             app_component_1.AppComponent,
-            dashboard_component_1.DashboardComponent,
+            assign_task_component_1.AssignTaskComponent,
             user_search_component_1.UserSearchComponent,
-            users_component_1.UsersComponent,
+            all_details_component_1.AllDetailsComponent,
             login_component_1.LoginComponent,
+            dashboard_component_1.DashboardComponent,
             task_list_component_1.TaskListComponent,
             notification_component_1.NotificationComponent,
             person_name_component_1.PersonNameComponent,

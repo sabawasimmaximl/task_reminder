@@ -1,4 +1,4 @@
-import { DashboardComponent }   from '../../Components/DashboardComponent/dashboard.component';
+
 import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 
@@ -31,10 +31,13 @@ export class UserService {
   getSingleUser(id:number){
   this.operation="GetOneUser";
   console.log("ID in GetSingleUser ----- ",id);
-  return this.syncService.get("task/?person="+id,this.operation);
+  return this.getPersonListService().map(
+    (result) => {
+      return result[0];
+    }
+  )
   
   }
-
 
 
 //List Of User Id's to display on Assign a Task page.
@@ -42,15 +45,8 @@ export class UserService {
     this.operation="getPersonList";
     return this.syncService.get("persons/",this.operation);
     
-
   }
 
-//Getting All details to call on View Details Page.
-  getAllDetails(){
-    this.operation="getPersonList";
-    return this.syncService.get("task/list/",this.operation);
-
-  }
 
 
 }

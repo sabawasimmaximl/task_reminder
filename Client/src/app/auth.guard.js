@@ -16,8 +16,7 @@ var AuthGuard = (function () {
         this.authService = authService;
     }
     AuthGuard.prototype.canActivate = function () {
-        var loggedIn = this.authService.get_authorization_header();
-        if (loggedIn) {
+        if (this.authService.isLoggedIn()) {
             return true;
         }
         else {

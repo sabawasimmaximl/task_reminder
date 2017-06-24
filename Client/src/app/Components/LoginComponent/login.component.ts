@@ -39,7 +39,7 @@ loginFunc(username:string,password:string)
                 if(this.authService.get_authorization_header())
         {       
                 console.log("Succeded login");
-                this.router.navigate(['/dashboard']);
+                this.router.navigate(['/assigntask']);
         } 
         else
         {       
@@ -50,15 +50,6 @@ loginFunc(username:string,password:string)
         );
     
 }
-
-
-// logoutFunc()
-//         {
-//  this.authService.logout();       
-//  console.log("Printing Authorization Token after Logout : ",this.authService.get_authorization_header());
-//  this.router.navigate(['login']);
-// }
-
 
 
 }

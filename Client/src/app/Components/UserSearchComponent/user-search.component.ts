@@ -1,16 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
 import { Router }            from '@angular/router';
  
 import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
- 
-// Observable class extensions
-import 'rxjs/add/observable/of';
- 
-// Observable operators
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
  
 //Services
 import { UserService }          from '../../Services/UserService/user.service';
@@ -27,51 +19,39 @@ import {User} from '../../Class/user';
   styleUrls: [ './user-search.component.css' ],
   providers: [UserService,TaskService]
 })
-export class UserSearchComponent implements OnInit {
-  userlist: User[];
+export class UserSearchComponent {
   
   person:User;
   selectedUid:number;
-  selectedName:string;
-  userExists:number=0;
-  
+  tasks:any;
+  task_exists:number=0;
+
   constructor(
     
-    private taskService: TaskService,
-    private userService: UserService,
-    private router: Router) {
+    private taskService: TaskService) {
     }
- 
-  ngOnInit(): void {
-    this.userService.getPersonListService().subscribe(users => {
-      
-      this.userlist = users;
-      console.log("USER LIST =",this.userlist); 
-      
-    });
-
-  }
  
 //Receives Output Emitted by the Person-Selector Component
   handleUserUpdated(obj:any){
-    console.log("HANDLING USER EVENT HERE ----", obj.user);
+    console.log("HANDLING USER EVENT HERE in User Search----", obj.user);
     this.selectedUid=obj.id;
-    this.selectedName=obj.user.username;
-    this.getSingleUserDetail();
+  
+    this.taskService.getSpecificTaskDetails(this.selectedUid).subscribe(
+      response => {
+        this.tasks = response;
+        console.log("Response = ",this.tasks);
+        if(this.tasks) {
+          this.task_exists = 1; 
+      }
+        else {
+          this.task_exists = 0; 
+      }
+    }
+    );
+
   }
 
-  getSingleUserDetail(){
-    
-    this.userExists=1;
-    console.log("GetSingleUserDetail Function in User-Search Component");
-    console.log("PRNTING selected User Id = ", this.selectedUid);
-    this.userService.getSingleUser(this.selectedUid).subscribe(
-      response => {
-        this.person = response;
-        console.log("Response = ",this.person);
-      }
-    )
- }
+
 
 }
  

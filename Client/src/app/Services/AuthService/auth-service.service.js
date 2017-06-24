@@ -31,6 +31,14 @@ var AuthService = (function () {
             return response.json();
         });
     };
+    AuthService.prototype.isLoggedIn = function () {
+        if (this.get_authorization_header()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
     AuthService.prototype.logout = function () {
         console.log("Calling LogOut on Auth Service");
         localStorage.removeItem('auth_token');

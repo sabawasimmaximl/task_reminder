@@ -1,4 +1,4 @@
-import {Component,OnInit} from '@angular/core';
+import {Input, Component,OnInit,Output,EventEmitter} from '@angular/core';
 import { Router } from '@angular/router';
 
 //Classes
@@ -6,6 +6,7 @@ import { User }         from '../../Class/user';
 
 //Services
 import { UserService }  from '../../Services/UserService/user.service';
+import { TaskService }  from '../../Services/TaskService/task.service';
 
 
 @Component({
@@ -13,25 +14,23 @@ import { UserService }  from '../../Services/UserService/user.service';
     templateUrl:'./task-list.component.html'
 })
 
-export class TaskListComponent implements OnInit {
 
-    
-  users: User[]=[];
+
+export class TaskListComponent implements OnInit{
+
+  @Input()
+  tasklist: any;
   
 
   constructor(
     private router: Router,
-    private userService: UserService) { }
+    private userService: UserService,private taskService: TaskService) {
 
-  ngOnInit(): void {
-    this.getAllDetails();
-  }
+    }
 
-  getAllDetails(): void {
-    this.userService.getAllDetails()
-    .subscribe(users => {this.users = users;
-      console.log("Printing Get All Details in users component - ",users)});
-
-  }
+ngOnInit(){
+    return;
+}
+  
 
 }

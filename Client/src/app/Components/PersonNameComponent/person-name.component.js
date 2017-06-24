@@ -13,15 +13,27 @@ var core_1 = require("@angular/core");
 var user_service_1 = require("../../Services/UserService/user.service");
 var PersonNameComponent = (function () {
     function PersonNameComponent(userService) {
+        this.userService = userService;
     }
-    PersonNameComponent.prototype.getUserName = function (id) {
+    PersonNameComponent.prototype.ngOnChanges = function () {
+        var _this = this;
+        console.log("User ID MIla", this.personId);
+        this.userService.getSingleUser(this.personId).subscribe(function (response) {
+            _this.username = response.user.username;
+            console.log("Response = ", _this.username);
+        });
     };
     return PersonNameComponent;
 }());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], PersonNameComponent.prototype, "personId", void 0);
 PersonNameComponent = __decorate([
     core_1.Component({
         selector: 'person-name',
-        templateUrl: './person-name.component.html'
+        templateUrl: './person-name.component.html',
+        providers: [user_service_1.UserService]
     }),
     __metadata("design:paramtypes", [user_service_1.UserService])
 ], PersonNameComponent);

@@ -1,10 +1,14 @@
-<h2 style="font-family: montserrat">All Tasks</h2>
 <ul style="font-family: montserrat">
 
-  <li *ngFor="let t of users">
+  <li *ngFor="let t of tasklist" style="list-style-type:none; border:2px solid blue; margin:4px;">
 
-    <span class="badge">Id : {{t.id}}</span> &nbsp; Name: {{t.username}} &nbsp;&nbsp; Tasks = {{t.title}} <br />
-     
+    <span>Id : {{t.id}}</span> &nbsp; 
+    <span style="font-weight:bold; color:red;">Name: <person-name [personId]="t.person"></person-name> </span> 
+    <span>&nbsp;&nbsp; Tasks = {{t.title}} </span>
+    
+    
+    <br />
+ 
      <br />
      
 

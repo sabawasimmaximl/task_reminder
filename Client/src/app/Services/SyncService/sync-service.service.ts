@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 
 //Components
-import { DashboardComponent }   from '../../Components/DashboardComponent/dashboard.component';
+import { AssignTaskComponent }   from '../../Components/AssignTaskComponent/assign-task.component';
 import { LoginComponent }   from '../../Components/LoginComponent/login.component';
 
 //Services

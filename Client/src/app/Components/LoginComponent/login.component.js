@@ -30,7 +30,7 @@ var LoginComponent = (function () {
             console.log("Subscribed data = ", data);
             if (_this.authService.get_authorization_header()) {
                 console.log("Succeded login");
-                _this.router.navigate(['/dashboard']);
+                _this.router.navigate(['/assigntask']);
             }
             else {
                 console.log("Failed login");
