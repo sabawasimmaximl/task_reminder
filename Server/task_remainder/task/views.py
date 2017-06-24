@@ -9,6 +9,7 @@ from django.core import serializers
 from django.db.models import Q
 import django_filters
 from django_filters.rest_framework import DjangoFilterBackend
+import datetime
 import json
 from models import Task,Person,Notification
 from rest_framework import permissions
@@ -34,13 +35,18 @@ from .serializers import (
     NotificationSerializer,
     TaskSerializer,
     PersonSerializer,
+    UserSerializer,
     )
 
 #celery tasks
 from tasks import *
 
+# websockets
+
+
 User = get_user_model()
 
+# Authentication 
 class AuthTokenApiView(APIView):
     serializer_class = AuthTokenSerializer
     permission_classes =[AllowAny]    
@@ -50,31 +56,45 @@ class AuthTokenApiView(APIView):
         if serializer.is_valid():
             user = serializer.validated_data['user']
             token, created = Token.objects.get_or_create(user=user)
-            
             return Response({'token': token.key,'username':user.username})
 
-
+# Task Api view
 class TaskListApiView(ListAPIView):
-    sum.delay(2,44)
     serializer_class=TaskSerializer
     queryset=Task.objects.all()
 
 
 
-class TaskCreateApiView(CreateAPIView):
+class TaskCreateApiView(APIView):
     queryset=Task.objects.all()
     serializer_class=TaskSerializer
+
+    def post(self,request,*args,**kwargs):
+        person_id=request.data['person']
+        person=Person.objects.get(user=person_id)
+        title=request.data['title']
+        reminder_time=request.data['reminder_time']
+        task=Task(title=title,reminder_time=reminder_time,person=person)
+        task.save()
+        create_notification.delay(reminder_time,person)
+        return Response({'success':True},status=HTTP_200_OK)
 
 class TaskDetailApiView(RetrieveAPIView):
-    sum.delay(2,488)
     queryset=Task.objects.all()
     serializer_class=TaskSerializer
     lookup_field="pk"
 
-
+# person Api view
 class PersonListApiView(ListAPIView):
     queryset=Person.objects.all()
     serializer_class=PersonSerializer
+
+
+class PersonDetailApiView(RetrieveAPIView):
+    queryset=User.objects.all()
+    serializer_class=UserSerializer  
+    lookup_field="pk"  
+
 
 class TaskFilter(django_filters.FilterSet):
     class Meta:
@@ -90,9 +110,11 @@ class TaskListApiView(ListAPIView):
     filter_backends = (DjangoFilterBackend,)
     filter_class = TaskFilter
 
-class NotificationApiView(ListAPIView):
+
+# Notification Api 
+class NotificationListApiView(ListAPIView):
     queryset=Notification.objects.all()
     serializer_class=NotificationSerializer
 
 
-    
+

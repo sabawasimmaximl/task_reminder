@@ -30,7 +30,7 @@ class Task(models.Model):
 class Notification(models.Model):
     time_created    = models.TimeField(blank=True,null=True,help_text="Time format is :HH:MM:SS") 
     message         = models.TextField(max_length=500)
-    person_id       = models.ForeignKey(Person,related_name="notify_user")
+    person          = models.ForeignKey(Person,related_name="notify_user")
 
     def __unicode__(self):
         return self.message    

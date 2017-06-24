@@ -33,13 +33,17 @@ class PersonSerializer(ModelSerializer):
 class TaskSerializer(ModelSerializer):
     class Meta:
         model=Task
-        fields=['id','title','person']
+        fields=['id','title','person','reminder_time']
+
+# TaskSerializer = generate_serializer(Task)
                  
 
 class NotificationSerializer(ModelSerializer):
     class Meta:
         model=Notification
-        fields=['time_created','message']        
+        fields=['time_created','message','person'] 
+
+# NotificationSerializer = generate_serializer(Notification)       
 
 
 
