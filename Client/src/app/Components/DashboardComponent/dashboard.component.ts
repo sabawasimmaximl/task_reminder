@@ -12,8 +12,16 @@ import { AuthService }  from '../../Services/AuthService/auth-service.service';
 })
 export class DashboardComponent{
 
+  showDash:any;
   constructor(private authService:AuthService){
+    
+    this.authService.getLoginCheck()
+    .subscribe((message:any) =>
+      { this.showDash=message;
+        console.log("Message Received in Dashboard (True=loggedIn, False = loggedOut) : ",this.showDash );
+      })
   }
+
 
 
   }

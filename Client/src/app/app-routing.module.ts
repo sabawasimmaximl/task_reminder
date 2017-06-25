@@ -13,7 +13,7 @@ import { LoginComponent }       from './Components/LoginComponent/login.componen
 import { AuthGuard }          from './auth.guard';
 
 const routes: Routes = [
-  { path: './', redirectTo: 'login', pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'login', pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'assigntask',  component: AssignTaskComponent, canActivate: [AuthGuard] },
   { path: 'alldetails',     component: AllDetailsComponent, canActivate: [AuthGuard]},
   { path: 'usersearch',     component: UserSearchComponent, canActivate: [AuthGuard]},
@@ -25,7 +25,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
+  imports: [ RouterModule.forRoot(routes,{useHash: true}) ],
   exports: [ RouterModule ]
 })
 

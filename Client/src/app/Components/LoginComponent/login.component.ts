@@ -27,10 +27,13 @@ ngOnInit(){
         {       
                 console.log("Succeded login");
                 this.router.navigate(['/assigntask']);
+                this.authService.sendLoginCheck(true);
+
         } 
         else
         {       console.log("No User logged in");
                 this.router.navigate(['/login']);
+                this.authService.sendLoginCheck(false);
         }
 
 }
@@ -45,19 +48,21 @@ loginFunc(username:string,password:string)
             data => {
                 console.log("Subscribed data = ",data);
                 if(this.authService.get_authorization_header())
-        {       
-                console.log("Succeded login");
-                this.router.navigate(['/assigntask']);
-        } 
-        else
-        {       
-                console.log("Failed login");
-                this.router.navigate(['/login']);
-        }
+                {       
+					console.log("Succeded login");
+					this.router.navigate(['/assigntask']);
+					this.authService.sendLoginCheck(true);
+                } 
+                else
+                {       
+					console.log("Failed login");
+					this.router.navigate(['/login']);
+					this.authService.sendLoginCheck(false);
+
+                }
             }
         );
     
 }
-
 
 }

@@ -24,10 +24,12 @@ var LoginComponent = (function () {
         if (this.authService.get_authorization_header()) {
             console.log("Succeded login");
             this.router.navigate(['/assigntask']);
+            this.authService.sendLoginCheck(true);
         }
         else {
             console.log("No User logged in");
             this.router.navigate(['/login']);
+            this.authService.sendLoginCheck(false);
         }
     };
     LoginComponent.prototype.loginFunc = function (username, password) {
@@ -39,10 +41,12 @@ var LoginComponent = (function () {
             if (_this.authService.get_authorization_header()) {
                 console.log("Succeded login");
                 _this.router.navigate(['/assigntask']);
+                _this.authService.sendLoginCheck(true);
             }
             else {
                 console.log("Failed login");
                 _this.router.navigate(['/login']);
+                _this.authService.sendLoginCheck(false);
             }
         });
     };

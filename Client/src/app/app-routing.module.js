@@ -14,7 +14,7 @@ var user_search_component_1 = require("./Components/UserSearchComponent/user-sea
 var login_component_1 = require("./Components/LoginComponent/login.component");
 var auth_guard_1 = require("./auth.guard");
 var routes = [
-    { path: './', redirectTo: 'login', pathMatch: 'full', canActivate: [auth_guard_1.AuthGuard] },
+    { path: '', redirectTo: 'login', pathMatch: 'full', canActivate: [auth_guard_1.AuthGuard] },
     { path: 'assigntask', component: assign_task_component_1.AssignTaskComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'alldetails', component: all_details_component_1.AllDetailsComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'usersearch', component: user_search_component_1.UserSearchComponent, canActivate: [auth_guard_1.AuthGuard] },
@@ -29,7 +29,7 @@ var AppRoutingModule = (function () {
 }());
 AppRoutingModule = __decorate([
     core_1.NgModule({
-        imports: [router_1.RouterModule.forRoot(routes)],
+        imports: [router_1.RouterModule.forRoot(routes, { useHash: true })],
         exports: [router_1.RouterModule]
     })
 ], AppRoutingModule);

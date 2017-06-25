@@ -3,6 +3,7 @@ import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 //Components
@@ -20,6 +21,7 @@ export class AuthService {
 
   private loginUrl = BaseUrl.baseurl + 'auth/token/';
   private headers = new Headers({'Content-Type': 'application/json'});
+  private loginCheck = new Subject<any>();
 
   constructor(private http:Http){}
 
@@ -62,6 +64,15 @@ export class AuthService {
       {
       return false; 
       }
+    }
+
+    sendLoginCheck(value:any){
+      this.loginCheck.next(value);
+    }
+
+    getLoginCheck(): Observable<any>
+    {
+      return this.loginCheck.asObservable();
     }
 
   //Function to return Authorization Token if it exists  

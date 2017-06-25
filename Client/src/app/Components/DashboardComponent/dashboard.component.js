@@ -13,7 +13,13 @@ var core_1 = require("@angular/core");
 var auth_service_service_1 = require("../../Services/AuthService/auth-service.service");
 var DashboardComponent = (function () {
     function DashboardComponent(authService) {
+        var _this = this;
         this.authService = authService;
+        this.authService.getLoginCheck()
+            .subscribe(function (message) {
+            _this.showDash = message;
+            console.log("Message Received in Dashboard (True=loggedIn, False = loggedOut) : ", _this.showDash);
+        });
     }
     return DashboardComponent;
 }());
