@@ -9,6 +9,8 @@ from django.core import serializers
 from django.db.models import Q
 import django_filters
 from django_filters.rest_framework import DjangoFilterBackend
+from django.utils import timezone
+from datetime import timedelta
 import datetime
 import json
 from models import Task,Person,Notification
@@ -41,9 +43,6 @@ from .serializers import (
 #celery tasks
 from tasks import *
 
-# websockets
-
-
 User = get_user_model()
 
 # Authentication 
@@ -63,21 +62,24 @@ class TaskListApiView(ListAPIView):
     serializer_class=TaskSerializer
     queryset=Task.objects.all()
 
-
-
-class TaskCreateApiView(APIView):
+class TaskCreateApiView(CreateAPIView):
     queryset=Task.objects.all()
     serializer_class=TaskSerializer
 
-    def post(self,request,*args,**kwargs):
-        person_id=request.data['person']
-        person=Person.objects.get(user=person_id)
-        title=request.data['title']
-        reminder_time=request.data['reminder_time']
-        task=Task(title=title,reminder_time=reminder_time,person=person)
-        task.save()
-        create_notification.delay(reminder_time,person)
-        return Response({'success':True},status=HTTP_200_OK)
+    def create(self,request,*args,**kwargs):
+        try:
+            person_id=request.data['person']
+            person=Person.objects.get(user=person_id)
+            task_title=request.data['title'] 
+            reminder_time=request.data['reminder_time']
+            # converitng unicode string(reminder_time) into datetime
+            reminder_time=datetime.datetime.strptime(reminder_time, '%Y-%m-%dT%H:%M:%SZ')
+            task=Task(title=task_title,reminder_time=reminder_time,person=person)
+            task.save()
+            create_notification.apply_async((reminder_time,person,task_title),eta=reminder_time)
+            return Response({'success':True},status=HTTP_200_OK)
+        except Exception as e:
+            return Response({'success':False,'error':e})
 
 class TaskDetailApiView(RetrieveAPIView):
     queryset=Task.objects.all()
@@ -89,12 +91,10 @@ class PersonListApiView(ListAPIView):
     queryset=Person.objects.all()
     serializer_class=PersonSerializer
 
-
 class PersonDetailApiView(RetrieveAPIView):
     queryset=User.objects.all()
     serializer_class=UserSerializer  
     lookup_field="pk"  
-
 
 class TaskFilter(django_filters.FilterSet):
     class Meta:
@@ -109,7 +109,6 @@ class TaskListApiView(ListAPIView):
     serializer_class=TaskSerializer
     filter_backends = (DjangoFilterBackend,)
     filter_class = TaskFilter
-
 
 # Notification Api 
 class NotificationListApiView(ListAPIView):

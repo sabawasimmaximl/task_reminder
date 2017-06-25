@@ -5,17 +5,16 @@ from django.utils import timezone
 class Person(models.Model):
     user    = models.ForeignKey(User)
 
-    
     def __unicode__(self):
-    	return self.user.username
+        return self.user.username
 
     class Meta:
-    	app_label="task"
+        app_label="task"
         db_table="person_record"
-    		
+            
 class Task(models.Model):
     title                     = models.CharField(max_length=50, default="")
-    reminder_time             = models.TimeField(blank=True,null=True,help_text="Time format is :HH:MM:SS")
+    reminder_time             = models.DateTimeField(blank=True,null=True,help_text="Time format is :HH:MM:SS")
     person                    = models.ForeignKey(Person,related_name="task_user")
 
     def __unicode__(self):
@@ -24,13 +23,11 @@ class Task(models.Model):
     class Meta:
         app_label="task"
         db_table="task" 
-
-
-
+        
 class Notification(models.Model):
-    time_created    = models.TimeField(blank=True,null=True,help_text="Time format is :HH:MM:SS") 
-    message         = models.TextField(max_length=500)
-    person          = models.ForeignKey(Person,related_name="notify_user")
+    time_created              = models.DateTimeField(blank=True,null=True,help_text="Time format is :HH:MM:SS") 
+    message                   = models.TextField(max_length=500)
+    person                    = models.ForeignKey(Person,related_name="notify_user")
 
     def __unicode__(self):
         return self.message    

@@ -95,6 +95,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'task_remainder.wsgi.application'
 
+# celery settings
+# CELERY_ACCEPT_CONTENT = ['json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
+
 
 BROKER_HOST = "redis://"
 BROKER_PORT = 6379
@@ -168,7 +173,7 @@ STATIC_URL = '/static/'
 # Authentication stuffs
 REST_FRAMEWORK={
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        'rest_framework.permissions.IsAuthenticated',
     ),
 
     'DEFAULT_AUTHENTICATION_CLASSES':(
