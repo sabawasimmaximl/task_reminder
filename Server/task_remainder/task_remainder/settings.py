@@ -109,9 +109,12 @@ BROKER_VHOST = "/"
 
 
 # websockets
-# WEBSOCKET_URL = '/ws/'
-# WS4REDIS_EXPIRE = 5
-# WS4REDIS_PREFIX = 'ws'
+WEBSOCKET_URL = '/ws/'
+WS4REDIS_EXPIRE = 5
+WS4REDIS_PREFIX = 'ws'
+
+# WS4REDIS_SUBSCRIBER = 'task.redis_store.RedisSubscriber'
+# WSGI_APPLICATION = 'ws4redis.django_runserver.application'
 
 # SESSION_ENGINE = 'redis_sessions.session'
 # SESSION_REDIS_PREFIX = 'session'
@@ -167,9 +170,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
-
-
 # Authentication stuffs
 REST_FRAMEWORK={
     'DEFAULT_PERMISSION_CLASSES': (
@@ -181,17 +181,14 @@ REST_FRAMEWORK={
         # 'rest_framework.authentication.BasicAuthentication',
         # 'rest_framework.authentication.SessionAuthentication',
     ),
-
-
-
 }
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+    
 }
 
 
-BROKER_URL = 'redis://127.0.0.1:6379/0'
-BROKER_TRANSPORT = 'redis'
+# BROKER_URL = 'redis://127.0.0.1:6379/0'
+# BROKER_TRANSPORT = 'redis'
 
-CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+# CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
