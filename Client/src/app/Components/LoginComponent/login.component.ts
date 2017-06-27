@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import { Router } from '@angular/router';
 
@@ -13,18 +13,29 @@ providers:[]
 
 })
 
-export class LoginComponent{
+export class LoginComponent implements OnInit{
 test:any;
 private headers = new Headers({'Content-type':'application/json'});
 
 
 constructor(public router:Router, public http:Http,public authService:AuthService)
-{
+{        
+}
 
-        
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('username');
-    
+ngOnInit(){
+  if(this.authService.get_authorization_header())
+        {       
+                console.log("Succeded login");
+                this.router.navigate(['/assigntask']);
+                this.authService.sendLoginCheck(true);
+
+        } 
+        else
+        {       console.log("No User logged in");
+                this.router.navigate(['/login']);
+                this.authService.sendLoginCheck(false);
+        }
+
 }
 
 loginFunc(username:string,password:string)
@@ -37,28 +48,21 @@ loginFunc(username:string,password:string)
             data => {
                 console.log("Subscribed data = ",data);
                 if(this.authService.get_authorization_header())
-        {       
-                console.log("Succeded login");
-                this.router.navigate(['/dashboard']);
-        } 
-        else
-        {       
-                console.log("Failed login");
-                this.router.navigate(['login']);
-        }
+                {       
+					console.log("Succeded login");
+					this.router.navigate(['/assigntask']);
+					this.authService.sendLoginCheck(true);
+                } 
+                else
+                {       
+					console.log("Failed login");
+					this.router.navigate(['/login']);
+					this.authService.sendLoginCheck(false);
+
+                }
             }
         );
     
 }
-
-
-// logoutFunc()
-//         {
-//  this.authService.logout();       
-//  console.log("Printing Authorization Token after Logout : ",this.authService.get_authorization_header());
-//  this.router.navigate(['login']);
-// }
-
-
 
 }

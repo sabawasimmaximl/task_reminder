@@ -8,26 +8,24 @@ import { AuthService }          from './Services/AuthService/auth-service.servic
 export class AuthGuard implements CanActivate{
 
 
-    constructor(private authService:AuthService,router:Router)
-    {
-
-    }
+    constructor(private authService:AuthService, private router:Router)
+    { }
 
     canActivate():boolean{
         
-        let loggedIn = this.authService.get_authorization_header();
-
-
-        if(loggedIn)
-        {
+        if(this.authService.isLoggedIn())
+        {   console.log("CAN ACTIVATE FUNCTION IF CALLED");
+            this.router.navigate['/assigntask'];
             return true;
         }
         else
         {
-            return false;
-        }
-    
-    }
+         console.log("CAN ACTIVATE FUNCTION ELSE CALLED");
+ 
+         return false;
 
+        }
+        
+        }
 
 }

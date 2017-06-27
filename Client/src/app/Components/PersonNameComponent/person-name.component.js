@@ -9,27 +9,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
 //Services
 var user_service_1 = require("../../Services/UserService/user.service");
-var task_service_1 = require("../../Services/TaskService/task.service");
-var UsersComponent = (function () {
-    function UsersComponent(router, userService, taskService) {
-        this.router = router;
+var PersonNameComponent = (function () {
+    function PersonNameComponent(userService) {
         this.userService = userService;
-        this.taskService = taskService;
     }
-    return UsersComponent;
+    PersonNameComponent.prototype.ngOnChanges = function () {
+        var _this = this;
+        console.log("User ID Mila", this.personId);
+        this.userService.getSingleUser(this.personId).subscribe(function (response) {
+            _this.username = response.username;
+            console.log("Response = ", _this.username);
+        });
+    };
+    return PersonNameComponent;
 }());
-UsersComponent = __decorate([
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], PersonNameComponent.prototype, "personId", void 0);
+PersonNameComponent = __decorate([
     core_1.Component({
-        selector: 'users',
-        templateUrl: './users.component.html',
-        styleUrls: ['./users.component.css'],
-        providers: [user_service_1.UserService, task_service_1.TaskService]
+        selector: 'person-name',
+        templateUrl: './person-name.component.html',
+        providers: [user_service_1.UserService]
     }),
-    __metadata("design:paramtypes", [router_1.Router,
-        user_service_1.UserService, task_service_1.TaskService])
-], UsersComponent);
-exports.UsersComponent = UsersComponent;
-//# sourceMappingURL=users.component.js.map
+    __metadata("design:paramtypes", [user_service_1.UserService])
+], PersonNameComponent);
+exports.PersonNameComponent = PersonNameComponent;
+//# sourceMappingURL=person-name.component.js.map

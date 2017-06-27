@@ -1,4 +1,6 @@
 <hr />
+
+
 <br />
 <div style="font-family:montserrat; padding-left:10%;">
   
@@ -8,19 +10,10 @@
 <person-selector (personSelectedEmit)="handleUserUpdated($event)"></person-selector>
 
   <!--Displaying Search Results-->
-  <div *ngIf="userExists">
+  <div *ngIf="task_exists">
       
-  <label>Id : </label> {{selectedUid}} &nbsp;&nbsp;
-    <label>Name : </label> {{selectedName}} <br /><br />
-    <label>Task List : </label> <br />
-  
-    <ul *ngFor="let task of person">
-      <li>Task Id: {{task.id}}</li>
-      <li>Title : {{task.title}}</li>
-      
-      
-    </ul>
-        
+      <task-list [tasklist]="tasks"></task-list>
+
   </div>
-  <br /><br /><br /><br /><br />
+
 </div>

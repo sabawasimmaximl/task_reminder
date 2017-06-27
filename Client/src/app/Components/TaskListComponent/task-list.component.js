@@ -9,35 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-//Services
-var user_service_1 = require("../../Services/UserService/user.service");
 var TaskListComponent = (function () {
-    function TaskListComponent(router, userService) {
-        this.router = router;
-        this.userService = userService;
-        this.users = [];
+    function TaskListComponent() {
     }
-    TaskListComponent.prototype.ngOnInit = function () {
-        this.getAllDetails();
-    };
-    TaskListComponent.prototype.getAllDetails = function () {
-        var _this = this;
-        this.userService.getAllDetails()
-            .subscribe(function (users) {
-            _this.users = users;
-            console.log("Printing Get All Details in users component - ", users);
-        });
-    };
     return TaskListComponent;
 }());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], TaskListComponent.prototype, "tasklist", void 0);
 TaskListComponent = __decorate([
     core_1.Component({
         selector: 'task-list',
         templateUrl: './task-list.component.html'
-    }),
-    __metadata("design:paramtypes", [router_1.Router,
-        user_service_1.UserService])
+    })
 ], TaskListComponent);
 exports.TaskListComponent = TaskListComponent;
 //# sourceMappingURL=task-list.component.js.map

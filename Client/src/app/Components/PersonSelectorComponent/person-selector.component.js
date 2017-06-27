@@ -9,21 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-// Observable class extensions
-require("rxjs/add/observable/of");
-// Observable operators
-require("rxjs/add/operator/catch");
-require("rxjs/add/operator/debounceTime");
-require("rxjs/add/operator/distinctUntilChanged");
 //Services
 var user_service_1 = require("../../Services/UserService/user.service");
-var task_service_1 = require("../../Services/TaskService/task.service");
 var PersonSelectorComponent = (function () {
-    function PersonSelectorComponent(taskService, userService, router) {
-        this.taskService = taskService;
+    function PersonSelectorComponent(userService) {
         this.userService = userService;
-        this.router = router;
         this.personSelectedEmit = new core_1.EventEmitter();
     }
     PersonSelectorComponent.prototype.ngOnInit = function () {
@@ -49,11 +39,9 @@ PersonSelectorComponent = __decorate([
     core_1.Component({
         selector: 'person-selector',
         templateUrl: './person-selector.component.html',
-        providers: [user_service_1.UserService, task_service_1.TaskService]
+        providers: [user_service_1.UserService]
     }),
-    __metadata("design:paramtypes", [task_service_1.TaskService,
-        user_service_1.UserService,
-        router_1.Router])
+    __metadata("design:paramtypes", [user_service_1.UserService])
 ], PersonSelectorComponent);
 exports.PersonSelectorComponent = PersonSelectorComponent;
 //# sourceMappingURL=person-selector.component.js.map

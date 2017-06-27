@@ -1,0 +1,34 @@
+<hr />
+<div style="float:right;">
+    
+    <notif></notif>
+    
+    </div>
+
+<div>
+<br />
+
+
+<h2>Welcome User - <span style="color:brown">{{username}}</span></h2> <br/> <button (click)="logout()">Logout</button>
+<br />
+
+<br />
+
+
+<label>Task Name : </label><input #taskName /> <br /><br />
+
+<label>Assign Task to :</label>
+
+<person-selector (personSelectedEmit)="handleUserUpdated($event)"></person-selector>
+
+<label>Reminder Time</label> <input type="datetime-local" #time/>
+<br /><br />
+    <button (click)="addtask(taskName.value,time.value); taskName.value=''; ">Submit</button>
+</div>
+
+<div *ngIf="assignMsg">
+    <h2>Successfully Assigned!</h2>
+</div>
+
+<hr />
+

@@ -3,6 +3,7 @@ import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 //Components
@@ -20,6 +21,7 @@ export class AuthService {
 
   private loginUrl = BaseUrl.baseurl + 'auth/token/';
   private headers = new Headers({'Content-Type': 'application/json'});
+  private loginCheck = new Subject<any>();
 
   constructor(private http:Http){}
 
@@ -41,6 +43,7 @@ export class AuthService {
              });
   }
 
+  //Logout Function
   logout()
   {
     console.log("Calling LogOut on Auth Service");
@@ -50,6 +53,29 @@ export class AuthService {
     console.log("Removing Token, Username value now =",localStorage.getItem('username'));
   }
 
+  //Check if User is Logged In Function
+  isLoggedIn()
+    {
+    if(this.get_authorization_header())
+      {
+      return true; 
+      }
+    else
+      {
+      return false; 
+      }
+    }
+
+    sendLoginCheck(value:any){
+      this.loginCheck.next(value);
+    }
+
+    getLoginCheck(): Observable<any>
+    {
+      return this.loginCheck.asObservable();
+    }
+
+  //Function to return Authorization Token if it exists  
   get_authorization_header(){
     console.log("Calling Get Authorization Header on Auth Service");
    return localStorage.getItem('auth_token'); 

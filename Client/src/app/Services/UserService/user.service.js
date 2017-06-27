@@ -28,17 +28,15 @@ var UserService = (function () {
     UserService.prototype.getSingleUser = function (id) {
         this.operation = "GetOneUser";
         console.log("ID in GetSingleUser ----- ", id);
-        return this.syncService.get("task/?person=" + id, this.operation);
+        return this.syncService.get("person/" + id, this.operation).map(function (result) {
+            console.log("RESULT in GET SINGLE USER = ", result);
+            return result;
+        });
     };
     //List Of User Id's to display on Assign a Task page.
     UserService.prototype.getPersonListService = function () {
         this.operation = "getPersonList";
         return this.syncService.get("persons/", this.operation);
-    };
-    //Getting All details to call on View Details Page.
-    UserService.prototype.getAllDetails = function () {
-        this.operation = "getPersonList";
-        return this.syncService.get("task/list/", this.operation);
     };
     return UserService;
 }());
