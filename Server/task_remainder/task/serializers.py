@@ -30,6 +30,10 @@ class TaskSerializer(ModelSerializer):
         model=Task
         fields=['id','title','person','reminder_time']
 
+# def generate_serializer(Model):
+#     fields=Model._meta.get_fields()
+#     return fields
+
 # TaskSerializer = generate_serializer(Task)
                  
 class NotificationSerializer(ModelSerializer):
@@ -39,8 +43,6 @@ class NotificationSerializer(ModelSerializer):
 
 # NotificationSerializer = generate_serializer(Notification)  
 
-def generate_serializer(Model):
-    pass
 
 
         

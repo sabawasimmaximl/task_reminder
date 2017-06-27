@@ -109,15 +109,21 @@ BROKER_VHOST = "/"
 
 
 # websockets
+WSGI_APPLICATION = 'ws4redis.django_runserver.application'
+
+# URL that distinguishes websocket connections from normal requests
 WEBSOCKET_URL = '/ws/'
-WS4REDIS_EXPIRE = 5
-WS4REDIS_PREFIX = 'ws'
 
-# WS4REDIS_SUBSCRIBER = 'task.redis_store.RedisSubscriber'
-# WSGI_APPLICATION = 'ws4redis.django_runserver.application'
+# Set the number of seconds each message shall persited
+WS4REDIS_EXPIRE = 3600
 
-# SESSION_ENGINE = 'redis_sessions.session'
-# SESSION_REDIS_PREFIX = 'session'
+WS4REDIS_HEARTBEAT = '--heartbeat--'
+
+WS4REDIS_PREFIX = 'demo'
+
+
+SESSION_ENGINE = 'redis_sessions.session'
+SESSION_REDIS_PREFIX = 'session'
 
 
 
@@ -184,7 +190,7 @@ REST_FRAMEWORK={
 }
 
 REST_FRAMEWORK = {
-    
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
 }
 
 

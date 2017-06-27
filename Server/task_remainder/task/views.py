@@ -110,7 +110,7 @@ class TaskListApiView(ListAPIView):
     filter_backends = (DjangoFilterBackend,)
     filter_class = TaskFilter
 
-# Notification Api 
+# Notification Api View
 class NotificationListApiView(ListAPIView):
     queryset=Notification.objects.all()
     serializer_class=NotificationSerializer
