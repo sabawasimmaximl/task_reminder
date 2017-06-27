@@ -23,7 +23,7 @@
 
 <label>Reminder Time</label> <input type="datetime-local" #time/>
 <br /><br />
-    <button (click)="addtask(taskName.value,selectedUid); taskName.value=''; ">Submit</button>
+    <button (click)="addtask(taskName.value,time.value); taskName.value=''; ">Submit</button>
 </div>
 
 <div *ngIf="assignMsg">

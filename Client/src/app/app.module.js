@@ -26,6 +26,7 @@ var user_service_1 = require("./Services/UserService/user.service");
 var task_service_1 = require("./Services/TaskService/task.service");
 var sync_service_service_1 = require("./Services/SyncService/sync-service.service");
 var auth_service_service_1 = require("./Services/AuthService/auth-service.service");
+var notification_service_1 = require("./Services/NotificationService/notification.service");
 var auth_guard_1 = require("./auth.guard");
 var AppModule = (function () {
     function AppModule() {
@@ -52,7 +53,7 @@ AppModule = __decorate([
             person_name_component_1.PersonNameComponent,
             person_selector_component_1.PersonSelectorComponent
         ],
-        providers: [user_service_1.UserService, task_service_1.TaskService, sync_service_service_1.SyncService, auth_service_service_1.AuthService, auth_guard_1.AuthGuard],
+        providers: [user_service_1.UserService, task_service_1.TaskService, sync_service_service_1.SyncService, auth_service_service_1.AuthService, notification_service_1.NotificationService, auth_guard_1.AuthGuard],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

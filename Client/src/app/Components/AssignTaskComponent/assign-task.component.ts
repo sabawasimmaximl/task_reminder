@@ -57,9 +57,9 @@ export class AssignTaskComponent{
     this.router.navigate(['login']);
   }
   
-  addtask(taskname: string){
+  addtask(taskname: string,time:Date){
     console.log("User id in addtask = ",this.selectedUid);
-    this.taskService.addTask(taskname,this.selectedUid).subscribe(
+    this.taskService.addTask(taskname,this.selectedUid,time).subscribe(
       (response:any) => {
         console.log("hello");
         this.assignMsg=1;

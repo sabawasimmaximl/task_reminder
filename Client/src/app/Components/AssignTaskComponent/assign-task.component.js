@@ -37,10 +37,10 @@ var AssignTaskComponent = (function () {
         console.log("Printing Authorization Token after Logout : ", this.authService.get_authorization_header());
         this.router.navigate(['login']);
     };
-    AssignTaskComponent.prototype.addtask = function (taskname) {
+    AssignTaskComponent.prototype.addtask = function (taskname, time) {
         var _this = this;
         console.log("User id in addtask = ", this.selectedUid);
-        this.taskService.addTask(taskname, this.selectedUid).subscribe(function (response) {
+        this.taskService.addTask(taskname, this.selectedUid, time).subscribe(function (response) {
             console.log("hello");
             _this.assignMsg = 1;
         });

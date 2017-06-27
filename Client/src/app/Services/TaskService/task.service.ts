@@ -26,9 +26,10 @@ export class TaskService {
 
 
 
-  addTask(taskname: string,uid:number){
+  addTask(taskname: string,uid:number,time:Date){
       this.operation="AssignTaskOperation";
-      return  this.syncService.post("task/create/", {"title": taskname, "person": uid},this.operation);   
+      console.log("Sending Date Time in format = ",time);
+      return  this.syncService.post("task/create/", {"title": taskname, "person": uid,"reminder_time": time},this.operation);   
   }
 
 //Get specific Task Details

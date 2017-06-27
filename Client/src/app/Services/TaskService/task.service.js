@@ -18,9 +18,10 @@ var TaskService = (function () {
         this.http = http;
         this.syncService = syncService;
     }
-    TaskService.prototype.addTask = function (taskname, uid) {
+    TaskService.prototype.addTask = function (taskname, uid, time) {
         this.operation = "AssignTaskOperation";
-        return this.syncService.post("task/create/", { "title": taskname, "person": uid }, this.operation);
+        console.log("Sending Date Time in format = ", time);
+        return this.syncService.post("task/create/", { "title": taskname, "person": uid, "reminder_time": time }, this.operation);
     };
     //Get specific Task Details
     TaskService.prototype.getSpecificTaskDetails = function (id) {

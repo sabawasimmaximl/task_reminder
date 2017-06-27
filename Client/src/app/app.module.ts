@@ -25,7 +25,8 @@ import { UserService }          from './Services/UserService/user.service';
 import { TaskService }          from './Services/TaskService/task.service';
 import { SyncService }          from './Services/SyncService/sync-service.service';
 import { AuthService }          from './Services/AuthService/auth-service.service';
-import { AuthGuard }          from './auth.guard';
+import { NotificationService }  from './Services/NotificationService/notification.service';
+import { AuthGuard }            from './auth.guard';
 
 
 @NgModule({
@@ -48,7 +49,7 @@ import { AuthGuard }          from './auth.guard';
     PersonNameComponent,
     PersonSelectorComponent
   ],
-  providers: [ UserService,TaskService,SyncService, AuthService, AuthGuard ],
+  providers: [ UserService,TaskService,SyncService, AuthService, NotificationService, AuthGuard ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
