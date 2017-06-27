@@ -95,6 +95,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'task_remainder.wsgi.application'
 
+# celery settings
+# CELERY_ACCEPT_CONTENT = ['json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
+
 
 BROKER_HOST = "redis://"
 BROKER_PORT = 6379
@@ -104,12 +109,21 @@ BROKER_VHOST = "/"
 
 
 # websockets
-# WEBSOCKET_URL = '/ws/'
-# WS4REDIS_EXPIRE = 5
-# WS4REDIS_PREFIX = 'ws'
+WSGI_APPLICATION = 'ws4redis.django_runserver.application'
 
-# SESSION_ENGINE = 'redis_sessions.session'
-# SESSION_REDIS_PREFIX = 'session'
+# URL that distinguishes websocket connections from normal requests
+WEBSOCKET_URL = '/ws/'
+
+# Set the number of seconds each message shall persited
+WS4REDIS_EXPIRE = 3600
+
+WS4REDIS_HEARTBEAT = '--heartbeat--'
+
+WS4REDIS_PREFIX = 'demo'
+
+
+SESSION_ENGINE = 'redis_sessions.session'
+SESSION_REDIS_PREFIX = 'session'
 
 
 
@@ -162,13 +176,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
-
-
 # Authentication stuffs
 REST_FRAMEWORK={
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        'rest_framework.permissions.IsAuthenticated',
     ),
 
     'DEFAULT_AUTHENTICATION_CLASSES':(
@@ -176,9 +187,6 @@ REST_FRAMEWORK={
         # 'rest_framework.authentication.BasicAuthentication',
         # 'rest_framework.authentication.SessionAuthentication',
     ),
-
-
-
 }
 
 REST_FRAMEWORK = {
@@ -186,7 +194,7 @@ REST_FRAMEWORK = {
 }
 
 
-BROKER_URL = 'redis://127.0.0.1:6379/0'
-BROKER_TRANSPORT = 'redis'
+# BROKER_URL = 'redis://127.0.0.1:6379/0'
+# BROKER_TRANSPORT = 'redis'
 
-CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+# CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
